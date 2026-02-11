@@ -1,0 +1,20 @@
+{
+  "name": "assets-mpq-importer",
+  "version-string": "0.0.1",
+  "dependencies": [
+    "fmt",
+    "spdlog",
+    "cli11",
+    "catch2",
+    "assimp",
+    "ms-gsl",
+    "nlohmann-json",
+    "libjpeg-turbo",
+    "boost-serialization",
+    "boost-iostreams",
+    "boost-ptr-container",
+    "boost-multi-array",
+    "boost-crc"
+  ],
+  "builtin-baseline": "3895230f38e498525f2560a281223d12066fa74a"
+}

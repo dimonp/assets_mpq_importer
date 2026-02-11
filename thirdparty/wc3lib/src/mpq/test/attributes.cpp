@@ -1,0 +1,221 @@
+/***************************************************************************
+ *   Copyright (C) 2016 by Tamino Dauth                                    *
+ *   tamino@cdauth.eu                                                      *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
+#include <ctime>
+#include <iostream>
+#include <catch2/catch_test_macros.hpp>
+
+#include <boost/scoped_ptr.hpp>
+
+#include "../archive.hpp"
+#include "../attributes.hpp"
+
+using namespace wc3lib;
+
+/*
+ * Read file "ladik_mpq1_all_extended_attributes.txt" for information about the content of the archive.
+ * The file contains information displayed by Ladiks MPQ Editor.
+ */
+TEST_CASE("Mpq1ExtendedAttributes_All")
+{
+	mpq::Archive archive;
+	bool success = true;
+
+	try
+	{
+		archive.open("test_with_all_attributes.mpq");
+	}
+	catch (Exception &e)
+	{
+		success = false;
+	}
+
+	REQUIRE(success);
+	REQUIRE(archive.format() == mpq::Archive::Format::Mpq1);
+	// TODO wrong size of hash table?
+	//std::cerr << "Hashes size: " << archive.hashes().size() << std::endl;
+	REQUIRE(archive.hashes().size() == 4096);
+	REQUIRE(archive.blocks().size() == 3);
+	REQUIRE(archive.sectorSize() == 4096);
+
+	mpq::File testfile = archive.findFile("testfile.txt");
+	REQUIRE(testfile.isValid());
+	REQUIRE(testfile.compressedSize() == 12);
+	REQUIRE(static_cast<uint16>(testfile.locale()) == static_cast<uint16>(mpq::File::Locale::Neutral));
+	// TODO test file hash and block data
+
+	success = true;
+	stringstream data;
+
+	try
+	{
+		testfile.decompress(data);
+	}
+	catch (const Exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+		success = false;
+	}
+
+	REQUIRE(success);
+	const string dataString = data.str();
+	std::cerr << "Data string:" << dataString << std::endl;
+	std::cerr << "Data string size:" << dataString.size() << std::endl;
+	REQUIRE(dataString == "Test");
+
+	REQUIRE(!archive.containsSignatureFile());
+	REQUIRE(archive.containsAttributesFile());
+
+	mpq::Attributes attributes = archive.attributesFile();
+	REQUIRE(attributes.isValid());
+
+	int32 version = 0;
+	mpq::Attributes::ExtendedAttributes extendedAttributes = mpq::Attributes::ExtendedAttributes::None;
+	mpq::Attributes::Crc32s crcs;
+	mpq::Attributes::FileTimes fileTimes;
+	mpq::Attributes::Md5s md5s;
+
+	try
+	{
+		attributes.attributes(version, extendedAttributes, crcs, fileTimes, md5s);
+	}
+	catch (Exception &e)
+	{
+		success = false;
+	}
+
+	REQUIRE(success);
+
+	REQUIRE(extendedAttributes & mpq::Attributes::ExtendedAttributes::FileCrc32s);
+	REQUIRE(extendedAttributes & mpq::Attributes::ExtendedAttributes::FileTimeStamps);
+	REQUIRE(extendedAttributes & mpq::Attributes::ExtendedAttributes::FileMd5s);
+
+	// contains CRC32 with valid index
+	REQUIRE(crcs.size() > testfile.block()->index());
+	REQUIRE(fileTimes.size() > testfile.block()->index());
+	REQUIRE(md5s.size() > testfile.block()->index());
+
+	const mpq::MD5Checksum currentMd5 = mpq::Attributes::md5(dataString.c_str(), dataString.size());
+	const mpq::MD5Checksum storedMd5 = md5s[testfile.block()->index()];
+	std::cerr << "Current: " << currentMd5 << " Stored: " << storedMd5 << std::endl;
+	REQUIRE(currentMd5 == storedMd5);
+
+	const mpq::CRC32 currentCrc32 = mpq::Attributes::crc32(dataString.c_str(), dataString.size());
+	const mpq::CRC32 storedCrc32 = crcs[testfile.block()->index()];
+	std::cerr << "Current: " << currentCrc32 << " Stored: " << storedCrc32 << std::endl;
+	REQUIRE(currentCrc32 == storedCrc32);
+
+	// TODO test time stamp by manual comparison
+	const mpq::FILETIME storedFiletime = fileTimes[testfile.block()->index()];
+	time_t time;
+	REQUIRE(storedFiletime.toTime(time));
+	
+	std::tm localtime {};
+    #if defined(__unix__)
+        localtime_r(&time, &localtime); // POSIX
+    #elif defined(_MSC_VER)
+        localtime_s(&localtime, &time); // Windows
+    #endif	
+	
+	// 20.8.2014 12:18
+	REQUIRE(localtime.tm_year == 2025 - 1900);
+	REQUIRE(localtime.tm_mday == 28);
+	REQUIRE(localtime.tm_mon == 11);
+	REQUIRE(localtime.tm_hour == 1);
+	REQUIRE(localtime.tm_min == 16);
+}
+
+/*
+ * NOTE has no file time stamps.
+ */
+TEST_CASE("Mpq1ExtendedAttributes_Crc32s")
+{
+	mpq::Archive archive;
+	bool success = true;
+
+	try
+	{
+		archive.open("test_with_attributes_crc32.mpq");
+	}
+	catch (Exception &e)
+	{
+		success = false;
+	}
+
+	REQUIRE(success);
+	REQUIRE(archive.containsListfileFile());
+	REQUIRE(archive.containsAttributesFile());
+	int32 version = 0;
+	mpq::Attributes::ExtendedAttributes extendedAttributes = mpq::Attributes::ExtendedAttributes::None;
+	mpq::Attributes::Crc32s crcs;
+	mpq::Attributes::FileTimes fileTimes;
+	mpq::Attributes::Md5s md5s;
+	mpq::Attributes attributes = archive.attributesFile();
+	REQUIRE(attributes.isValid());
+
+	try
+	{
+		attributes.attributes(version, extendedAttributes, crcs, fileTimes, md5s);
+	}
+	catch (Exception &e)
+	{
+		success = false;
+	}
+
+	REQUIRE(success);
+	REQUIRE(extendedAttributes & mpq::Attributes::ExtendedAttributes::FileCrc32s);
+	REQUIRE(!(extendedAttributes & mpq::Attributes::ExtendedAttributes::FileTimeStamps));
+	REQUIRE(!(extendedAttributes & mpq::Attributes::ExtendedAttributes::FileMd5s));
+
+	mpq::File file = archive.findFile("test.txt");
+
+	REQUIRE(file.isValid());
+	// contains CRC32 with valid index
+	REQUIRE(crcs.size() > file.block()->index());
+	REQUIRE(fileTimes.size() == 0);
+	REQUIRE(md5s.size() == 0);
+
+	std::stringstream data;
+
+	try
+	{
+		file.decompress(data);
+	}
+	catch (Exception &e)
+	{
+		success = false;
+	}
+
+	REQUIRE(success);
+
+	const string dataString = data.str();
+
+	/*
+	const mpq::MD5 currentMd5 = mpq::Attributes::md5(dataString.c_str(), dataString.size());
+	const mpq::MD5 storedMd5 = md5s[file.block()->index()];
+	std::cerr << "Current: " << currentMd5 << " Stored: " << storedMd5 << std::endl;
+	REQUIRE(currentMd5 == storedMd5);
+	*/
+
+	const mpq::CRC32 currentCrc32 = mpq::Attributes::crc32(dataString.c_str(), dataString.size());
+	const mpq::CRC32 storedCrc32 = crcs[file.block()->index()];
+	std::cerr << "Current: " << currentCrc32 << " Stored: " << storedCrc32 << std::endl;
+	REQUIRE(currentCrc32 == storedCrc32);
+}

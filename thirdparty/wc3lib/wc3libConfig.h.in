@@ -1,0 +1,14 @@
+#define wc3lib_VERSION_MAJOR @wc3lib_VERSION_MAJOR@
+#define wc3lib_VERSION_MINOR @wc3lib_VERSION_MINOR@
+#define wc3lib_VERSION_PATCH @wc3lib_VERSION_PATCH@
+#cmakedefine APP
+#cmakedefine BLP
+#cmakedefine JASS
+#cmakedefine JASS_LLVM
+#cmakedefine MAP
+#cmakedefine MDLX
+#cmakedefine MPQ
+#cmakedefine W3G
+#cmakedefine JSON
+#cmakedefine EDITOR
+#cmakedefine DOC

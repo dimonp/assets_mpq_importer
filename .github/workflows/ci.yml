@@ -53,6 +53,10 @@ jobs:
           - os: windows-latest
             compiler: gcc-14
 
+          # mingw is determined by this author to be too buggy to support
+          - os: windows-latest
+            compiler: llvm-19.1.1
+
         include:
           # Add appropriate variables for gcov version required. This will intentionally break
           # if you try to use a compiler that does not have gcov set
@@ -156,6 +160,17 @@ jobs:
           gcovr: true
           opencppcoverage: true
 
+      - name: Set VCPKG_MAX_CONCURRENCY
+        run: echo "VCPKG_MAX_CONCURRENCY=1" >> $GITHUB_ENV
+
+      - name: set VCPKG_ROOT on linux
+        if: "startsWith(matrix.os, 'ubuntu')"
+        run: echo "VCPKG_ROOT=$HOME/vcpkg" >> $GITHUB_ENV
+
+      - name: set VCPKG_ROOT on windows
+        if: "startsWith(matrix.os, 'windows')"
+        run: echo ("VCPKG_ROOT=$env:USERPROFILE/vcpkg") >> $env:GITHUB_ENV
+
       - name: Configure CMake
         run: >
           cmake -S . -B ./build
@@ -164,7 +179,7 @@ jobs:
           -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build_type }}
           -D${{ env.PROJECT_NAME }}_PACKAGING_MAINTAINER_MODE:BOOL=${{ matrix.packaging_maintainer_mode }}
           -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' }}
-          -DGIT_SHA:STRING=${{ github.sha }} -DCMAKE_TOOLCHAIN_FILE=~/vcpkg/scripts/buildsystems/vcpkg.cmake
+          -DGIT_SHA:STRING=${{ github.sha }} -DCMAKE_TOOLCHAIN_FILE={{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
 
       - name: Build
         # Execute the build.  You can specify a specific target with "--target <NAME>"

@@ -26,12 +26,12 @@ runs:
         path: |
           $HOME/.cache/pip
           $HOME/.ccache
-          $HOME/vcpkg
+          $HOME/vcpkg/archives
           ./build/vcpkg_installed
           ${{ env.CONAN_USER_HOME }}
           ${{ env.HOME }}/.cache/vcpkg/archives
           ${{ env.XDG_CACHE_HOME }}/vcpkg/archives
-          ${{ env.USERPROFILE }}\vcpkg
+          ${{ env.USERPROFILE }}\vcpkg\archives
           ${{ env.LOCALAPPDATA }}\vcpkg\archives
           ${{ env.APPDATA }}\vcpkg\archives
 

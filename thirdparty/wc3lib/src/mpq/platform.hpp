@@ -48,7 +48,7 @@ struct MD5Checksum
 		text[16] = 0;
 		memcpy(text, this->checksum, 16);
 
-		const string result = text;
+		string result = text;
 		delete[] text;
 
 		return result;

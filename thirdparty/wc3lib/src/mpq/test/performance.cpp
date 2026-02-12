@@ -32,19 +32,10 @@
 
 #include "../archive.hpp"
 
-#ifndef WC3_DIR
-#error Define WC3_DIR.
-#endif
-
 using namespace wc3lib;
 
 
-TEST_CASE("Ok", "[perfomance]")
-{
-	REQUIRE(true);
-}
-
-
+#ifdef WC3_DIR
 /*
  * Reads all files from war3.mpq.
  *
@@ -186,3 +177,5 @@ TEST_CASE("ReadWar3", "[.][perfomance]")
 	REQUIRE(count0 == count1);
 
 }
+
+#endif

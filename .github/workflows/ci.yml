@@ -12,7 +12,7 @@ on:
       - develop
 
 env:
-  CLANG_TIDY_VERSION: "19.1.1"
+  CLANG_TIDY_VERSION: "19"
   VERBOSE: 1
 
 
@@ -35,7 +35,7 @@ jobs:
           - windows-latest
         compiler:
           # you can specify the version after `-` like "llvm-15.0.2".
-          - llvm-19.1.1
+          - llvm-19
           - gcc-14
         generator:
           - "Ninja Multi-Config"
@@ -55,7 +55,7 @@ jobs:
 
           # mingw is determined by this author to be too buggy to support
           - os: windows-latest
-            compiler: llvm-19.1.1
+            compiler: llvm-19
 
         include:
           # Add appropriate variables for gcov version required. This will intentionally break
@@ -64,7 +64,7 @@ jobs:
             gcov_executable: gcov-14
             enable_ipo: On
 
-          - compiler: llvm-19.1.1
+          - compiler: llvm-19
             enable_ipo: Off
             gcov_executable: "llvm-cov gcov"
 

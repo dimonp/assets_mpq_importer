@@ -25,11 +25,9 @@
 
 #include "../archive.hpp"
 
-#ifndef WC3_DIR
-#error Define WC3_DIR.
-#endif
-
 using namespace wc3lib;
+
+#ifdef WC3_DIR
 
 /**
  * Extracts the file "Units\OrcUpgradeStrings.txt" from War3Patch.mpq
@@ -102,3 +100,5 @@ TEST_CASE("ExtractOrcUpgradeStrings", "[extract]")
 
 	archive.close();
 }
+
+#endif

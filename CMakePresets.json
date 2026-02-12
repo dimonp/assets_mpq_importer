@@ -15,7 +15,7 @@
             "installDir": "${sourceDir}/out/install/${presetName}",
             "cacheVariables": {
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-            }            
+            }
         },
         {
             "name": "conf-windows-common",
@@ -36,35 +36,6 @@
                 "strategy": "external"
             },
             "cacheVariables": {
-                "ENABLE_CPPCHECK_DEFAULT": "FALSE",
-                "ENABLE_CLANG_TIDY_DEFAULT": "FALSE"
-            }
-        },
-        {
-            "name": "conf-windows-msys64",
-            "description": "Windows settings for MSYS64 toolchain that apply to gcc and clang",
-            "hidden": true,
-            "inherits": "conf-common",
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Windows"
-            },
-            "architecture": {
-                "value": "x64",
-                "strategy": "external"
-            },
-            "toolset": {
-                "value": "host=x64",
-                "strategy": "external"
-            },
-            "environment": {
-                "MSYSTEM": "UCRT64",
-                "MSYSTEM_PREFIX": "/ucrt64"
-            },            
-            "cacheVariables": {
-                "CMAKE_CXX_COMPILER_WORKS": "1",
-                "CMAKE_C_COMPILER_WORKS": "1",
                 "ENABLE_CPPCHECK_DEFAULT": "FALSE",
                 "ENABLE_CLANG_TIDY_DEFAULT": "FALSE"
             }
@@ -171,32 +142,6 @@
             }
         },
         {
-            "name": "windows-ucrt64-gcc-debug-developer-mode",
-            "displayName": "ucrt64 Debug (Developer Mode)",
-            "description": "Target Windows with the gcc compiler, debug build type",
-            "inherits": "conf-windows-msys64",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER":   "D:/msys64/ucrt64/bin/gcc.exe",
-                "CMAKE_CXX_COMPILER": "D:/msys64/ucrt64/bin/g++.exe",
-                "CMAKE_MAKE_PROGRAM": "D:/msys64/ucrt64/bin/ninja.exe",
-                "CMAKE_BUILD_TYPE": "Debug",
-                "ENABLE_DEVELOPER_MODE": "ON"
-            }
-        },
-        {
-            "name": "windows-ucrt64-gcc-release-developer-mode",
-            "displayName": "ucrt64 Release (Developer Mode)",
-            "description": "Target Windows with the gcc compiler, release build type",
-            "inherits": "conf-windows-msys64",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER":   "D:/msys64/ucrt64/bin/gcc.exe",
-                "CMAKE_CXX_COMPILER": "D:/msys64/ucrt64/bin/g++.exe",
-                "CMAKE_MAKE_PROGRAM": "D:/msys64/ucrt64/bin/ninja.exe",
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-                "ENABLE_DEVELOPER_MODE": "ON"
-            }
-        },
-        {
             "name": "unixlike-gcc-debug",
             "displayName": "gcc Debug",
             "description": "Target Unix-like OS with the gcc compiler, debug build type",
@@ -204,7 +149,8 @@
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_CLANG_TIDY_DEFAULT": "FALSE"
             }
         },
         {
@@ -215,7 +161,8 @@
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "ENABLE_CLANG_TIDY_DEFAULT": "FALSE"
             }
         },
         {

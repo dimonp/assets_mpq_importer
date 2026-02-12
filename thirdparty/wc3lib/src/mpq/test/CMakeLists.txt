@@ -19,9 +19,9 @@ add_test(NAME wc3lib.mpq.AttributesTest COMMAND attributestest)
 message(STATUS "Using Warcraft III directory: \"${WC3_DIR}\"")
 if ("${WC3_DIR}" STREQUAL "")
 	message(WARNING "Warcraft III directory is not defined. Some Unit Tests may not work.")
+else()
+	add_definitions(-DWC3_DIR="\"${WC3_DIR}\"")
 endif ()
-
-add_definitions(-DWC3_DIR="\"${WC3_DIR}\"")
 
 # TODO find StormLib with a CMake module
 find_file(STORMLIB_HEADER "StormLib.h")
@@ -34,10 +34,12 @@ if (STORMLIB_HEADER AND STORMLIB_PORT_HEADER)
 	add_test(NAME wc3lib.mpq.PerformanceTest COMMAND performancetest)
 endif ()
 
-add_executable(extracttest extract.cpp)
-target_link_libraries(extracttest PRIVATE wc3libmpq wc3libcore ${GETTEXT_LIBRARIES})
-	target_link_libraries(extracttest PRIVATE Catch2::Catch2WithMain)
-add_test(NAME wc3lib.mpq.ExtractTest COMMAND extracttest)
+if (NOT ("${WC3_DIR}" STREQUAL ""))
+	add_executable(extracttest extract.cpp)
+	target_link_libraries(extracttest PRIVATE wc3libmpq wc3libcore ${GETTEXT_LIBRARIES})
+		target_link_libraries(extracttest PRIVATE Catch2::Catch2WithMain)
+	add_test(NAME wc3lib.mpq.ExtractTest COMMAND extracttest)
+endif ()
 
 configure_file(test_with_attributes_crc32.mpq test_with_attributes_crc32.mpq COPYONLY) # MPQ archive with extended attributes
 configure_file(test_with_all_attributes.mpq test_with_all_attributes.mpq COPYONLY)

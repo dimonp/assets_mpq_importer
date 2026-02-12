@@ -14,9 +14,7 @@
 		// 	"LLVM_VER": "20"
 		// }
 		"args": {
-			"USERNAME": "${localEnv:USER}",
-			"GCC_VER":	"14",
-			"LLVM_VER": "20"
+			"USERNAME": "${localEnv:USER}"
 		}
 	},
 	"runArgs": [
@@ -55,7 +53,6 @@
 	"workspaceFolder": "/home/${localEnv:USER}/workspaces/${localWorkspaceFolderBasename}",
 	"features": {
 		"git": "latest",
-		"git-lfs": "latest",
 		"powershell": "latest"
 	},
 	"remoteUser": "${localEnv:USER}"

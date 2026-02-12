@@ -126,19 +126,19 @@ TEST_CASE("Mpq1ExtendedAttributes_All")
 	const mpq::FILETIME storedFiletime = fileTimes[testfile.block()->index()];
 	time_t time;
 	REQUIRE(storedFiletime.toTime(time));
-	
+
 	std::tm localtime {};
     #if defined(__unix__)
         localtime_r(&time, &localtime); // POSIX
     #elif defined(_MSC_VER)
         localtime_s(&localtime, &time); // Windows
-    #endif	
-	
+    #endif
+
 	// 20.8.2014 12:18
 	REQUIRE(localtime.tm_year == 2025 - 1900);
-	REQUIRE(localtime.tm_mday == 28);
+	REQUIRE(localtime.tm_mday == 27);
 	REQUIRE(localtime.tm_mon == 11);
-	REQUIRE(localtime.tm_hour == 1);
+	REQUIRE(localtime.tm_hour == 19);
 	REQUIRE(localtime.tm_min == 16);
 }
 

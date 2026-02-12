@@ -28,10 +28,6 @@
 #include "../archive.hpp"
 #include "../algorithm.hpp"
 
-#ifndef WC3_DIR
-#error Define WC3_DIR.
-#endif
-
 using namespace wc3lib;
 using namespace wc3lib::mpq;
 
@@ -185,6 +181,8 @@ TEST_CASE("ReadMPQMasterArchive", "[archive]")
 	// TODO find file
 }
 
+#ifdef WC3_DIR
+
 TEST_CASE("ReadWar3Archive", "[archive]")
 {
 	std::filesystem::path wc3DirPath = WC3_DIR;
@@ -224,6 +222,8 @@ TEST_CASE("ReadWar3XArchive", "[archive]")
 	const File listfileFile = war3XArchive.findFile("(listfile)");
 	REQUIRE(listfileFile.isValid());
 }
+
+#endif
 
 TEST_CASE("CreateEmptyArchive", "[archive]")
 {

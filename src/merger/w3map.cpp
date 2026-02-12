@@ -66,13 +66,13 @@ static inline
 auto decode_geo_char(char char_code) -> uint8_t
 {
     static const std::unordered_map<char, uint8_t> char_to_code = {
-        { '0', 0 }, { 'a', 0 }, { 'A', 0 },
-        { '1', 1 }, { 'b', 1 }, { 'B', 1 },
-        { '2', 2 }, { 'c', 2 }, { 'C', 2 },
-        { '3', 3 },
-        { 'l', 4 }, { 'L', 4 },
-        { 'h', 5 }, { 'H', 5 },
-        { 'x', 6 }, { 'X', 6 },
+        { '0', '\0' }, { 'a', '\0' }, { 'A', '\0' },
+        { '1', '\1' }, { 'b', '\1' }, { 'B', '\1' },
+        { '2', '\2' }, { 'c', '\2' }, { 'C', '\2' },
+        { '3', '\3' },
+        { 'l', '\4' }, { 'L', '\4' },
+        { 'h', '\5' }, { 'H', '\5' },
+        { 'x', '\6' }, { 'X', '\6' },
     };
     return char_to_code.at(char_code);
 }
@@ -81,12 +81,12 @@ static inline
 auto encode_geo_char(uint8_t code) -> char
 {
     static const std::unordered_map<uint8_t, char> code_to_char = {
-        { 0, 'A' },
-        { 1, 'B' },
-        { 2, 'C' },
-        { 4, 'L' },
-        { 5, 'H' },
-        { 6, 'X' },
+        { '\0', 'A' },
+        { '\1', 'B' },
+        { '\2', 'C' },
+        { '\3', 'L' },
+        { '\4', 'H' },
+        { '\5', 'X' },
     };
     return code_to_char.at(code);
 }

@@ -182,7 +182,7 @@ jobs:
           -G "${{ matrix.generator }}"
           -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build_type }}
           -DENABLE_CLANG_TIDY_DEFAULT=${{ matrix.clang_tidy }}
-          -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
+          -DCMAKE_TOOLCHAIN_FILE="${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake"
           -D${{ env.PROJECT_NAME }}_ENABLE_IPO=${{ matrix.enable_ipo }}
           -D${{ env.PROJECT_NAME }}_PACKAGING_MAINTAINER_MODE:BOOL=${{ matrix.packaging_maintainer_mode }}
           -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' }}
@@ -213,19 +213,3 @@ jobs:
         working-directory: ./out/build/${{ matrix.build_type }}
         run: |
           cpack -C ${{ matrix.build_type }} -G ${{ matrix.package_generator }}
-
-      - name: Publish Tagged Release
-        uses: softprops/action-gh-release@v2
-        if: ${{ startsWith(github.ref, 'refs/tags/') && matrix.package_generator != '' }}
-        with:
-          files: |
-            ./out/build/${{ matrix.build_type }}/*-*${{ matrix.build_type }}*-*.*
-
-      - name: Publish to codecov
-        uses: codecov/codecov-action@v5
-        with:
-          fail_ci_if_error: true # we weren't posting previously
-          flags: ${{ runner.os }}
-          name: ${{ runner.os }}-coverage
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./build/coverage.xml

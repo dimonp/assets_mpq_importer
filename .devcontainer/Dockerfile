@@ -15,7 +15,7 @@ RUN userdel -r ubuntu || true \
     && apt-get update \
     && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    chmod 0440 /etc/sudoers.d/$USERNAME
+    && chmod 0440 /etc/sudoers.d/$USERNAME
 
 # Install necessary packages available from standard repos
 RUN apt-get update -qq && export DEBIAN_FRONTEND=noninteractive \
@@ -23,17 +23,7 @@ RUN apt-get update -qq && export DEBIAN_FRONTEND=noninteractive \
         software-properties-common wget apt-utils file zip \
         openssh-client gpg-agent socat rsync \
         make ninja-build git \
-        python3 python3-pip
-
-# By default, anything you run in Docker is done as superuser.
-# Conan runs some install commands as superuser, and will prepend `sudo` to
-# these commands, unless `CONAN_SYSREQUIRES_SUDO=0` is in your env variables.
-ENV CONAN_SYSREQUIRES_SUDO=0
-
-# Some packages request that Conan use the system package manager to install
-# a few dependencies. This flag allows Conan to proceed with these installations;
-# leaving this flag undefined can cause some installation failures.
-ENV CONAN_SYSREQUIRES_MODE=enabled
+        python3 python3-pip gcovr
 
 # User-settable versions:
 # This Dockerfile should support gcc-[7, 8, 9, 10, 11] and clang-[10, 11, 12, 13]

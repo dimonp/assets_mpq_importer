@@ -19,7 +19,7 @@ project(
   HOMEPAGE_URL "https://github.com/dimonp/assets_mpq_importer"
   LANGUAGES CXX C)
 
-option(DISABLE_SANITIZERS_DEFAULT "Enable all sanitizers" OFF)
+option(DISABLE_ALL_SANITIZERS "Disable all sanitizers" OFF)
 option(ENABLE_CPPCHECK_DEFAULT "Enable Cppcheck static analyzer" ON)
 option(ENABLE_CLANG_TIDY_DEFAULT "Enable Clang-tidy static analyzer" ON)
 

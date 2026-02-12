@@ -47,6 +47,8 @@ jobs:
           - OFF
         build_shared:
           - OFF
+        clang_tidy:
+          - ON
 
         exclude:
           # mingw is determined by this author to be too buggy to support
@@ -63,6 +65,7 @@ jobs:
           - compiler: gcc-14
             gcov_executable: gcov-14
             enable_ipo: On
+            clang_tidy: Off
 
           - compiler: llvm-19
             enable_ipo: Off
@@ -81,6 +84,7 @@ jobs:
             gcov_executable: gcov-14
             packaging_maintainer_mode: On
             enable_ipo: Off
+            clang_tidy: Off
 
           # Windows msvc builds
           - os: windows-latest
@@ -173,10 +177,11 @@ jobs:
 
       - name: Configure CMake
         run: >
-          cmake -S . -B ./build
+          cmake -S . -B ./out/build/${{ matrix.build_type }}
           -G "${{ matrix.generator }}"
           -D${{ env.PROJECT_NAME }}_ENABLE_IPO=${{ matrix.enable_ipo }}
           -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build_type }}
+          -DENABLE_CLANG_TIDY_DEFAULT=${{ matrix.clang_tidy }}
           -D${{ env.PROJECT_NAME }}_PACKAGING_MAINTAINER_MODE:BOOL=${{ matrix.packaging_maintainer_mode }}
           -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' }}
           -DGIT_SHA:STRING=${{ github.sha }} -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
@@ -184,7 +189,7 @@ jobs:
       - name: Build
         # Execute the build.  You can specify a specific target with "--target <NAME>"
         run: |
-          cmake --build ./build --config ${{ matrix.build_type }}
+          cmake --build ./out/build/${{ matrix.build_type }} --config ${{ matrix.build_type }}
 
       - name: Unix - Test and coverage
         if: runner.os != 'Windows'

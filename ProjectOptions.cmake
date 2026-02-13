@@ -64,7 +64,7 @@ macro(assets_mpq_importer_setup_options)
 
   assets_mpq_importer_supports_sanitizers()
 
-  if(NOT PROJECT_IS_TOP_LEVEL OR assets_mpq_importer_PACKAGING_MAINTAINER_MODE OR DISABLE_SANITIZERS_DEFAULT)
+  if(NOT PROJECT_IS_TOP_LEVEL OR assets_mpq_importer_PACKAGING_MAINTAINER_MODE OR DISABLE_ALL_SANITIZERS)
     option(assets_mpq_importer_ENABLE_IPO "Enable IPO/LTO" OFF)
     option(assets_mpq_importer_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
     option(assets_mpq_importer_ENABLE_USER_LINKER "Enable user-selected linker" OFF)

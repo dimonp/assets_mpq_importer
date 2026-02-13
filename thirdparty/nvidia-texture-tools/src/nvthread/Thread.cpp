@@ -123,7 +123,7 @@ void Thread::start(ThreadFunc * func, void * arg)
 
 #if NV_OS_WIN32
     DWORD threadId;
-    p->thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)func, p.ptr(), 0, &threadId);
+    p->thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)threadFunc, p.ptr(), 0, &threadId);
     //p->thread = (HANDLE)_beginthreadex (0, 0, threadFunc, p.ptr(), 0, NULL);     // @@ So that we can call CRT functions...
     nvDebugCheck(p->thread != NULL);
     if (p->name != NULL) {

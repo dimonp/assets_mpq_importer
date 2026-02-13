@@ -40,7 +40,7 @@ namespace assmpq::test {
     inline static auto get_dds_info(const std::vector<char>& data)
         -> std::expected<std::tuple<int, int, int, int, int>, std::string>
     {
-        static constexpr std::uint32_t kDDSMagic = 0x20534444;
+        static constexpr std::uint32_t kDDSMagic = 0x20534444; // "DDS "
         static constexpr std::uint32_t k32BitsColor = 32;
 
         if (data.size() < sizeof(nv::DDSHeader)) {

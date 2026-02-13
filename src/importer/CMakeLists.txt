@@ -36,8 +36,3 @@ target_link_system_libraries(
           spdlog::spdlog)
 
 target_include_directories(importer PRIVATE "${CMAKE_BINARY_DIR}/configured_files/include")
-
-if(MINGW)
-  target_link_libraries(importer PRIVATE -lmingw32)
-  target_link_options(importer PRIVATE -Wl,-subsystem,windows)
-endif()

@@ -11,6 +11,9 @@ endif()
 # when compiling with PCH enabled
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# to avoid clang-tidy errors
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
+
 # Set the project name and language
 project(
   assets_mpq_importer

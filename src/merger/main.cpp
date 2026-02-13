@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <string>
 #include <fstream>
-#include <regex>
 #include <vector>
 #include <filesystem>
 #include <fmt/base.h>
@@ -9,6 +8,13 @@
 #include <spdlog/spdlog.h>
 #include <CLI/CLI.hpp>
 #include <nlohmann/json.hpp>
+
+#if defined(__GNUC__) && !defined(__clang__)
+// Disable a false positive warning which is a bug in the compiler's static analysis
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#endif
+#include <regex>
 
 #include <internal_use_only/config.hpp>
 #include "merger.hpp"
@@ -261,3 +267,7 @@ auto main(int argc, char* argv[])-> int
         spdlog::error("Unhandled exception in main: {}", e.what());
     }
 }
+
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif

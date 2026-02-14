@@ -43,7 +43,6 @@ jobs:
         packaging_maintainer_mode:
           - ON
 
-
     steps:
     - uses: actions/checkout@v6
 
@@ -60,21 +59,17 @@ jobs:
       with:
         envFile: '.github/constants.env'
 
-
     - name: Setup Cpp
       uses: aminya/setup-cpp@v1
       with:
         compiler: ${{ matrix.compiler }}
         vcvarsall: ${{ contains(matrix.os, 'windows' )}}
-
         cmake: true
         ninja: true
         vcpkg: true
         ccache: true
         clangtidy: false
-
         cppcheck: false
-
         gcovr: false
         opencppcoverage: false
 
@@ -102,7 +97,6 @@ jobs:
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
-
 
     - name: Build
       # Execute the build.  You can specify a specific target with "--target <NAME>"

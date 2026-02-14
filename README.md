@@ -1,7 +1,7 @@
 # assets_mpq_importer
 
 [![ci](https://github.com/dimonp/assets_mpq_importer/actions/workflows/ci.yml/badge.svg)](https://github.com/dimonp/assets_mpq_importer/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/dimonp/assets_mpq_importer/branch/main/graph/badge.svg)](https://codecov.io/gh/dimonp/assets_mpq_importer)
+[![Test Coverage](https://github.com/dimonp/assets_mpq_importer/blob/gh-pages/coverage/coverage.svg?raw=true)](https://dimonp.github.io/assets_mpq_importer/)
 [![CodeQL](https://github.com/dimonp/assets_mpq_importer/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/dimonp/assets_mpq_importer/actions/workflows/codeql-analysis.yml)
 
 ## About assets_mpq_importer
@@ -11,12 +11,14 @@ The `assets_mpq_importer` is a toolset for extracting and converting assets from
 The initial goal of the project is to extract and prepare resources for a warcraft 3 terrain project written for the Godot 4 engine.
 
 This project consists of two main tools:
+
 1. **importer** - Extracts and converts files from MPQ archives
 2. **merger** - Processes and merges terrain cliffs and ramps 3D mesh files with transformations
 
 ## Features
 
 ### Importer
+
 - Extract files from Warcraft III MPQ archives
 - Convert BLP textures to PNG or DDS (BC1, BC3, BC7) with mipmaps
 - Convert MDX models to Wavefront OBJ format
@@ -25,6 +27,7 @@ This project consists of two main tools:
 - Support for multiple compression backends ([Nvidia Texture Tools](https://github.com/castano/nvidia-texture-tools) and [AMD Compressionator](https://github.com/GPUOpen-Tools/Compressonator))
 
 ### Merger
+
 - Process cliff and ramp mesh files from OBJ format
 - Apply transformations and scaling to meshes
 - Split ramp meshes into appropriate parts
@@ -34,10 +37,12 @@ This project consists of two main tools:
 ## Dependencies
 
 ### Necessary Dependencies
+
 1. A C++ compiler that supports C++23
 2. [CMake 3.21+](https://cmake.org/)
 
 ### Optional Dependencies
+
 - [Doxygen](http://doxygen.nl/) for documentation generation
 - [ccache](https://ccache.dev/) for faster rebuilds
 - [Cppcheck](http://cppcheck.sourceforge.net/) for static analysis
@@ -67,7 +72,7 @@ For more detailed build instructions, see [Building Details](README_building.md)
 
 ## Usage
 
-### Importer
+### Importer usage
 
 The importer tool extracts and converts files from MPQ archives:
 
@@ -85,7 +90,7 @@ The importer tool extracts and converts files from MPQ archives:
 ./importer -i path/to/archive.mpq -o output/directory --filter="*.blp"
 ```
 
-### Merger
+### Merger usage
 
 The merger tool processes and merges mesh files:
 
@@ -116,4 +121,3 @@ For more information on specific aspects of the project:
 - [Dependency Setup](README_dependencies.md)
 - [Building Details](README_building.md)
 - [Docker](README_docker.md)
-

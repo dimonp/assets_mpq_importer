@@ -19,6 +19,12 @@ env:
 jobs:
   Test:
     runs-on: ${{ matrix.os }}
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    permissions:
+      actions: read
+      contents: write
+      security-events: write
+
     strategy:
       fail-fast: false
 
@@ -213,3 +219,27 @@ jobs:
         working-directory: ./out/build/${{ matrix.build_type }}
         run: |
           cpack -C ${{ matrix.build_type }} -G ${{ matrix.package_generator }}
+
+      - name: Simple Badge Generator
+        if: |
+          startsWith(matrix.os, 'ubuntu') &&
+          startsWith(matrix.compiler, 'gcc') &&
+          matrix.build_type == 'Debug' &&
+          matrix.packaging_maintainer_mode == 'OFF'
+        uses: cjlapao/simple-badge-generator-action@v1.0.1
+        with:
+          badge-path: "./out/coverage/coverage.svg"
+          badge-type: "cobertura"
+          title: "Coverage"
+          cobertura-path: ./out/build/${{ matrix.build_type }}
+
+      - name: Publish coverage report to GitHub Pages
+        # upload the report only once
+        if: |
+          startsWith(matrix.os, 'ubuntu') &&
+          startsWith(matrix.compiler, 'gcc') &&
+          matrix.build_type == 'Debug' &&
+          matrix.packaging_maintainer_mode == 'OFF'
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
+        with:
+          folder: ./out/coverage/

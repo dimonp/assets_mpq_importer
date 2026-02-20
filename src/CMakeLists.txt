@@ -1,0 +1,6 @@
+add_subdirectory(mpq_library)
+add_subdirectory(blp_library)
+add_subdirectory(mdlx_library)
+add_subdirectory(w3m_library)
+add_subdirectory(importer)
+add_subdirectory(merger)

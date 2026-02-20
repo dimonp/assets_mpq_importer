@@ -1,0 +1,898 @@
+* "Units/AbilityMetaData.slk" is missing ability entries for fields:
+- AItx:DataA1 ("Iatt"?)
+- Arsg:DataA1
+* Add new defintion in CMake if OGRE is found and use this instead of checking for MDLX or USE_OGREBLP. Name it "HAS_OGRE" and add it to the config.h.
+* TriggerData: When writing and reading again there is a lexical_cast exception.
+* MPQ: Fix the attributes test. Create a new archive using all attributes and one file with Ladik's MPQ editor.
+* Fix qblp Unit Tests, load the qblp plugin dynamically?
+* Qt BLP plugin mit Qt5 testen (installieren).
+* MPQ KIO Slave mit KDE5 testen (installieren).
+
+* Unit Tests for Archive::addFile():
+	* Compression types.
+	* Compression types with encryption.
+	* Multiple sectors (no single unit).
+	* Imploded.
+	* With attributes.
+	* With listfile.
+
+* After porting from Qt4 to Qt5 react to filter line edits by updating the proxies of the tree and table models.
+* MPQ Editor and tool "mpq": (listfile) files contain entries of files without a dirpath which might occur in every directory?
+* Fix MPQ Editor updateSelection().
+* FIXED: Fix MPQ Editor closing and opening.
+* MPQ Editor: Should allow file options when adding files.
+* DONE: MPQ Editor: Reduce dependencies to KDE.
+* FIXED: Fix Archive::addFile() -> leads to eoffail when opening the archive.
+* Some object data classes share the same files but load them separately.
+* Load icons in tree model in the beginning again? Reduces lags?
+* Only show upgrade effects if one is selected.
+* Apply effect names to the fields.
+* DONE: Add MPQ archive addFile() and removeFile() support.
+* Add corresponding options to the program "mpq".
+* Use BOOST_CHECK_EQUAL instead of BOOST_CHECK with the == operator.
+
+* FIXED: Some default field values like TargetArt for Abilities are empty but should not be. This is because lower or higher cases are ignored for section strings in meta data! For example "Targetart" is used in the .txt files but "TargetArt" is specified in the .slk meta data file.
+* FIXED: Tooltips level 1 are not displayed properly for abilities (default values are shown) (start with 1 instead of 0?).
+* Use the data attribute for field values and change it on modifications!
+* FIXED: Compress object modifications which are for higher levels than the object actually has.
+
+FIXED:
+The filename of a sector does still contain a directory! This was the error.
+Sector error (sector 1, file "Units\OrcUpgradeStrings.txt"):
+Explode error: "Invalid dictionary size.".
+von War3xLocal.mpq
+Block flags: (wc3lib::mpq::Block::Flags::IsFile | wc3lib::mpq::Block::Flags::UsesEncryptionKey | wc3lib::mpq::Block::Flags::IsEncrypted | wc3lib::mpq::Block::Flags::IsCompressed | unknown: -4294967296)
+Block size: 2250 // is the same in MPQ Editor
+File size: 7188 // is the same in MPQ Editor
+Block index: 206 // is the same in MPQ Editor
+Block offset: 3183518 // is the same in MPQ Editor
+
+Sector count: 2
+Sector compression 0: wc3lib::mpq::Sector::Compression::Uncompressed
+Sector compression 1: wc3lib::mpq::Sector::Compression::Uncompressed
+In MPQEditor it has also 2 sectors, the same offsets and the same total size!
+
+The compression of the second sector is 42!!! It is 2A in hex which would be sparse and???
+Probably the decryption of the second sector fails! Therefore the compression flag is different.
+
+The filename of a sector does still contain a directory! This was the error.
+
+MPQEditor data:
+flags: 80030200 (the same with wc3lib!)
+compressed size: 2250 bytes (the same with MPQMaster, the same with wc3lib -> block size)
+
+file size: 7188 with wc3lib
+block offset is the same in wc3lib as in MPQMaster
+
+Hash Table Entries: 4096
+Block table entries: 1156
+
+FIXED:
+If abilities are exported, many modifications are not exported as well!
+Seems that level modifications are only displayed for level 1.
+Level and data information was dropped by the unitToObjectModification function which was called incorrectly in importCustomObjects().
+
+2016-02-11 Tamino Dauth <tamino@cdauth.eu>
+* Implement tree model for trigger editor instead of using trigger widget.
+
+2016-02-10 Tamino Dauth <tamino@cdauth.eu>
+* Move editor::MetaData to the map module and use it for map::TriggerStrings and map::TriggerData to get section values in an abstract way.
+* Use static lexers for all Boost Spirit based parsers: map::Txt, map::Slk, mdlx::MdlGrammerClient.
+* Add MetaData::setColumns(int, QList<QString> keys) and MetaData::setRows(int, QList<QString> keys) for better performance.
+* Implement MetaData::setValue() for all backends.
+* Implement ObjectData::widgetize() working for all object data classes.
+
+2016-02-07 Tamino Dauth <tamino@cdauth.eu>
+* Port to KDE Frameworks 5 and Qt 5: https://community.kde.org/Frameworks/Porting_Notes#Build_System in a separate branch.
+* https://wiki.qt.io/Transition_from_Qt_4.x_to_Qt5
+* Reduce dependencies to KDE. Actually only the IO slave plugin should depend on it. This simplifies the compilation process on Windows. Besides many components used from KDE like MIME types can be used in Qt5 now. This would remove network support for MpqPriorityList but is has not been used anyway.
+
+2016-02-06 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: Many temporary file leaks when using MpqPriorityList::download() but not using KIO::NetAccess::removeTempFile().
+
+2015-04-04 Tamino Dauth <tamino@cdauth.eu>
+* Trigger Editor: Improve performance on opening a trigger. Maybe loading icons is too slow.
+* Add class TriggerDataEx which supports Frozen Throne.
+* Make sure map::TriggerData detects if the file is Frozen Throne.
+* Make sure that trigger editor loads trigger data from Warcraft III: Reign of Chaos or prints an error if it parses a Frozen Throne file.
+
+2015-01-01 Tamino Dauth <tamino@cdauth.eu>
+* Object Editor: Values are split by ',' but tooltip strings etc. which containt <Alc,DataA1> are cut at ','. Only split if its not a string value?
+* Object Editor: Build up lists of icons, models and order strings etc. for object values dialogs.
+* Object Editor: Improve performance on loading objects into tree model. Performance is probably slow because of the slow download of icons from MPQ archives using the KDE IO slave. Maybe use a different approach.
+* FIXED: Object Editor: Show default icon for objects which have no icon.
+* Object Editor: Doodad, Destructible, Buff, Research editors.
+* Object Editor: Advanced search dialog: search for raw data including various object types, objects without icons, objects with specific fields.
+* FIXED: Ability Editor: Missing level values for abilities.
+* Object Editor: Show "Unnamed" if object has no name.
+
+2014-11-26 Tamino Dauth <tamino@cdauth.eu>
+* mdlx: Rename all Mdlx prefixes (we already have the namespace).
+* editor: Support rendering animations with OGRE (custom application of interpolation!): http://www.ogre3d.org/docs/manual/manual_82.html#SceneNode-Animation, http://www.ogre3d.org/docs/manual/manual_79.html#Morph-Animation
+
+2014-10-23 Tamino Dauth <tamino@cdauth.eu>
+* kio_mpq: Improve performance. Object Editor is much much faster when using a directory as source!
+
+2014-10-04 Tamino Dauth <tamino@cdauth.eu>
+* editor: Units\AbilityBuffMetaData.slk and Units\AbilityBuffData.slk are not listed in the (listfile) for war3x.
+* mpq: Changing directory does not work.
+* mpq: It seems that listfiles contain file name entries that correspond to any directory such as the Meta Data slk files.
+
+2014-08-22 Tamino Dauth <tamino@cdauth.eu>
+* editor: Add drag & drop support for MPQ Editor.
+* editor: Add more edit functions to MPQ Editor.
+* editor: Add better usuability features (icons, better tree widget, search filters).
+* editor: Add MPQ Editor export for war3 import files from Frozen Throne (maps?).
+
+2014-08-20 Tamino Dauth <tamino@cdauth.eu>
+* DONE: mpq: Rename Mpq to Archive.
+* DONE: mpq: Rename MpqFile to File.
+* DONE: mpq: Files should never be stored only be returned by findFile (newly created!).
+* mpq: Do not store indices for blocks and hashes (we do not need them!).
+* mpq: Add classes HashTable and BlockTable which manage the lists and do the reading and writing which the big class Mpq does at the moment.
+* mpq: Add assignment operator and copy constructor to file classes (allow multiple instances).
+* mpq: Fix attributes test.
+* mpq: Simplify reading of sector tables, simplify class Sector.
+
+2014-08-11 Tamino Dauth <tamino@cdauth.eu>
+* Test "war3map.w3u" support with War Chasers map (Modifications etc.).
+* Test "war3map.w3i" with map which has random unit tables (custom map).
+* Improve War Chasers "war3map.w3i" test.
+* DONE: mpq: Allow opening archives in readonly modes which does not lock the file (which needs writing permission), see class editor::Map.
+* DONE: mpq: Fix decompression error for War Chasers minimap (Bzip2).
+* mpq: Add Unit Tests with different files created by another MPQ supporting tool (an external tool please such as StormLib).
+* Fix StormLib comparison tests (latest version of StormLib on github has a changed API!).
+* editor: Fix renderer freeze when creating a render window in editor::ModelView.
+* fix CMake module to find wc3lib.
+* Compile on Windows!
+
+2014-07-01 Tamino Dauth <tamino@cdauth.eu>
+* mdlx: Create MDL grammar based on Boost Spirit Qi.
+* mdlx: Create MDL generator based on Boost Spirit Karma.
+* mdlx: Create MDX grammar based on Boost Spirit Qi.
+* mdlx: Create MDX generator based on Boost Spirit Karma.
+* DONE: mdlx: Simplify classes, drop multiple animated value classes and pass identifiers in the grammars.
+* DONE: core: Remove "throw Exception()" qualifier.
+* DONE: mdlx: Provide Interpolator class which calculates interpolations used for animations.
+* editor: Create parser for particle effects/particle effects displaying class.
+
+2013-12-28 Tamino Dauth <tamino@cdauth.eu>
+* editor: Create analysis document for realising terrain in OGRE using map's environment (height calculation, cliff types, textures, tilesets ...).
+
+2013-11-30 Tamino Dauth <tamino@cdauth.eu>
+* use if () in CMake instead of string comparisons with NOTFOUND content
+* use CheckCXXCompilerFlag() instead of custom checks!
+
+2013-10-13 Tamino Dauth <tamino@cdauth.eu>
+* kio_mpq: Caching/storing (listfile) entries would be more efficient (maybe for mpq io slave only).
+* kio_mpq: Improve performance on reading/getting files (drop copying buffers).
+* DONE: textureeditor: Use frame with automatic scroll bars to prevent resizing on image display!
+* map::Txt: UI/WorldEditStrings.txt cannot be parsed?
+
+2013-10-10 Tamino Dauth <tamino@cdauth.eu>
+* blp/qblp: Increase performance of BLP loading (and writing), drop thread management for JPEG and read from std streams instead of copying the whole buffer.
+* mpq: Add as much Unit Tests as possible for read functions and extended attributes etc.
+
+2013-09-29 Tamino Dauth <tamino@cdauth.eu>
+* kio_mpq: Reimplement KIOSlave more like "SMPQ's" slave.
+* triggereditor: Fix layouts for TriggerFunctionDialog (if no radio button is displayed it shouldn't use any place).
+
+2013-08-19 Tamino Dauth <tamino@cdauth.eu>
+* DONE: map: Support loading and writing trigger strings!
+* DONE: editor: MpqPriorityList should store a trigger strings reference!
+* DONE: editor: TriggerEditor should use this reference to display text!
+
+2012-10-21 Tamino Dauth <tamino@cdauth.eu>
+* blp: Written JPEG MIP map data seems to be too small.
+* blp: Check if buffer size in writeJpegMipMap() is used correctly.
+
+2012-09-27 Tamino Dauth <tamino@cdauth.eu>
+* editor: Fix team color dialog (custom color and color values).
+* editor: Fix texture release error on closing editor -> check manual release of OgreMdlx and shared textures.
+
+2012-09-25 Tamino Dauth <tamino@cdauth.eu>
+* editor: Implement asynchronous loading and saving for resources with KDE IO API and callback functions which do not block the GUI and rendering.
+* editor: Fix BLP -> OGRE texture colors.
+* editor: Fix segmentation fault on removing all attached nodes and childs of a scene node.
+
+2012-09-18 Tamino Dauth <tamino@cdauth.eu>
+* editor: OgreMdlx: Use Ogre::Root as parameter instead of ModelView for all manager instances.
+
+2012-09-17 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: mdlx: Fix wrtiting MDX files - MdlxConv requires more bytes in node chunk of PRE2 in file "NightElf_Exp.mdx".
+* mdlx: Sometimes you must substract "mdxIdentifierSize" from "size" before using it as byte count (e. g. in chunks like MODL).
+* FIXED: mdlx: "Unknown tag EVTS in RibbonEmitter" for "AbsorbManaBirthMissile.mdx".
+* FIXED: mdlx: "Unknown tag "" in Attachment" for "AltarOfStorms.mdx".
+Block: KP2V9
+Error occured when converting file "war3x/Doodads/Cinematic/FootSwitch/FootSwitch.mdx": "Stream error.
+Exceptions "".
+RD state: "eoffail".".
+Skipping file.
+-------------------- file content seems to be corrupted - cannot read line type in animated properties!
+
+2012-09-16 Tamino Dauth <tamino@cdauth.eu>
+* mdlx: Rename EmissionRates to ParticleEmitter2EmissionRates.
+* mdlx: Rename Lengths to ParticleEmitter2Lengths.
+* mdlx: Rename ParticleEmitter2::numbers() to lengths().
+* mdlx: Fix writing MDL floating point numbers (read specification).
+* FIXED: mdlx: String properties and blocks must be written with empty quotes ("") - Alliance_Exp.mdl.
+* mdlx: Test converted models in Warcraft since War3ModelEditor seems to have some displaying errors (wine could be the reason).
+* blp: Test writing with scoped ptr and old pointer usage.
+
+2012-09-10 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: mdlx: Normals second value is wrong?
+* DONE: mdlx: VertexGroup values should be 8-Bit unsigned ints.
+
+2012-09-09 Tamino Dauth <tamino@cdauth.eu>
+* map: BasePosition should inherit wc3lib::BasicVertex and be renamed to "BasicPosition" (reason for existence are operators! Maybe we can use something from Boost math libs?).
+* FIXED: mdlx: Fix PivotPoint, ParticleEmitter2 and TextureAnimation errors on reading MDX files.
+* mdlx: "war3/UI/Console/Human/HumanUI-TimeIndicator.mdx" has incorrect number of pivot points stored. MdlxConv.exe appends 0|0|0 pivot points automatically and ignores invalid number of stored ones (12 Pivot points which means 144 bytes, file has 77 - checked with Okteta).
+* mdlx: Finish MDL writing support!
+
+2012-09-06 Tamino Dauth <tamino@cdauth.eu>
+* mdlx: BasicVertex writings and readings have to use BasicVertex's methods!!!
+* FIXED: mdlx: Ribbon emitters are not read correctly from MDX files.
+
+2012-08-29 Tamino Dauth <tamino@cdauth.eu>
+* editor: Plugin_BlpCodec has to be linked with pthread on Unix systems although it should be automatically linked with when being linked with wc3libblp (enabled transitive linking).
+* Modifying CMAKE_CXX_FLAGS does not work for cache (use property COMPILE_FLAGS?).
+* Crypto++ 5.6.1-r1 seems to have syntax errors (option ENCRYPTION requires).
+* MD5 functions on Windows and Mac without ENCRYPTION option - OpenSSL?
+* Various formatting stream errors with Clang and C++11.
+* Include "config.h" properly.
+* Test include statements for "config.h" on installation.
+
+2011-10-06 Tamino Dauth <tamino@cdauth.eu>
+* mpq: We fucking need an MD5 function which is available on all platforms (provided by Boost ...). At the moment we use OpenSSL's md5 implementation in mpq::Attributes, if encryption is disabled.
+* Crypto++ cannot be used with clang.
+* mdlx::GroupMdxBlockMember cannot be abstract with clang (because it's cloned whatever in boost::ptr_vector etc.).
+
+2012-04-16 Tamino Dauth <tamino@cdauth.eu>
+* editor/map: We need a map::TriggerData wrapper class with associative containers or do load pointers to Types etc. on loading map::Triggers.
+
+2012-04-01 Tamino Dauth <tamino@cdauth.eu>
+* mpq: New tests showed that extracting files is much slower in wc3lib than in StormLib, so improve performance!
+* mpq: Open an archive is quite expensive, especially when extracting only one single file, so don't load everything automatically?
+* mpq: Files like "war3mapMap.blp" from (4)WarChasers.w3m seem to have wrong compression types for sectors (old Bzip2 bug).
+
+2012-03-31 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: mpq: .wav files like "Units\Undead\HeroLich\HeroLichPissed7.wav" aren't decompressed properly.
+
+2012-03-28 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: mpq: Recent comparisions between wc3lib and StormLib showed that the file key is calculated wrongly in wc3lib for files using flags: "File, Uses Encryption Key, Encrypted, Compressed" like "font\font.ccd", for instance. Consider that "(listfile)" has the same flags and its key is equal to StormLib's one! Therefore compare offsets, sizes and crypt tables as well (everything used in Block::fileKey()). Unencrypted key is already wrong which means HashString() is implemented wrongly.
+
+2012-03-24 Tamino Dauth <tamino@cdauth.eu>
+* DEPRECATED: The last sector for files with sector offset tables seems to have wrong compression information (BZip2 compression but there is none) sometimes. Probably caused by a wrong offset of the LAST sector only! This happens to encrypted as well as non-encrypted files!
+
+2012-03-22 Tamino Dauth <tamino@cdauth.eu>
+* DEPRECATED: mpq: Encrypted files with sector table do have wrong offsets (wrong decryption)? File "font\font.ccd" has offset 2586448090. Check MpqFile::read()! StormLib uses the same offset decryption in AllocateSectorOffsets() in SBaseCommon.cpp.
+* mpq: StormLib only loads a offset table for compressed files not for imploded?
+* FIXED: mpq: Somewhere we use an empty path on file key calculation!
+
+2012-03-15 Tamino Dauth <tamino@cdauth.eu>
+* map: TriggerData needs Boost Pointer Containers (make sure reserving the space and not resizing which would lead to many allocated objects).
+
+2012-03-08 Tamino Dauth <tamino@cdauth.eu>
+* Use lib vars from "/usr/share/apps/cmake/modules/FindKDE4Internal.cmake".
+* editor: ModelEditor/OGRE crashes with mesa 8 and higher.
+* DONE: editor: Fix releasing removing resources on release.
+
+2012-02-24 Tamino Dauth <tamino@cdauth.eu>
+* Test mdlx revision and rendering.
+
+2012-02-20 Tamino Dauth <tamino@cdauth.eu>
+* blp: free_in_buffer value is larger than size!
+* blp: Custom buffer size value is not used.
+* editor: Fix layout of TextureEditor::SaveDialog.
+* editor: Add class TextureEditor::OpenDialog.
+
+2012-02-19 Tamino Dauth <tamino@cdauth.eu>
+* blp: Although jpeg_write_scanlines returns proper dimension value, size is not increased after writing header.
+* blp: Markers like 0xFF, 0xD8 aren't found in the header data of the first MIP map.
+* blp: Test if writing tables for first MIP map only works correctly.
+* blp: Why can we read only one scanline at once?
+* blp: Check shared_array/scoped_array bug.
+
+2012-02-18 Tamino Dauth <tamino@cdauth.eu>
+* Use boost pointer containers instead of shared pointers in STL containers (see blp)!
+
+2012-02-12 Tamino Dauth <tamino@cdauth.eu>
+* map: Fix modification value reading (too large values).
+
+2012-02-06 Tamino Dauth <tamino@cdauth.eu>
+* DONE: map: Fix non-zero ending value in custom units of map "War Chasers".
+
+2012-02-02 Tamino Dauth <tamino@cdauth.eu>
+* DONE: map: Fix "to" member functions of class Value (reference cast).
+
+2012-01-15 Tamino Dauth <tamino@cdauth.eu>
+* map: For all file formats where the number is known use std::vector which increases performance. If data should be extensible programs will have to map it in their own containers!
+
+2011-10-28 Tamino Dauth <tamino@cdauth.eu>
+* editor: All tree widgets should provide a filter widget based on KDE SCs implementation.
+
+2011-10-24 Tamino Dauth <tamino@cdauth.eu>
+* map: Add grammar parser for "UI/TriggerData.txt" file to class TriggerData based on boost::spirit::qi. This grammer should be more abstract usable for all .txt files (World Editor strings etc.). Search for config file examples on the Internet. It's the same format used by KDE and many other programs. If we would only use KDE's implementation we couldn't use it in map module only to read proper trigger parameter data.
+
+2011-10-23 Tamino Dauth <tamino@cdauth.eu>
+* mpq: Fix Bzip2 decompression for War Chasers map.
+
+2011-10-20 Tamino Dauth <tamino@cdauth.eu>
+* editor: Drop deprecated UI files.
+
+2011-10-19 Tamino Dauth <tamino@cdauth.eu>
+* editor: Support OGRE path selection for class Editor, ModelEditor and ModelView.
+* editor: Disable MIP map actions in texture editor if there is no MIP map.
+* editor: Disable edit color palette action in texture editor if there is no color palette.
+* editor: Whenever a new source is registered at MpqPriorityList existing resources should get a signal to be reloaded if there is a newer file in the new source and it has higher priority.
+
+2011-10-17 Tamino Dauth <tamino@cdauth.eu>
+* editor: Use KNS (KNewStuff) to make resources from web sites like hiveworkshop.com available in wc3editor.
+
+2011-10-13 Tamino Dauth <tamino@cdauth.eu>
+* editor: Finish plugin engine: Modules should be able to load custom plugins but Editor should be ablet to load plugins for all modules as well.
+
+2011-10-09 Tamino Dauth <tamino@cdauth.eu>
+* Isn't there any binary buffered stream like stringstream (only binary without any line endings exceptions).
+* Whenever you read data from an MPQ file you could use arraystream with using a buffer with the file's uncompressed size.
+* map: Fix Info::read() - version bug for W3m files.
+* map: Fix Strings::read() which should be able to ignore empty lines! Use boost::spirit!
+* Provide boost::spirit::qi grammars for MDL, WTS, FDF, SLK formats etc.
+* editor: Rename MpqPriorityList to class Sources.
+* DONE: editor: Create class SourcesDialog based on its corresponding UI.
+* editor: Create abstract class SourcesClient which provides hasEditor() and source() member functions for classes like Module, Resource or SourcesDialog.
+* editor: Split up all editor modules into sub directories and add corresponding CMake options.
+
+2011-10-08 Tamino Dauth <tamino@cdauth.eu>
+* Split up Warcraft III listfiles into: "Warcraft III Beta.txt", "Warcraft III: Reign of Chaos.txt", "Warcraft III: The Frozen Throne.txt", "Warcraft III: Reign of Chaos - Patch.txt", "Warcraft III: The Frozen Throne - Patch.txt", "Warcraft III: Reign of Chaos - Local.txt", "Warcraft III: The Frozen Throne - Local.txt", "Warcraft III: Reign of Chaos - Map.txt", "Warcraft III: The Frozen Throne - Map.txt" and "Warcraft III: The Frozen Throne - Campaign.txt".
+* app: When using -f option of application "mpq" we cannot specify several paths?
+* mpq: Fix sector table values (last table value is not equal to the original block size for many files).
+* mpq: BZh magic sequence is missing for many sectors (maybe all??).
+* mpq: Fix eoffail exceptions for interface sound files and std::bad_alloc exception.
+* HINT:!!!!!!!!!!!! Probably Bzip errors etc. occur because we're still using iarraystream? Writing into preallocated arraystreams doesn't work for classes such as map::Environment, too but at this point we're trying to read only!
+* map: W3m should not store its signature, too. However, you have to overload the signature calculation member functions of class mpq::Mpq and maybe create a new class based on mpq::Signature for weak digital signature (check out the documentation!).
+* FIXED: map: Fix read operation of Environment (expects more bytes).
+
+2011-10-07 Tamino Dauth <tamino@cdauth.eu>
+* Add CMake instructions to install syntax highlighting files correctly.
+* Fix unbuffered stream bug in mpq::Attributes::readData().
+* mpq::Listfile::entries() might use an unbuffered stream to since we could use mpq::Listfile::size() to get the file's uncompressed size.
+* Drop deprecated exception qualifiers (throw Exception ...).
+
+2011-10-06 Tamino Dauth <tamino@cdauth.eu>
+* mpq: Add function addSignature() and rename createListfileFile() to addListfile() and createAttributesFile() to addAttributes().
+* mpq: Improve encryption and decryption of both signature types.
+* mpq: Improve creation of archive SHA1 and MD5 checksums (step by step, using Crypto++).
+* mpq: Since we do know the exact size we could try to use something like boost::array to replace types Mpq::StrongDigitalSignature and Signature::WeakSignature (but keep memory on heap please).
+* DONE: mpq: Classes Listfile, Signature and Attributes should use their file name as parameter when calling MpqFile's constructor since it's known already!
+* mpq: Add new compression types support (based on StormLib) which probably requires some new library dependencies.
+
+2011-10-01 Tamino Dauth <tamino@cdauth.eu>
+* mpq: Consider refreshing extended attributes stored in class Attributes when modifying file data via MpqFile::writeData() etc. (deprecated? would decrease performance massively especially when considering for ALL sector changes, manual update woul be more appreciate).
+* DONE: mpq: Add classes Listfile and Signature for corresponding files (such as Attributes).
+* FIXED: mpq: Store signatures on heap/compare to map::W3m signature.
+* DEPRECATED: mpq: Use latest version of StormLib (with external libraries if possible! 7zip for lzma etc.).
+* mpq: Implement signing features (add keys of Blizzard).
+
+2011-09-27 Tamino Dauth <tamino@cdauth.eu>
+* DEPRECATED: Since new features have been added sector sizes are not correct anymore for files with sector tables which are read in MpqFile::read! Maybe it is the compressed block size which isn't exactly what it used to be (compared to old results).
+
+2011-09-26 Tamino Dauth <tamino@cdauth.eu>
+* Support Doxygen API generation for built modules only.
+* Maybe map and campaign related MIME types should use strong name patterns ("war3map*" file names).
+
+2011-09-22 Tamino Dauth <tamino@cdauth.eu>
+* FIXED (via optional sector storage, maybe applications like "mpq" should autodetect which is the best way to handle files): mpq: Allocating sector instances for each file consumes too much memory for files like war3x.mpq (maybe support allocating on request and discarding etc.).
+
+2011-09-21 Tamino Dauth <tamino@cdauth.eu>
+* Add specific exception classes such as boost::iostreams::zlib_error.
+* FIXED: mpq: Fix huffman decompression error 1 (file "abilities\Spells\Human\AerialShackles\MagicLariatLoop1.wav").
+* FIXED: mpq: Fix huffman decompression segmentation fault (file "abilities\Spells\Human\Banish\BanishCaster.wav").
+
+2011-09-19 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: mpq: (listfile) has imploded sectors although it's an unimploded file. When uncompressing those sectors (as for imploeded files) data seems to be cut. Therefore it must be another compression method. Use another working MPQ API/editor to reproduce (listfile)'s proper sector data.
+
+2011-09-15 Tamino Dauth <tamino@cdauth.eu>
+* app: Revise "wc3converter" completely please: BLP to BLP, MPQ to MPQ, MDX to MDL, W3M to W3X to W3N and add support for various format specific options (and support file magic number and extension detection please).
+* app: Application "editor" should load it corresponding wc3editor.mo file!
+
+2011-09-14 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: mpq: Fix file stream output (only first word is correct).
+
+2011-09-06 Tamino Dauth <tamino@cdauth.eu>
+* blp: If there is no MIP map data in JPEG compressed BLP segmentation fault occurs (probably because of JPEG error handler). Exception should be thrown instead!
+* blp: Variable size after marker is too big (e. g. marker 0xC4)!
+
+2011-09-01 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: editor: Fix missing include paths for modules.
+
+2011-08-22 Tamino Dauth <tamino@cdauth.eu>
+* blp: Fix writing of JPEG headers for other MIP maps which seem to have the size of the first (largest) one.
+
+2011-08-21 Tamino Dauth <tamino@cdauth.eu>
+* editor: Implement MIP map loading for class BlpCodec.
+* FIXED: Using stringstream as buffer doesn't work as expected. Remove where possible and replace them by generic stream class of boost (check MPQ format, sector bug, using string streams)!!!
+
+2011-08-18 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: editor: Segmentation fault in class MetaData when loading file after creation for class UnitEditor.
+
+2011-08-17 Tamino Dauth <tamino@cdauth.eu>
+* editor: Model view widget doesn't seem to be resized when model editor is.
+* editor: Closing all models fails.
+
+2011-08-15 Tamino Dauth <tamino@cdauth.eu>
+* mpq: Fix sector data decompression (offsets should be all correct, already considered proper data decryption etc.).
+
+2011-08-11 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: mpq: Read sector offset table and decrypt it when searching for corresponding hash entry and updating file path!
+
+2011-08-08 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: mpq: Fix sector number and offset calculation and consider invalid compression etc.
+
+2011-08-06 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: mpq: Wrong sectors number because of new sector indices which are not set early enough.
+
+2011-08-19 Tamino Dauth <tamino@cdauth.eu>
+* blp: Fix writing (test via editor::Texture).
+
+2011-08-05 Tamino Dauth <tamino@cdauth.eu>
+* DEPRECATED: mpq: ZLib and BZip2 decompression data is corrupted since (listfile)-
+war3x.mpq.
+
+2011-07-28 Tamino Dauth <tamino@cdauth.eu>
+* editor/mpq: Add file seeking and writing support for class editor::KArchive and mpq::MpqFile.
+
+2011-07-23 Tamino Dauth <tamino@cdauth.eu>
+* editor: Support quality reading in class BlpIOHandler.
+* editor: Support MIP map reading and writing in class BlpCodec if possible.
+
+2011-07-06 Tamino Dauth <tamino@cdauth.eu>
+* editor: All resource and module classes should able to be created without editor (only MpqPriorityList).
+
+2011-07-03 Tamino Dauth <tamino@cdauth.eu>
+* editor: Improve class MpqProtocol that MPQ archives can be read and written like tar files, for instance.
+* editor: Class MpqPriorityList should resolve URLs properly and download and upload it via usual KIO::NetAccess::download and KIO::NetAccess::upload functions which have to support the "mpq" protocol which mentioned above.
+
+2011-06-29 Tamino Dauth <tamino@cdauth.eu>
+* editor: OGRE version 1.7.3 seems to have bugs since there is a new segmentation fault when updating render window which doesn't occur with 1.7.2.
+
+2011-06-28 Tamino Dauth <tamino@cdauth.eu>
+* blp: MIP maps are too large:
+Unable to read BLP image from file "/home/tamino/Dokumente/Projekte/Informatik/C++/wc3sdk/wc3lib/test/Textures/gutz.blp".
+Exception: "Error when allocating MIP map buffer of MIP map 0 with size 3042641480: "std::bad_alloc".".
+
+2011-06-25 Tamino Dauth <tamino@cdauth.eu>
+* blp: File "Besteck.blp" doesn't work (first MIP map seems to have a too large number).
+
+2011-06-05 Tamino Dauth <tamino@cdauth.eu>
+* DONE: editor: Install BlpCodec like BlpIOPlugin for OGRE as plugin that it can be used without using wc3lib.
+* DONE: editor: Get latest stable OGRE version and compile it in "lib/external/OGRE ...".
+
+2011-06-04 Tamino Dauth <tamino@cdauth.eu>
+* app: boost::program_options parser throws an exception when parsing file path with escaped white-spaces (from Bash) in program "mpq".
+
+2011-05-29 Tamino Dauth <tamino@cdauth.eu>
+* mdlx: Rename class MdxBlock to MdlxChunk.
+* mdlx: Rename class GroupdMdxBlock to MdlxGroupChunk.
+* mdlx: Rename class GroupMdxBlockMember to MdlxGroupChunkMember.
+* mdlx: Drop classes MdlBlock (replaced by MdlxChunk) and MdlValueBlock (replaced by corresponding MdlxGroupChunkMember classes).
+
+2011-05-25 Tamino Dauth <tamino@cdauth.eu>
+* DONE: mpq: Use boost::unordered_map to store hash maps of MPQ files and to increase performance of findFile massively!
+
+2011-05-05 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: editor: OgreMdlx::setTeamColor -> berücksichtigt lokale Texturen nicht!!!!!!!!!!! Transparenzfehler beheben, Skorpion, Burgtor.
+
+2011-05-03 Tamino Dauth <tamino@cdauth.eu>
+* editor: Create entities of OgreMdlx instances (http://www.ogre3d.org/tikiwiki/ManualObject).
+
+2011-04-27 Tamino Dauth <tamino@cdauth.eu>
+* editor: Fix memory access violation bug when editor is closed (some resource is deleted which had already been).
+
+2011-04-26 Tamino Dauth <tamino@cdauth.eu>
+* map: Add all meta data classes deriving from class MetaData.
+* map: Add all data class deriving from class Data.
+
+2011-04-18 Tamino Dauth <tamino@cdauth.eu>
+* DONE: core: Class format needs Boost serialization properties, general version number with data type of Warcraft 3 (uint32_t) for classes like map::Environment -> virtual member function.
+* DONE: mpq: Classes have to derive from Format.
+
+2011-04-12 Tamino Dauth <tamino@cdauth.eu>
+* DONE: editor: OgreMdlx -> write output of all vertices, normals and faces as they're written in MDL format to compare if everything is equal/correct.
+* slk: Drop this module since it's an format by Microsoft (well-known).
+* map: Add primitive data classes for abilities, splat data, unit data etc. which can be filled by reading SLK files etc. All of them should inherit some base class since they all do have an unique id. Class list: map::WeatherEffect, map::Unit, map::Ability, map::Buff.
+* editor: We need a new extern SLK library to load all map data types objects.
+* editor: Finish class MpqArchive which inherits from KArchive. It has to be usable with some kind of file browser. Add custom dialog (entries/buttons) for file properties.
+* mpq (high complexity): Add abstract class Job for all file, hash and block entry related operations which can be queued and run by the "sync" member function of class mpq::Mpq.
+* mpq: All classes need mutices (mutex) which have to be locked by their corresponding instance if instance is being changed. Operation queue should consider these mutices and discard impossible operations (e. g. file has to be renamed but has already been deleted before)!
+
+2011-04-07 Tamino Dauth <tamino@cdauth.eu>
+* Project work related stuff (school): Fix camera view of Model Editor, fix texture resource path (replace \ character by / on Unix systems -> should happen automatically when using QUrl or KUrl?!), fix texture wrapping on model, implement camera rotation around selected point (not only origin - (0|0|0)), implement MDX writing for all required types, try MDL reading!!!
+
+2011-03-27 Tamino Dauth <tamino@cdauth.eu>
+* editor: Add class TextureView similar to ModelView with actions of texture editor using KPart gwenview as widget (only allows you to view one specific texture) which besides stores corresponding BLP information and MIP maps.
+* editor: Class TextureView should store BLP object if file is BLP to show single MIP maps.
+* mdlx: MdlxProperty has to be inherited as second class!!! (multiple inheritance issue)
+
+2011-03-26 Tamino Dauth <tamio@cdauth.eu>
+* Use boost::polymorphic_downcast (static - compile time) or boost::polymorphic_cast (runtime) instead of dynamic_cast on pointers (dynamic_cast only returns 0 and doesn't throw any exception)!
+* Multiple inheritance leads to different pointers (segmentation faults).
+* mdlx: Fix camera reading (camera translations).
+
+2011-03-25 Tamino Dauth <tamio@cdauth.eu>
+* FIXED: mdlx: Converting Texture::textures() into GroupMdxBlock& leads to segmentation fault.
+
+2011-02-20 Tamino Dauth <tamio@cdauth.eu>
+* mdlx: Add class MdlxAnimateableProperty (which holds MdlxAnimatedProperty and or its static value by pointer and has boolean element function isStatic).
+* DEPRECATED: mdlx: Rename class GroupMdxBlock to MdlxGroup (add MDL support).
+* DEPRECATED: mdlx: Rename class GroupMdxBlockMember to MdlxGroupMember (add MDL support).
+* mdlx: Support static members of specification as animateable values (inherit from MdlxAnimateableProperty).
+Technically every variable prefixed by "static" should be possible to animate.
+However, for every instance where a static variable is not denoted animateable
+by parenthesis, it is because there is no example in any Blizzard MDL.
+
+2011-02-20 Tamino Dauth <tamino@cdauth.eu>
+* mdlx: Finish revision.
+
+2011-02-14 Tamino Dauth <tamino@cdauth.eu>
+* blp: Fix JFIF colors (maybe because of wrong header data -> color type?).
+
+2011-02-04 Tamino Dauth <tamino@cdauth.eu>
+* map: Classes Campaign and W3M have to derive from class Playable.
+* map: All file-based classes should get virtual element functions called fileName and latestFileVersion.
+* map: Class W3M needs virtual protected element function which creates all elements such as map information etc. (for overwriting).
+* mdlx: see above, needs it as well.
+
+2011-01-26 Tamino Dauth <tamino@cdauth.eu>
+* slk: Add derived classes such as SlkDestructibleMetaDataColumn (derived from SlkColumn).
+
+2011-01-08 Tamino Dauth <tamino@cdauth.eu>
+* SFmpqapi: Fix broken Linux support (warning: "__declspec" redefined and char* strdup(const char*)’ throws different exceptions).
+* SFmpqapi: Add support for static compilation (there are already some source and header files especially for static libraries).
+
+2010-12-25 Tamino Dauth <tamino@cdauth.eu>
+* editor: Implement settings element function of all modules classes.
+
+2010-12-26 Tamino Dauth <tamino@cdauth.eu>
+* editor: Use KConfig XT for configuration of everything.
+* editor: Add wc3lib library target which is a big compilation of sub libraries.
+* DONE: editor: moc files has to be included by the cpp files (as in the KDE source files).
+
+2010-12-12 Tamino Dauth <tamino@cdauth.eu>
+* editor: Implement the new settings classes and add class SettingsWidget which allows you to configure everything required.
+
+2010-12-06 Tamino Dauth <tamino@cdauth.eu>
+* editor: Improve settings widget and functionality of ModelView (allows user to configure OGRE renderer).
+
+2010-12-04 Tamino Dauth <tamino@cdauth.eu>
+* editor: MDLX should be allocated on heap (class OgreMdlx)?
+* editor: Improve camera movement and rotation.
+* editor: Test drag & drop functionality of model editor.
+* editor: Fix automoc and uic functionality of CMake (again -.-).
+
+2010-12-03 Tamino Dauth <tamino@cdauth.eu>
+* DONE: editor: Add "editor/resource.hpp" to SVN repository.
+
+2010-12-02 Tamino Dauth <tamino@cdauth.eu>
+* editor: Improve performance of class MpqPriorityList (maybe use map, sorted by priority).
+* DONE: editor: Fix crash in function blpToOgre.
+* FIXED: editor: blpToOgre -> PNG files can not be loaded.
+* DONE: lang: Add CMakeLists.txt files in "lang/zinc" and "lang/jasspp" to SVN repository.
+* DONE: lang: Add "lang/driver.hpp" and "lang/driver.cpp" to SVN repository.
+
+2010-11-21 Tamino Dauth <tamino@cdauth.eu>
+* editor: Write web log article about the design of editor (Module classes, MpqPriorityList etc.).
+* editor: Fix MpqPriorityList::findFile.
+
+2010-11-07 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: editor: Improve layout creation of class Module. All other widgets should be contained by a sub layout.
+
+2010-10-13 Tamino Dauth <tamino@cdauth.eu>
+* editor: Fix module widget tool bar and menu bar creation.
+
+2010-10-12 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: blp: colors are stored as ARGB (paletted compression)?
+
+2010-10-03 Tamino Dauth <tamino@cdauth.eu>
+* DONE: mdlx: PrimitiveVertices -> GroupMdxBlock.
+
+2010-09-25 Tamino Dauth <tamino@cdauth.eu>
+* DEPRECATED: editor: http://www.ogre3d.org/mantis/view.php?id=349
+
+2010-09-18 Tamino Dauth <tamino@cdauth.eu>
+* mdlx: Use new byte count output stream functions.
+
+2010-09-17 Tamino Dauth <tamino@cdauth.eu>
+* mdlx: According to Mago's specification class Bone should derive Node not Object.
+* DEPRECATED: mdlx: Add function writeBytes which places nbytes or nbytesi and jumps back to end of stream.
+* mdlx: Check out value Multiple for GeosetId.
+
+2010-09-15 Tamino Dauth <tamino@cdauth.eu>
+* DONE: mdlx: PrimitiveSizes and GroupVertices need to derive GroupMdxBlock.
+* mdlx: Class TexturePatch is deprecated because texture patches aren't really stored (number only).
+* mdlx: Something is read wrongly -> node id 0 should be used by strange node (probably bone Archa.mdx).
+* mdlx: According to Mago's specification class Helper should derive Node not Object.
+
+2010-09-14 Tamino Dauth <tamino@cdauth.eu>
+* map: Use types string and char8Array.
+
+2010-09-13 Tamino Dauth <tamino@cdauth.eu>
+* app: Use Boost program options instead of get_opt.
+* mdlx: Use Boost quaternion library.
+
+2010-09-07 Tamino Dauth <tamino@cdauth.eu>
+* mdlx: Rename class MdxAlpha to MdlxAplha and rename class MdxAlphas to MdlxAlphas.
+* DONE: mdlx: There are more object types which do not inherit all Object properties (e. g. no type -> RibbonEmitters, Attachment). Add more abstract class Node which is derived by Object and those types for better object id storing in class Mdlx.
+* mdlx: Since you can specifiy exact write and read length of strings now, we should use type std::string for names and not ascii[0x60] -> maybe something like limited string (texture pathes are [0x100]).
+* FIXED: mdlx: Class Geoset reads too little bytes, something is missing (missing 4 bytes if byte count is including).
+
+2010-09-04 Tamino Dauth <tamino@cdauth.eu>
+* DONE: mdlx: Rename class Rotation0s to MdlxRotations, rename class Translation1s to MdlxTranslations, rename class Scaling0s to MdlxScalings and implement corresponding Mdlx functions.
+* DONE: mdlx: Add global enum LineType.
+* mdlx: Add class MdlxTransforms which is derived from MdlxRotations, MdlxTranslations and MdlxScalings.
+* mdlx: OgreMdlx: Implement curve modifiers.
+* mdlx: Use struct VertexData to store vertices.
+* mdlx: OgreMdlx needs splitted up methods since sometimes you only want to refresh single nodes etc.
+* mdlx: Add generic interpolation functions (http://www.wc3c.net/showthread.php?t=79038).
+* editor: BLP images aren't displayed correctly in QPixmap (of QLabel instance) although they're read without any troubles.
+* DONE: mdlx: All Object deriving classes have to register theirself on Mdlx by using Mdlx::addObject!
+
+2010-09-03 Tamino Dauth <tamino@cdauth.eu>
+* mdlx: Class OgreMdlx should be moved to editor module.
+* OgreMdlx: Should read a constant Mdlx pointer and implement its creation, storing and refreshment.
+* ModelView: Should maintain an OGRE window instance which contains scenes etc. and also entities from OgreMdlx instances.
+* Editor: Is a main window class which provides World Editor clone.
+* editor: Trigger editor cannot be displayed (maybe just impossible at the same time as model editor).
+
+2010-09-01 Tamino Dauth <tamino@cdauth.eu>
+* editor: Drop class Renderer.
+
+2010-08-27 Tamino Dauth <tamino@cdauth.eu>
+* DEPRECATED: qogre: Requires OGRE 1.4, 1.6 hasn't key event classes anymore.
+
+2010-08-26 Tamino Dauth <tamino@cdauth.eu>
+* DONE: map: Fix trigger classes and add trigger class for expansion (TFT).
+* map: Map classes need static members version and fileName.
+
+2010-07-25 Tamino Dauth <tamino@cdauth.eu>
+* Blp: Second mip map gets an error in header although header must be equal for every mip map.
+
+2010-07-08 Tamino Dauth <tamino@cdauth.eu>
+* Use class boost::noncopyable from "<boost/utilities.hpp>" for non-copyable classes.
+
+2010-07-05 Tamino Dauth <tamino@cdauth.eu>
+* Add Bison++ and Flex++ example as library.
+* Improve lang module.
+
+2010-06-05 Tamino Dauth <tamino@cdauth.eu>
+* Finding Qt and KDE packages seems to add unnecessary compile flags which prevent huffman from being compiled correctly.
+
+2010-06-04 Tamino Dauth <tamino@cdauth.eu>
+* Fix long compile flags variable.
+* Fix huffman syntax error (maybe GCC bug, fixed in version 4.6 http://gcc.gnu.org/bugzilla/show_bug.cgi?id=4784).
+
+2010-06-01 Tamino Dauth <tamino@cdauth.eu>
+* Use BOOST_SCOPED_ENUM_START/namespace for enums.
+
+2010-05-29 Tamino Dauth <tamino@cdauth.eu>
+* mdl read and write methods should also return streamsize.
+
+2010-05-28 Tamino Dauth <tamino@cdauth.eu>
+* Mdlx readMdx and writeMdx implementations should have return type std::streamsize.
+* Mdlx writeMdx should be const.
+
+2010-05-11 Tamino Dauth <tamino@cdauth.eu>
+* Implement classes Brush (abstract), TerrainBrush, DoodadBrush, UnitBrush, RectBrush, CameraBrush and RegionBrush at namespace editor.
+
+2010-05-06 Tamino Dauth <tamino@cdauth.eu>
+* Instead of fixing zlib stream error we should rewrite the function that it can be used with memory.
+
+2010-05-02 Tamino Dauth <tamino@cdauth.eu>
+* Make BLP Qt Plugin installable.
+* DONE: Rename editor::SubEditor to editor::Module.
+* World editor should get his strings from file WorldEditStrings.txt (not gettext).
+* Trigger editor should be able to read files TriggerData.txt and TriggerStrings.txt.
+* If Warcraft 3 is able to read various TriggerData files trigger editor should support defining custom actions/events/trigger calls/types.
+* Import module should allow user to import folders.
+* Preview selected map loading screen in editor.
+* Rects should be copiable like cameras.
+* Center of rects should be choosable.
+* Add region layer which contains regions (select added rects, cells). Region file should be called war3map.w3g.
+* Unit layer should provide text view (list items like rects, searchable).
+* Add entry "Apply pathing" to terrain layer.
+* Selection should allow selecting various object types together (units and doodads etc.) add selection filter options like Select: [] units, [] rects etc.
+* Add view menu entry "Pathing - Air".
+* Map size and camera size should be choosable by setting numbers.
+* Advanced - Replace etc. functions should work on chosen rects/regions only.
+* Object manager misses imported data stats (add regions, too).
+* Note that there can be several palettes!
+* Add Button to insert object type data in object editor's string entries (<Id,DataA1>).
+* Add button doodad and unit layer: Select in object editor.
+* Add object editor tabs for customizing lightnings, sounds, textures, models etc..
+* Add object editor file menu entries for merging object data.
+* Add map file entries for exporting/importing placed rects, placed cameras, placed units, placed doodads, terrain and path map (maybe add to palettes).
+* DEPRECATED?: Add map file entry "Import script".
+* Remove widget brush list.
+* Model preview widget should allow using mouse control for changing view.
+* Widgets model preview and mini map preview should become movable widgets.
+* Terrain brush height and width should be choosable by setting their exact values.
+* Preview game screen of campaign in model preview widget if selected.
+* Preview cursor textur of campaign.
+* Make selected campaign sound playable.
+* Note that you'll have to write custom classes for various object editor menu actions since they do differ (campaign and map object editors, import editor, too).
+* Doodad brush should be choosable for placing units/items, too (also random facing).
+* Add disable option for animating placed objects.
+* Add direct test mode to editor (TOO MUCH WORK).
+
+2010-04-30 Tamino Dauth <tamino@cdauth.eu>
+* If boost zlib, huffman and bzip2 are usable, maybe we should replace old algorithm implementations.
+* Add KIO protocols mpq, mdl, mdx, blp and slk to editor library.
+
+2010-04-25 Tamino Dauth <tamino@cdauth.eu>
+* Only files with block flags 80030200 do have invalid offset table values (What does 0x00030000 mean?).
+* Listfile of archive War3x.mpq has sector with compression mask 0x43 (What does 0x03 mean?).
+* Fix zlib stream error.
+
+2010-04-24 Tamino Dauth <tamino@cdauth.eu>
+* Add compile flags for various Blizzard formats?
+* Add different locale files for applications.
+* Files which have blocks with flags IsFile and IsCompressed do not contain sector tables since all of them do have an invalid offset?
+
+2010-04-20 Tamino Dauth <tamino@cdauth.eu>
+* DONE: Use first int32 sector offset to get sector table length!!!
+
+2010-04-15 Tamino Dauth <tamino@cdauth.eu>
+* TEST: In der War3x.mpq-Datei kommen nur komprimierte und nicht komprimierte Blöcke vor (keine SingleUnits usw.).
+* TEST: Die Datei "(listfile)" der Datei War3x.mpq hat folgende Blockflags: IsFile, IsCompressed und 0x30000 (unbekannt?).
+* Imploded compression can be used on compressed sectors of non-imploded files?
+* Fix sector table reading!
+* Make some speed tests (wc3lib vs. StormLib vs. SFMPQ).
+* Add MPQ user data support (http://www.zezula.net/en/mpq/mpqformat.html).
+
+2010-04-10 Tamino Dauth <tamino@cdauth.eu>
+* Implement zlib decompression.
+* FIXED: Block::IsFile is not set for any block (wrong read position or flag value).
+
+2010-04-04 Tamino Dauth <tamino@cdauth.eu>
+* If removeFile is called with an instance of an MPQ file of the method's corresponding MPQ archive, it should be removed directly instead of searching it again.
+* Check always the corresponding MPQ archive and throw exceptions if it's the same (e. g. if you want to add an MPQ file at twice).
+
+2010-04-01 Tamino Dauth <tamino@cdauth.eu>
+* Note that there can't be as many blocks in MPQ archives as int32 allows since last two numbers are reserved for empty and deleted blocks.
+* Maybe we should drop block list and do only use map (since hash entries do use block indices)?
+
+2010-03-29 Tamino Dauth <tamino@cdauth.eu>
+* Add program man pages.
+* Fix hash type for "(hash table)" and "(block table)" keys.
+
+2010-03-25 Tamino Dauth <tamino@cdauth.eu>
+* Some int8 (locales of hash entries and sectorSizeShift of MPQ header) values of the MPQ specification are defined as int16 values in StormLib and libmpq.
+* Block index values of hash instances aren't correct (wrong decryption of hash table?).
+
+2010-03-20 Tamino Dauth <tamino@cdauth.eu>
+* Add MPQ file direct read- and writing capability.
+
+2010-03-12 Tamino Dauth <tamino@cdauth.eu>
+* Camera seems to be documentated wrongly (ordering of translations and rotation lengths).
+
+2010-02-27 Tamino Dauth <tamino@cdauth.eu>
+* DONE: Use <boost/cstdint.hpp> instead of <stdint.h> since the second one is C99.
+
+2010-02-15 Tamino Dauth <tamino@cdauth.eu>
+* Revise classes map::Environment and map::Tilepoint (add class Tileset for tileset ids).
+
+2010-01-28 Tamino Dauth <tamino@cdauth.eu>
+* Add custom cmake modules for finding packages OGRE and openjpeg/jpeglib.
+* Add man page.
+* Write latex specification of Jass++
+* Improve compiler suggestion of Jass++.
+* Write latex specification of SimpleJass.
+
+2010-01-23 Tamino Dauth <tamino@cdauth.eu>
+* New application tilesetter should allow user to modify tile data by changing data of each tilepoint of an user-defined w3e file.
+	The tool is required since "Die Macht des Feuers" needs it for its first map (which has some corrupted tileset data).
+	Command list:
+		* open
+		* close
+		* save
+		* show <all|header|tilepoints| ...>
+		* set <version|maintileset|customized|goundtilesetids|clifftilesetids|maxx|maxy|centeroffsetx|centeroffsety|waterlevel|flags|groundtexturetype|texturedetails|clifftexturetype|layerheight>
+
+2010-01-22 Tamino Dauth <tamino@cdauth.eu>
+* Compression mode should be choosable for newly created MpqFile instances!
+* File block and hash data should be written into MPQ archive file when it's modified.
+* Check out if it's possible to add new blocks and hashes to an MPQ archive (or fixed number). MPQ Editor says that hash table size is the maximum of files which can be added and it's fixed!
+
+2010-01-15 Tamino Dauth <tamino@cdauth.eu>
+* Apparently the StormLib loads the whole block and hash table into system memory .
+* Decrypt the whole block table at once?!
+
+2010-01-14 Tamino Dauth <tamino@cdauth.eu>
+* DONE: Use std::streamsize (in case of need by conversion) for all byte returns of read methods.
+
+2010-01-11 Tamino Dauth <tamino@cdauth.eu>
+* DONE: Write methods should be const.
+* FIXED: Enable Boost threading exception handling (-fexceptions).
+* Separate class instances in converter application.
+
+2010-01-06 Tamino Dauth <tamino@cdauth.eu>
+* Improve warblend python scripts (add light support, ambient values?).
+* Each MDLX object which can have a parent object is able to define its own customized translation, rotation and scaling (see MDL format specification), otherwise it will be inherited???
+* Editor should get path brush tool like W3ZMapEdit has.
+* Editor terrain (tile point) editor should be much more advanced than in normal WE (flags and layer should be choosable).
+
+2009-12-05 Tamino Dauth <tamino@cdauth.eu>
+* Blp ignores 0 bytes but writes (paletted, alphas) exactly the same byte number.
+
+2009-11-29 Tamino Dauth <tamino@cdauth.eu>
+* Wc3C.net quote "the jpeg-blps are using IJL_OTHER color space".
+* Add language files for FDF, SLK, MDL and various .txt UI files.
+
+2009-11-25 Tamino Dauth <tamino@cdauth.eu>
+* DONE: Maybe rename Blp::Uncompressed to Blp::PalettedCompressed.
+* DONE: Add constant member Blp::maxCompressedPaletteSize.
+* Too much mip map data is read (end of file)?
+
+2009-11-23 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: BLP2 uses another specification or BaerWeiss.blp is BlpUncompressed2, fix BlpUncompressed1 and BlpUncompressed2 diffences recognition.
+
+2009-11-17 Tamino Dauth <tamino@cdauth.eu>
+* DEPRECATED (since they're using file paths): Use Boost libraries image classes to read and write images with the BLP library.
+* Allow JPEG compression option.
+
+2009-11-15 Tamino Dauth <tamino@cdauth.eu>
+* Fix particle emitter 2's translation 1 reading, missing rotation tag for following rotations.
+
+2009-11-14 Tamino Dauth <tamino@cdauth.eu>
+* Class Blp should read JPEG mip maps by using Open JPEG.
+
+2009-11-13 Tamino Dauth <tamino@cdauth.eu>
+* Add class for MdxBlocks with nbytes followed by struct lists (like GroupMdxBlock).
+
+2009-11-11 Tamino Dauth <tamino@cdauth.eu>
+* Class Blp should always use format of BlpUncompressed1 and convert other formats when readed and written.
+* Add Qt or KDE BLP image class.
+
+2009-11-08 Tamino Dauth <tamino@cdauth.eu>
+* Fix Ogre search in cmake files.
+* DONE: How to use compile flags with make files?
+
+2009-11-03 Tamino Dauth <tamino@cdauth.eu>
+* Missing layer alphas.
+* Add editor GUI widgets.
+
+2009-11-01 Tamino Dauth <tamino@cdauth.eu>
+* DONE: MPQ files should be readed and create MpqFile instances for each file or use the native types of specification?
+* Required compile flags: BLEND (supports Blender file conversion), DEBUG (cmake debug mode)
+
+2009-10-28 Tamino Dauth <tamino@cdauth.eu>
+* Use new classes GroupMdxBlock and GroupMdxBlockMember.
+* Add new abstract classes for MDX blocks.
+* Add exists checks to MDX write methods.
+
+2009-10-15 Tamino Dauth <tamino@cdauth.eu>
+* Check out which sub MDX tags (tags in tags) aren't optional.
+
+2009-10-13 Tamino Dauth <tamino@cdauth.eu>
+* Fix MDX property validation (+n means n or bigger than n, I think).
+
+2009-10-09 Tamino Dauth <tamino@cdauth.eu>
+* FIXED: Use BLP header mip map offsets and sizes.
+* Note that there is unused space between header and JPEG mip map data which probably can be removed.
+* Read something about JPEG format implementation since BLP specification does not explain this.
+
+2009-10-08 Tamino Dauth <tamino@cdauth.eu>
+* BLP file reading (JPEG compression) does still not work.
+
+2009-10-07 Tamino Dauth <tamino@cdauth.eu>
+* DONE: Use std::fstream::read for binary files.
+
+2009-10-05 Tamino Dauth <tamino@cdauth.eu>
+* Boost tokenizer does not get { tokens?
+
+2009-10-02 Tamino Dauth <tamino@cdauth.eu>
+* MDLX classes should get their corresponding list classes as start member (class Alpha needs class Alphas instead of class Mdlx).
+* Little and big endian ....
+
+2009-09-26 Tamino Dauth <tamino@cdauth.eu>
+* Editor needs model and mpq editor.

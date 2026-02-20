@@ -1,4 +1,4 @@
-name: test
+name: "Testing"
 on:
   pull_request:
   release:

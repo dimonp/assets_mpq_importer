@@ -13,7 +13,7 @@ RUN id ubuntu && userdel -r ubuntu || true \
     && groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
     && apt-get update \
-    && apt-get install -y sudo > /dev/null 2>&1 \
+    && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
@@ -86,15 +86,17 @@ ENV PATH="/home/${USERNAME}/.local/bin:$PATH"
 ENV CMAKE_PROJECT_TOP_LEVEL_INCLUDES=./conan_provider.cmake
 USER $USERNAME
 
-RUN git clone https://github.com/microsoft/vcpkg.git /home/${USERNAME}/vcpkg \
-    && /home/$USERNAME/vcpkg/bootstrap-vcpkg.sh -disableMetrics
-
-ENV VCPKG_ROOT=/home/${USERNAME}/vcpkg
-ENV PATH="${PATH}:${VCPKG_ROOT}"
-ENV CMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-
 # Allow the user to set compiler defaults
 ARG USE_CLANG
+RUN pipx install conan \
+    &&  if [ "$USE_CLANG" == "false" ] || [ -z "$USE_CLANG" ]; then \
+            CC=gcc CXX=g++ conan profile detect --name gcc_profile; \
+            CC=clang CXX=clang++ conan profile detect; \
+        else \
+            CC=gcc CXX=g++ conan profile detect; \
+            CC=clang CXX=clang++ conan profile detect --name clang_profile; \
+        fi
+
 # if --build-arg USE_CLANG=1, set CC to 'clang' or set to null otherwise.
 ENV CC=${USE_CLANG:+"clang"}
 ENV CXX=${USE_CLANG:+"clang++"}

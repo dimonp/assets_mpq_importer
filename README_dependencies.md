@@ -1,7 +1,7 @@
 ## Dependencies
 
 Note about install commands:
-- Use [vcpkg](https://vcpkg.io).
+- Use [Conan2](https://conan.io/) package manager.
 
 
 ### Too Long, Didn't Install
@@ -11,23 +11,23 @@ This is a really long list of dependencies, and it's easy to mess up. That's why
 #### Docker
 We have a Docker image that's already set up for you. See the [Docker instructions](./README_docker.md).
 
-#### Setup-cpp
+#### Conan2
 
-We have [setup-cpp](https://github.com/aminya/setup-cpp) that is a cross-platform tool to install all the compilers and dependencies on the system.
+We use Conan2 to manage all dependencies automatically.
 
-Please check [the setup-cpp documentation](https://github.com/aminya/setup-cpp) for more information.
+Please check [the Conan documentation](https://docs.conan.io/) for more information.
 
-For example, on Windows, you can run the following to install llvm, cmake, ninja, ccache, and cppcheck.
-```ps1
-# windows example (open shell as admin)
-curl -LJO "https://github.com/aminya/setup-cpp/releases/download/v0.5.7/setup_cpp_windows.exe"
-./setup_cpp_windows --compiler llvm --cmake true --ninja true --ccache true --cppcheck true
-
-RefreshEnv.cmd # reload the environment
+To install all dependencies, simply run:
+```bash
+conan install . -pr default --build=missing
 ```
 
+This will automatically download and build all required dependencies.
+
+
+
 ### Necessary Dependencies
-1. A C++ compiler that supports C++23.
+1. A C++ compiler that supports C++23. Conan will automatically install all required library dependencies.
 See [cppreference.com](https://en.cppreference.com/w/cpp/compiler_support)
 to see which features are supported by each compiler.
 The following compilers should work:

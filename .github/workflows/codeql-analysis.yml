@@ -44,10 +44,7 @@ jobs:
           - ON
 
     env:
-      VCPKG_ROOT: $HOME/vcpkg
-      VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/.vcpkg
-      VCPKG_BINARY_SOURCES: clear;files,${{ github.workspace }}/.vcpkg,readwrite
-      VCPKG_MAX_CONCURRENCY: 1
+      CONAN_HOME: ${{ github.workspace }}/.conan2
 
     steps:
     - uses: actions/checkout@v6
@@ -72,7 +69,7 @@ jobs:
         vcvarsall: ${{ contains(matrix.os, 'windows' )}}
         cmake: true
         ninja: true
-        vcpkg: true
+        conan: true
         ccache: true
         clangtidy: false
         cppcheck: false
@@ -85,7 +82,7 @@ jobs:
       run: >
         cmake -S . -B "./out/build/${{ matrix.build_type }}"
         -G "${{ matrix.generator }}"
-        -DCMAKE_TOOLCHAIN_FILE="${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake"
+        -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=./cmake/conan_provider.cmake
         -D${{ env.PROJECT_NAME }}_PACKAGING_MAINTAINER_MODE:BOOL=${{ matrix.packaging_maintainer_mode }}
         -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' }}
 

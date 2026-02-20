@@ -90,7 +90,7 @@ To configure the project, you could use `cmake`, or `ccmake` or `cmake-gui`. Eac
 #### (2.a) Configuring via cmake:
 With Cmake directly:
 
-    cmake -S . -B ./build -DCMAKE_TOOLCHAIN_FILE=<vcpkg/installation/folder>/scripts/buildsystems/vcpkg.cmake
+    cmake -S . -B ./build -DCMAKE_TOOLCHAIN_FILE=./cmake/conan_toolchain.cmake
 
 Cmake will automatically create the `./build` folder if it does not exist, and it wil configure the project.
 
@@ -103,7 +103,7 @@ Instead, if you have CMake version 3.21+, you can use one of the configuration p
 
 With the Cmake Curses Dialog Command Line tool:
 
-    ccmake -S . -B ./build -DCMAKE_TOOLCHAIN_FILE=<vcpkg/installation/folder>/scripts/buildsystems/vcpkg.cmake
+    ccmake -S . -B ./build -DCMAKE_TOOLCHAIN_FILE=./cmake/conan_toolchain.cmake
 
 Once `ccmake` has finished setting up, press 'c' to configure the project,
 press 'g' to generate, and 'q' to quit.

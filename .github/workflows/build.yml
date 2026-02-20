@@ -45,10 +45,7 @@ jobs:
             package_generator: ZIP
 
     env:
-      VCPKG_ROOT: $HOME/vcpkg
-      VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/.vcpkg
-      VCPKG_BINARY_SOURCES: clear;files,${{ github.workspace }}/.vcpkg,readwrite
-      VCPKG_MAX_CONCURRENCY: 1
+      CONAN_HOME: ${{ github.workspace }}/.conan2
 
     steps:
       - uses: actions/checkout@v6
@@ -79,7 +76,7 @@ jobs:
         run: >
           cmake -S . -B ./out/build/${{ matrix.build_type }}
           -G "${{ matrix.generator }}"
-          -DCMAKE_TOOLCHAIN_FILE="${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake"
+          -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES="./cmake/conan_provider.cmake"
           -DENABLE_CLANG_TIDY_DEFAULT:BOOL=OFF
           -D${{ env.PROJECT_NAME }}_ENABLE_IPO:BOOL=ON
           -D${{ env.PROJECT_NAME }}_PACKAGING_MAINTAINER_MODE:BOOL=ON

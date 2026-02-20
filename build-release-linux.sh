@@ -4,10 +4,9 @@ cmake -B ./out/build/unixlike-gcc -S . \
     -Dassets_mpq_importer_ENABLE_IPO=ON \
     -Dassets_mpq_importer_PACKAGING_MAINTAINER_MODE=ON \
     -Dassets_mpq_importer_ENABLE_COVERAGE=OFF \
-    -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+    -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=./cmake/conan_provider.cmake
 
 cmake --build ./out/build/unixlike-gcc  --config Release
 
 cd ./out/build/unixlike-gcc
-cpack -G TGZ 
-#-DCPACK_PACKAGE_FILE_NAME="assets_mpq_importer-linux"
+cpack -G TGZ

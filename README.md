@@ -55,7 +55,7 @@ For a complete list of dependencies and installation instructions, see [Dependen
 ### Quick Build
 
 ```bash
-cmake -S . -B ./build -DCMAKE_TOOLCHAIN_FILE=<vcpkg/installation/folder>/scripts/buildsystems/vcpkg.cmake
+cmake -S . -B ./build -DCMAKE_TOOLCHAIN_FILE=./cmake/conan_toolchain.cmake
 cmake --build ./build
 ```
 

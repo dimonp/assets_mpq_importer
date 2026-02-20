@@ -22,7 +22,7 @@ runs:
         path: |
           $HOME/.cache/pip
           $HOME/.ccache
-          ${{ env.VCPKG_DEFAULT_BINARY_CACHE }}
+          ${{ env.CONAN_HOME }}
 
-        key: ${{ runner.os }}-${{ inputs.compiler }}-${{ inputs.build_type }}-${{ inputs.generator }}-${{ hashFiles('**/CMakeLists.txt', './vcpkg.json') }}
+        key: ${{ runner.os }}-${{ inputs.compiler }}-${{ inputs.build_type }}-${{ inputs.generator }}-${{ hashFiles('**/CMakeLists.txt', './conanfile.txt') }}
         restore-keys: ${{ runner.os }}-${{ inputs.compiler }}-${{ inputs.build_type }}-

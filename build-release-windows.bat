@@ -7,7 +7,7 @@ cmake -S . -B ./out/build/windows-msvc ^
     -Dassets_mpq_importer_ENABLE_IPO=ON ^
     -Dassets_mpq_importer_PACKAGING_MAINTAINER_MODE=ON ^
     -Dassets_mpq_importer_ENABLE_COVERAGE=OFF ^
-    -DCMAKE_TOOLCHAIN_FILE="%VCPKG_ROOT%/scripts/buildsystems/vcpkg.cmake"
+    -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES="./cmake/conan_provider.cmake"
 
 cmake --build ./out/build/windows-msvc --config Release
 

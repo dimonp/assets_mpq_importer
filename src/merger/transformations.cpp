@@ -56,19 +56,16 @@ void scale_mesh(assmpq::merger::MeshData &mesh, float scale_factor)
 auto split_ramp_mesh(const assmpq::merger::MeshData& mesh, assmpq::merger::MeshData& out_mesh_0, assmpq::merger::MeshData& out_mesh_1)-> bool
 {
     const aiAABB& aabb = mesh.aabb;
-
-    if (std::abs(std::abs(aabb.mMax.x) - (kW3MapCellSize + kW3MapCellSize)) < assmpq::merger::kEpsilonValue) {
-
+    if (std::abs(std::abs(aabb.mMax.x) - (kW3MapCellSize * 2.0F)) < assmpq::merger::kEpsilonValue) {
         // Spilt by x axis
-
         for (const auto& face: mesh.faces) {
             aiVector3D vertex0 = mesh.vertices[face.i0];
             aiVector3D vertex1 = mesh.vertices[face.i1];
             aiVector3D vertex2 = mesh.vertices[face.i2];
 
-            if (std::abs(vertex0.x) < kW3MapCellSize + kEpsilonValue &&
-                std::abs(vertex1.x) < kW3MapCellSize + kEpsilonValue &&
-                std::abs(vertex2.x) < kW3MapCellSize + kEpsilonValue) {
+            if (std::abs(vertex0.x) < (kW3MapCellSize + kEpsilonValue) &&
+                std::abs(vertex1.x) < (kW3MapCellSize + kEpsilonValue) &&
+                std::abs(vertex2.x) < (kW3MapCellSize + kEpsilonValue)) {
 
                 auto from_idx =  static_cast<uint32_t>(out_mesh_0.vertices.size());
 
@@ -84,12 +81,18 @@ auto split_ramp_mesh(const assmpq::merger::MeshData& mesh, assmpq::merger::MeshD
                 out_mesh_0.uvs.push_back(mesh.uvs[face.i1]);
                 out_mesh_0.uvs.push_back(mesh.uvs[face.i2]);
 
-                out_mesh_0.faces.push_back(assmpq::merger::TriFace { .i0 = from_idx, .i1 = from_idx + 1, .i2 = from_idx + 2 });
+                out_mesh_0.faces.push_back(
+                    assmpq::merger::TriFace {
+                        .i0 = from_idx,
+                        .i1 = from_idx + 1,
+                        .i2 = from_idx + 2
+                    }
+                );
             }
 
-            if (std::abs(vertex0.x) > kW3MapCellSize - kEpsilonValue &&
-                std::abs(vertex1.x) > kW3MapCellSize - kEpsilonValue &&
-                std::abs(vertex2.x) > kW3MapCellSize - kEpsilonValue) {
+            if (std::abs(vertex0.x) > (kW3MapCellSize - kEpsilonValue) &&
+                std::abs(vertex1.x) > (kW3MapCellSize - kEpsilonValue) &&
+                std::abs(vertex2.x) > (kW3MapCellSize - kEpsilonValue)) {
 
                 auto from_idx =  static_cast<uint32_t>(out_mesh_1.vertices.size());
 
@@ -109,13 +112,17 @@ auto split_ramp_mesh(const assmpq::merger::MeshData& mesh, assmpq::merger::MeshD
                 out_mesh_1.uvs.push_back(mesh.uvs[face.i1]);
                 out_mesh_1.uvs.push_back(mesh.uvs[face.i2]);
 
-                out_mesh_1.faces.push_back(assmpq::merger::TriFace { .i0 = from_idx, .i1 = from_idx + 1, .i2 = from_idx + 2 });
+                out_mesh_1.faces.push_back(
+                    assmpq::merger::TriFace {
+                        .i0 = from_idx,
+                        .i1 = from_idx + 1,
+                        .i2 = from_idx + 2
+                    }
+                );
             }
         }
-    } else if (std::abs(std::abs(aabb.mMin.z) - (kW3MapCellSize + kW3MapCellSize)) < assmpq::merger::kEpsilonValue) {
-
+    } else if (std::abs(std::abs(aabb.mMin.z) - (kW3MapCellSize * 2.0F)) < assmpq::merger::kEpsilonValue) {
         // Spilt by z axis
-
         for (const auto& face: mesh.faces) {
             aiVector3D vertex0 = mesh.vertices[face.i0];
             aiVector3D vertex1 = mesh.vertices[face.i1];
@@ -139,7 +146,13 @@ auto split_ramp_mesh(const assmpq::merger::MeshData& mesh, assmpq::merger::MeshD
                 out_mesh_0.uvs.push_back(mesh.uvs[face.i1]);
                 out_mesh_0.uvs.push_back(mesh.uvs[face.i2]);
 
-                out_mesh_0.faces.push_back(assmpq::merger::TriFace { .i0 = from_idx, .i1 = from_idx + 1, .i2 = from_idx + 2 });
+                out_mesh_0.faces.push_back(
+                    assmpq::merger::TriFace {
+                        .i0 = from_idx,
+                        .i1 = from_idx + 1,
+                        .i2 = from_idx + 2
+                    }
+                );
             }
 
             if (std::abs(vertex0.z) > (kW3MapCellSize - kEpsilonValue) &&
@@ -164,7 +177,13 @@ auto split_ramp_mesh(const assmpq::merger::MeshData& mesh, assmpq::merger::MeshD
                 out_mesh_1.uvs.push_back(mesh.uvs[face.i1]);
                 out_mesh_1.uvs.push_back(mesh.uvs[face.i2]);
 
-                out_mesh_1.faces.push_back( assmpq::merger::TriFace { .i0 = from_idx, .i1 = from_idx + 1, .i2 = from_idx + 2 });
+                out_mesh_1.faces.push_back(
+                    assmpq::merger::TriFace {
+                        .i0 = from_idx,
+                        .i1 = from_idx + 1,
+                        .i2 = from_idx + 2
+                    }
+                );
             }
         }
     } else {
@@ -176,7 +195,6 @@ auto split_ramp_mesh(const assmpq::merger::MeshData& mesh, assmpq::merger::MeshD
 
     recalculate_aabb(out_mesh_0);
     recalculate_aabb(out_mesh_1);
-
     return true;
 }
 

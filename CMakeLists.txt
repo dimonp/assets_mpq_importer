@@ -17,7 +17,7 @@ set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 # Set the project name and language
 project(
   assets_mpq_importer
-  VERSION 0.1.0
+  VERSION 0.1.1
   DESCRIPTION "Assets MPQ importer"
   HOMEPAGE_URL "https://github.com/dimonp/assets_mpq_importer"
   LANGUAGES CXX C)

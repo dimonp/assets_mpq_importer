@@ -13,7 +13,7 @@ namespace assmpq::merger {
 
 inline constexpr ai_real kHighestValue = std::numeric_limits<ai_real>::max();
 inline constexpr ai_real kLowestValue = std::numeric_limits<ai_real>::lowest();
-inline constexpr ai_real kEpsilonValue = 0.001F;
+inline constexpr ai_real kEpsilonValue = 0.1F;
 
 inline constexpr ai_real kW3MapCellSize = 128.0F;
 

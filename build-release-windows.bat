@@ -3,6 +3,7 @@ set PATH=%PATH%;%VCToolsInstallDir%\bin\Hostx64\x64\
 
 cmake -S . -B ./out/build/windows-msvc ^
     -G "Visual Studio 17 2022" ^
+    -DCMAKE_BUILD_TYPE=Release ^
     -DENABLE_CLANG_TIDY_DEFAULT=OFF ^
     -Dassets_mpq_importer_ENABLE_IPO=ON ^
     -Dassets_mpq_importer_PACKAGING_MAINTAINER_MODE=ON ^

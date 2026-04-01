@@ -27,7 +27,7 @@
     </tr>
     <tr>
       <th scope="row">Date:</th>
-      <td>2026-04-01 14:58:36</td>
+      <td>2026-04-01 15:06:31</td>
     </tr>
   </table>
 </div>
@@ -53,9 +53,9 @@
     </tr>
     <tr>
       <th scope="row">Branches:</th>
-      <td>81</td>
-      <td>152</td>
-      <td class="coverage-low">53.3%</td>
+      <td>82</td>
+      <td>154</td>
+      <td class="coverage-low">53.2%</td>
     </tr>
   </table>
 </div>
@@ -501,7 +501,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">7</td>
-      <td class="src coveredLine"><span class="w">    </span><span class="n">ddsd2</span><span class="p">.</span><span class="n">flags</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">DDSD_WIDTH</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">DDSD_HEIGHT</span><span class="p">;</span></td>
+      <td class="src coveredLine"><span class="w">    </span><span class="n">ddsd2</span><span class="p">.</span><span class="n">flags</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">DDSD_WIDTH</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">DDSD_HEIGHT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">DDSD_LINEARSIZE</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l56" href="#l56">56</a></td>
@@ -520,9 +520,16 @@
     <tr class="source-line">
       <td class="lineno"><a id="l58" href="#l58">58</a></td>
       <td class="linebranch">
+        <details class="linebranchDetails">
+        <summary class="linebranchSummary">1/2</summary>
+        <div class="linebranchContents">
+          <div class="takenBranch">&check; Branch 1 taken 7 times.</div>
+          <div class="notTakenBranch">&cross; Branch 2 not taken.</div>
+        </div>
+        </details>
       </td>
-      <td class="linecount coveredLine">7</td>
-      <td class="src coveredLine"><span class="w">    </span><span class="n">ddsd2</span><span class="p">.</span><span class="n">pitchOrLinearSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">mipSet</span><span class="p">.</span><span class="n">m_nWidth</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span></td>
+      <td class="linecount partialCoveredLine">7</td>
+      <td class="src partialCoveredLine"><span class="w">    </span><span class="n">ddsd2</span><span class="p">.</span><span class="n">pitchOrLinearSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g_CMIPS</span><span class="p">.</span><span class="n">GetMipLevel</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mipSet</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">m_dwLinearSize</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l59" href="#l59">59</a></td>

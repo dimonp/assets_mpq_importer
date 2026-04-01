@@ -10,7 +10,7 @@ on:
       - develop
 
 env:
-  CLANG_TIDY_VERSION: "22"
+  CLANG_TIDY_VERSION: "21"
   VERBOSE: 1
 
 jobs:

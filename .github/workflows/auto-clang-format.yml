@@ -11,8 +11,8 @@ jobs:
       with:
         source: '.'
         exclude: './thirdparty ./external'
-        extensions: 'h,cpp,hpp'
-        clangFormatVersion: 22
+        extensions: 'h,cpp,hpp,cppm'
+        clangFormatVersion: 21
         inplace: True
     - uses: EndBug/add-and-commit@v9
       with:

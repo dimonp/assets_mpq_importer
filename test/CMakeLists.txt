@@ -52,7 +52,7 @@ target_link_libraries(
       assets_mpq_importer::w3m_library
       Catch2::Catch2WithMain)
 
-target_include_directories(tests 
+target_include_directories(tests
   SYSTEM PRIVATE
       ${WC3_LIBRARY_INCLUDES}
       ${NVTT_LIBRARY_INCLUDES})

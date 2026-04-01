@@ -1,11 +1,10 @@
 {
   "name": "assets-mpq-importer",
-  "version-string": "0.0.1",
+  "version-string": "0.1.2",
   "dependencies": [
     "fmt",
     "spdlog",
     "cli11",
-    "catch2",
     "assimp",
     "ms-gsl",
     "nlohmann-json",
@@ -17,5 +16,13 @@
     "boost-multi-array",
     "boost-crc"
   ],
+  "features": {
+    "tests": {
+      "description": "Build tests",
+      "dependencies": [
+        "catch2"
+      ]
+    }
+  },
   "builtin-baseline": "3895230f38e498525f2560a281223d12066fa74a"
 }

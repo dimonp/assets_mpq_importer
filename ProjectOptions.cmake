@@ -215,6 +215,14 @@ macro(assets_mpq_importer_local_options)
       # This is not working consistently, so disabling for now
       # target_link_options(assets_mpq_importer_options INTERFACE -Wl,--fatal-warnings)
     endif()
+
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+      # Suppress error: argument unused during compilation
+      target_compile_options(assets_mpq_importer_warnings INTERFACE -Wno-unused-command-line-argument)
+      # Suppress -Wc2y-extensions when using __COUNTER__ to generate unique C++ identifiers.
+      target_compile_options(assets_mpq_importer_warnings INTERFACE -Wno-c2y-extensions)
+    endif()
+
   endif()
 
   if(assets_mpq_importer_ENABLE_HARDENING AND NOT assets_mpq_importer_ENABLE_GLOBAL_HARDENING)

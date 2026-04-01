@@ -1,5 +1,26 @@
 cmake_minimum_required(VERSION 3.31)
 
+option(BUILD_TESTING "Build the testing suite" ON)
+
+if(BUILD_TESTING)
+  list(APPEND VCPKG_MANIFEST_FEATURES "tests")
+endif()
+
+# to avoid clang-tidy errors
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
+
+# Set the project name and language
+project(
+  assets_mpq_importer
+  VERSION 0.1.2
+  DESCRIPTION "Assets MPQ importer"
+  HOMEPAGE_URL "https://github.com/dimonp/assets_mpq_importer"
+  LANGUAGES CXX C)
+
+option(DISABLE_ALL_SANITIZERS "Enable Cppcheck static analyzer" OFF)
+option(ENABLE_CPPCHECK_DEFAULT "Enable Cppcheck static analyzer" ON)
+option(ENABLE_CLANG_TIDY_DEFAULT "Enable Clang-tidy static analyzer" ON)
+
 # Only set the cxx_standard if it is not set by someone else
 if (NOT DEFINED CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 23)
@@ -10,21 +31,6 @@ endif()
 # -Wpedantic being enabled and -std=c++20 and -std=gnu++20 for example
 # when compiling with PCH enabled
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-# to avoid clang-tidy errors
-set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
-
-# Set the project name and language
-project(
-  assets_mpq_importer
-  VERSION 0.1.1
-  DESCRIPTION "Assets MPQ importer"
-  HOMEPAGE_URL "https://github.com/dimonp/assets_mpq_importer"
-  LANGUAGES CXX C)
-
-option(DISABLE_ALL_SANITIZERS "Enable Cppcheck static analyzer" OFF)
-option(ENABLE_CPPCHECK_DEFAULT "Enable Cppcheck static analyzer" ON)
-option(ENABLE_CLANG_TIDY_DEFAULT "Enable Clang-tidy static analyzer" ON)
 
 include(FetchContent)
 include(cmake/PreventInSourceBuilds.cmake)

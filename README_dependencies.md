@@ -49,7 +49,7 @@ The following compilers should work:
 			brew install gcc
 	</details>
 
-  * [clang 22](https://clang.llvm.org/)
+  * [clang 21](https://clang.llvm.org/)
 	<details>
 	<summary>Install command</summary>
 

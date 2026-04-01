@@ -28,15 +28,15 @@ import assmpq.merger;
  */
 struct ProgramOptions
 {
-    std::filesystem::path input_folder;///< Input directory with cliff/ramp obj meshes
-    std::filesystem::path output_folder;///< Output folder for merged meshes and JSON files
-    std::string filename_pattern;///< Regex template for mesh filenames
-    std::string geoset_name;///< Input geoset name
-    std::optional<float> scale_factor;///< Optional mesh scale factor
-    bool is_append = false;///< Append keys to existing JSON file
-    bool is_ramp = false;///< Process ramp geoset instead of cliff
+    std::filesystem::path input_folder;     ///< Input directory with cliff/ramp obj meshes
+    std::filesystem::path output_folder;    ///< Output folder for merged meshes and JSON files
+    std::string filename_pattern;           ///< Regex template for mesh filenames
+    std::string geoset_name;                ///< Input geoset name
+    std::optional<float> scale_factor;      ///< Optional mesh scale factor
+    bool is_append = false;                 ///< Append keys to existing JSON file
+    bool is_ramp = false;                   ///< Process ramp geoset instead of cliff
     bool is_fake = false;
-    bool is_verbose = false;///< Enable verbose output
+    bool is_verbose = false;                ///< Enable verbose output
 };
 
 /**

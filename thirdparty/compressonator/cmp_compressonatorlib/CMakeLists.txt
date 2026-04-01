@@ -129,7 +129,7 @@ endif()
 # TODO: More libraries should be linked like this when building so that we don't have to constantly repeat source file includes
 # Not just for CMP_Compressonator, do the same for the Framework and all other libraries
 target_link_libraries(CMP_Compressonator PUBLIC CMP_Core)
-target_compile_options(CMP_Compressonator PUBLIC
+target_compile_options(CMP_Compressonator PRIVATE
     "$<$<CXX_COMPILER_ID:GNU>:-msse4.1>"
     "$<$<CXX_COMPILER_ID:MSVC>:/arch:SSE2>"
     "$<$<CXX_COMPILER_ID:Clang>:-msse4.1>"

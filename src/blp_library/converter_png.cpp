@@ -2,11 +2,11 @@ module;
 #include <cstddef>
 #include <expected>
 #include <format>
-#include <nvtt/nvtt.h>
 #include <spanstream>
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include <blp/blp.hpp>
 #include <stb/stb_image_write.h>
+#include <nvtt/nvtt.h>
+#include <blp/blp.hpp>
 
 module assmpq.blp;
 

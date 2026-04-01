@@ -5,15 +5,18 @@ module;
 #ifdef _MSC_VER
 #define NOMINMAX
 #endif
+#include <spdlog/spdlog.h>
+
 #include <_plugins/cimage/dds/dds_file.h>
 #include <_plugins/cimage/dds/dds_helpers.h>
-#include <blp/blp.hpp>
 #include <cmp_compressonatorlib/common.h>
 #include <cmp_compressonatorlib/compressonator.h>
 #include <cmp_framework/common/cmp_boxfilter.h>
-#include <spdlog/spdlog.h>
+#include <blp/blp.hpp>
 
 module assmpq.blp;
+
+import assmpq;
 
 #include "utils_blp.hpp"
 
@@ -89,8 +92,8 @@ auto persist_dds_dx10(const MipSet &mipSet) -> std::vector<char>
     for (int nMipLevel = 0; nMipLevel < mipSet.m_nMipLevels; nMipLevel++) {
         const auto *mip_level_ptr = g_CMIPS.GetMipLevel(&mipSet, nMipLevel);
         output.write(
-          reinterpret_cast<const char *>(mip_level_ptr->m_pbData),// NOLINT(cppcoreguidelines-pro-type-union-access)
-          static_cast<std::streamsize>(mip_level_ptr->m_dwLinearSize));
+            reinterpret_cast<const char *>(mip_level_ptr->m_pbData),// NOLINT(cppcoreguidelines-pro-type-union-access)
+            static_cast<std::streamsize>(mip_level_ptr->m_dwLinearSize));
     }
     const auto &buffer_str = output.str();
     return { buffer_str.begin(), buffer_str.end() };
@@ -118,15 +121,16 @@ static auto generate_extra_mipmaps(MipSet &mipset_in,
         }
 
         if (!g_CMIPS.AllocateMipLevelData(
-              this_mip_level, mip_width, mip_height, mipset_in.m_ChannelFormat, mipset_in.m_TextureDataType)) {
+                this_mip_level, mip_width, mip_height, mipset_in.m_ChannelFormat, mipset_in.m_TextureDataType)) {
             spdlog::error("generate_extra_mipmaps: Error allocating mipmap level data.");
             return false;
         }
 
         CMP_MipLevel *prev_mip_level = g_CMIPS.GetMipLevel(// NOLINT wrong const result suggestion
-          &mipset_in,
-          static_cast<CMP_INT>(mip_idx - 1),
-          0);
+            &mipset_in,
+            static_cast<CMP_INT>(mip_idx - 1),
+            0
+        );
 
         if (this_mip_level == nullptr) {
             spdlog::error("generate_extra_mipmaps: Error obtaining base mipmap level.");
@@ -143,9 +147,9 @@ static auto generate_extra_mipmaps(MipSet &mipset_in,
 // cppcoreguidelines-pro-type-reinterpret-cast)
 
 auto convert_blp_to_dds_texture_amdc(// NOLINT
-  const FileData &blp_file,
-  const Compression &compression,
-  bool regen_mipmaps) -> std::expected<FileData, ErrorMessage>
+    const FileData &blp_file,
+    const Compression &compression,
+    bool regen_mipmaps) -> std::expected<FileData, ErrorMessage>
 try {
     wc3lib::blp::Blp texture;
 

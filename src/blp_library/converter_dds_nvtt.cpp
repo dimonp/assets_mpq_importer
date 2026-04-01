@@ -1,10 +1,11 @@
 module;
-#include <blp/blp.hpp>
 #include <expected>
-#include <nvtt/Surface.h>
-#include <nvtt/nvtt.h>
 #include <spanstream>
 #include <spdlog/spdlog.h>
+
+#include <nvtt/Surface.h>
+#include <nvtt/nvtt.h>
+#include <blp/blp.hpp>
 
 module assmpq.blp;
 
@@ -18,7 +19,7 @@ class MemoryOutputHandler : public nvtt::OutputHandler
 {
     static constexpr size_t kDDSHeadetSize = 148;
 
-  public:
+public:
     explicit MemoryOutputHandler(size_t estimated_size = 0) { dds_data.reserve(estimated_size + kDDSHeadetSize); }
 
     // This vector will store the DDS data
@@ -26,8 +27,7 @@ class MemoryOutputHandler : public nvtt::OutputHandler
 
     // The begin method is called at the start of the compression process.
     // It can be used to prepare the output buffer and optionally write the DDS header.
-    void beginImage(int /*size*/, int /*width*/, int /*height*/, int /*depth*/, int /*faceCount*/, int /*mipmapCount*/)
-      override
+    void beginImage(int /*size*/, int /*width*/, int /*height*/, int /*depth*/, int /*faceCount*/, int /*mipmapCount*/) override
     {}
 
     // The writeData method is called to write compressed data chunks to the output.
@@ -46,11 +46,11 @@ class MemoryOutputHandler : public nvtt::OutputHandler
 
 // Generate additional mipmaps up to 1x1 size
 static auto generate_extra_mipmaps(const nvtt::Context &context,
-  const nvtt::CompressionOptions &compression_options,
-  const nvtt::OutputOptions &output_options,
-  const wc3lib::blp::Blp &texture,
-  const wc3lib::blp::Blp::MipMap &last_mipmap,
-  const size_t last_mipmap_idx) -> bool
+    const nvtt::CompressionOptions &compression_options,
+    const nvtt::OutputOptions &output_options,
+    const wc3lib::blp::Blp &texture,
+    const wc3lib::blp::Blp::MipMap &last_mipmap,
+    const size_t last_mipmap_idx) -> bool
 {
     nvtt::Surface surface;
     size_t mip_idx = last_mipmap_idx;
@@ -110,7 +110,11 @@ try {
     const auto extra_mipmaps = regen_mipmaps || has_mipmaps ? max_mipmaps - mipmap_count : 0;
 
     const int estimated_size = context.estimateSize(
-      blp_width, blp_height, 1, static_cast<int>(mipmap_count + extra_mipmaps), compression_options);
+        blp_width,
+        blp_height,
+        1,
+        static_cast<int>(mipmap_count + extra_mipmaps),
+        compression_options);
 
     MemoryOutputHandler output_handler(static_cast<size_t>(estimated_size));
 
@@ -121,14 +125,14 @@ try {
     // Compress the texture
     // For NVTT 3, you typically call outputHeader() and then compress().
     if (context.outputHeader(nvtt::TextureType_2D,
-          blp_width,
-          blp_height,
-          1,
-          1,
-          static_cast<int>(mipmap_count + extra_mipmaps),
-          false,
-          compression_options,
-          output_options)) {
+            blp_width,
+            blp_height,
+            1,
+            1,
+            static_cast<int>(mipmap_count + extra_mipmaps),
+            false,
+            compression_options,
+            output_options)) {
 
         // Conver and add each custom mipmap level
         for (size_t mip_idx = 0; mip_idx < mipmap_count; ++mip_idx) {
@@ -160,11 +164,11 @@ try {
         // auto generate extra mipmaps up to 1x1 dimesion
         if (extra_mipmaps > 0) {
             const bool result = generate_extra_mipmaps(context,
-              compression_options,
-              output_options,
-              texture,
-              texture.mipMaps()[mipmap_count - 1],
-              mipmap_count - 1);
+                compression_options,
+                output_options,
+                texture,
+                texture.mipMaps()[mipmap_count - 1],
+                mipmap_count - 1);
 
             if (!result) { return std::unexpected("Error generating extra mipmaps."); }
         }

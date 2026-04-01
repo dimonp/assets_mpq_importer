@@ -37,7 +37,7 @@ jobs:
           - ubuntu-latest
           - windows-latest
         compiler:
-          - llvm-22
+          - llvm-21
           - gcc-15
         generator:
           - "Ninja Multi-Config"
@@ -54,7 +54,7 @@ jobs:
 
           # mingw is determined by this author to be too buggy to support
           - os: windows-latest
-            compiler: llvm-22
+            compiler: llvm-21
 
         include:
           # Add appropriate variables for gcov version required. This will intentionally break
@@ -64,7 +64,7 @@ jobs:
             enable_ipo: On
             clang_tidy: Off
 
-          - compiler: llvm-22
+          - compiler: llvm-21
             enable_ipo: Off
             gcov_executable: "llvm-cov gcov"
             clang_tidy: On

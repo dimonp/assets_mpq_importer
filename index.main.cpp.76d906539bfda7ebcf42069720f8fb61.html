@@ -19,7 +19,7 @@
   <table class="legend">
     <tr>
       <th scope="row">Directory:</th>
-      <td>src/</td>
+      <td>./</td>
     </tr>
     <tr>
       <th scope="row">File:</th>
@@ -27,7 +27,7 @@
     </tr>
     <tr>
       <th scope="row">Date:</th>
-      <td>2026-04-01 14:07:19</td>
+      <td>2026-04-01 14:58:36</td>
     </tr>
   </table>
 </div>
@@ -41,9 +41,9 @@
     </tr>
     <tr>
       <th scope="row">Lines:</th>
-      <td>26</td>
-      <td>52</td>
-      <td class="coverage-low">50.0%</td>
+      <td>28</td>
+      <td>54</td>
+      <td class="coverage-low">51.9%</td>
     </tr>
     <tr>
       <th scope="row">Functions:</th>
@@ -53,9 +53,9 @@
     </tr>
     <tr>
       <th scope="row">Branches:</th>
-      <td>56</td>
-      <td>240</td>
-      <td class="coverage-low">23.3%</td>
+      <td>60</td>
+      <td>250</td>
+      <td class="coverage-low">24.0%</td>
     </tr>
   </table>
 </div>
@@ -73,7 +73,7 @@
       <th>Call count</th>
       <th>Block coverage</th>
     </tr>
-    <tr><td><a href="#l20">main (line 20)</a></td><td>called 2 times, returned 2 times</td><td>35.0%</td></tr>
+    <tr><td><a href="#l19">main (line 19)</a></td><td>called 2 times, returned 2 times</td><td>39.0%</td></tr>
   </table>
 </details>
 
@@ -107,14 +107,14 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;CLI/CLI.hpp&gt;</span></td>
+      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fmt/base.h&gt;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l4" href="#l4">4</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fmt/core.h&gt;</span></td>
+      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fmt/format.h&gt;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l5" href="#l5">5</a></td>
@@ -128,171 +128,157 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;CLI/CLI.hpp&gt;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l7" href="#l7">7</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;internal_use_only/config.hpp&gt;</span></td>
+      <td class="src "></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l8" href="#l8">8</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;internal_use_only/config.hpp&gt;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l9" href="#l9">9</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="k">import</span><span class="w"> </span><span class="n">assmpq</span><span class="p">;</span></td>
+      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;assets_mpq_importer/mpq.hpp&quot;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l10" href="#l10">10</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="k">import</span><span class="w"> </span><span class="n">assmpq</span><span class="p">.</span><span class="n">importer</span><span class="p">;</span></td>
+      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;importer.hpp&quot;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l11" href="#l11">11</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="k">import</span><span class="w"> </span><span class="n">assmpq</span><span class="p">.</span><span class="n">mpq</span><span class="p">;</span></td>
+      <td class="src "></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l12" href="#l12">12</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="k">using</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">importer</span><span class="o">::</span><span class="n">import_blp</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l13" href="#l13">13</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">1014</td>
-      <td class="src coveredLine"><span class="k">using</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">importer</span><span class="o">::</span><span class="n">import_blp</span><span class="p">;</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l14" href="#l14">14</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="k">using</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">importer</span><span class="o">::</span><span class="n">import_mdx</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l15" href="#l15">15</a></td>
+      <td class="lineno"><a id="l14" href="#l14">14</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="k">using</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">importer</span><span class="o">::</span><span class="n">import_w3e</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l16" href="#l16">16</a></td>
+      <td class="lineno"><a id="l15" href="#l15">15</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="k">using</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">importer</span><span class="o">::</span><span class="n">import_shd</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l17" href="#l17">17</a></td>
+      <td class="lineno"><a id="l16" href="#l16">16</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="k">using</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">importer</span><span class="o">::</span><span class="n">import_wpm</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l18" href="#l18">18</a></td>
+      <td class="lineno"><a id="l17" href="#l17">17</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="k">using</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">importer</span><span class="o">::</span><span class="n">import_doo</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l19" href="#l19">19</a></td>
+      <td class="lineno"><a id="l18" href="#l18">18</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l20" href="#l20">20</a></td>
+      <td class="lineno"><a id="l19" href="#l19">19</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="k">auto</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">int</span></td>
+      <td class="src coveredLine"><span class="k">auto</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">int</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l21" href="#l21">21</a></td>
+      <td class="lineno"><a id="l20" href="#l20">20</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="k">try</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l22" href="#l22">22</a></td>
+      <td class="lineno"><a id="l21" href="#l21">21</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">2</td>
       <td class="src coveredLine"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">app_description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmt</span><span class="o">::</span><span class="n">format</span><span class="p">(</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l23" href="#l23">23</a></td>
+      <td class="lineno"><a id="l22" href="#l22">22</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="w">        </span><span class="s">&quot;{} version {} importer</span><span class="se">\n</span><span class="s">&quot;</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l24" href="#l24">24</a></td>
+      <td class="lineno"><a id="l23" href="#l23">23</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="w">        </span><span class="s">&quot;* Extract and convert files from MPQ archive.</span><span class="se">\n</span><span class="s">&quot;</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l25" href="#l25">25</a></td>
+      <td class="lineno"><a id="l24" href="#l24">24</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="w">        </span><span class="s">&quot;* Convert MDX meshes to Wavefront OBJ, convert BLP textures to PNG or DDS(BC1,BC3,BC7) with mipmaps.</span><span class="se">\n</span><span class="s">&quot;</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l26" href="#l26">26</a></td>
+      <td class="lineno"><a id="l25" href="#l25">25</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="w">        </span><span class="s">&quot;* Extract and save w3e map files.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span></td>
     </tr>
     <tr class="source-line">
+      <td class="lineno"><a id="l26" href="#l26">26</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount coveredLine">2</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="n">assets_mpq_importer</span><span class="o">::</span><span class="n">cmake</span><span class="o">::</span><span class="n">project_name</span><span class="p">,</span><span class="w"> </span><span class="n">assets_mpq_importer</span><span class="o">::</span><span class="n">cmake</span><span class="o">::</span><span class="n">project_version</span><span class="p">);</span></td>
+    </tr>
+    <tr class="source-line">
       <td class="lineno"><a id="l27" href="#l27">27</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">        </span><span class="n">assets_mpq_importer</span><span class="o">::</span><span class="n">cmake</span><span class="o">::</span><span class="n">project_name</span><span class="p">,</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l28" href="#l28">28</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">4</td>
-      <td class="src coveredLine"><span class="w">        </span><span class="n">assets_mpq_importer</span><span class="o">::</span><span class="n">cmake</span><span class="o">::</span><span class="n">project_version</span><span class="p">);</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l29" href="#l29">29</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l30" href="#l30">30</a></td>
+      <td class="lineno"><a id="l28" href="#l28">28</a></td>
       <td class="linebranch">
         <details class="linebranchDetails">
         <summary class="linebranchSummary">2/4</summary>
@@ -305,37 +291,64 @@
         </details>
       </td>
       <td class="linecount partialCoveredLine">6</td>
-      <td class="src partialCoveredLine"><span class="w">    </span><span class="n">CLI</span><span class="o">::</span><span class="n">App</span><span class="w"> </span><span class="n">app</span><span class="p">{</span><span class="w"> </span><span class="n">app_description</span><span class="w"> </span><span class="p">};</span></td>
+      <td class="src partialCoveredLine"><span class="w">    </span><span class="n">CLI</span><span class="o">::</span><span class="n">App</span><span class="w"> </span><span class="n">app</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">app_description</span><span class="w"> </span><span class="p">};</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l31" href="#l31">31</a></td>
+      <td class="lineno"><a id="l29" href="#l29">29</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">2</td>
       <td class="src coveredLine"><span class="w">    </span><span class="n">assmpq</span><span class="o">::</span><span class="n">importer</span><span class="o">::</span><span class="n">ProgramOptions</span><span class="w"> </span><span class="n">popt</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l32" href="#l32">32</a></td>
+      <td class="lineno"><a id="l30" href="#l30">30</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l33" href="#l33">33</a></td>
+      <td class="lineno"><a id="l31" href="#l31">31</a></td>
       <td class="linebranch">
         <details class="linebranchDetails">
-        <summary class="linebranchSummary">2/4</summary>
+        <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
           <div class="takenBranch">&check; Branch 4 taken 2 times.</div>
           <div class="notTakenBranch">&cross; Branch 5 not taken.</div>
-          <div class="takenBranch">&check; Branch 7 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 8 not taken.</div>
+          <div class="takenBranch">&check; Branch 10 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 11 not taken.</div>
+          <div class="takenBranch">&check; Branch 13 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 14 not taken.</div>
         </div>
         </details>
       </td>
-      <td class="linecount partialCoveredLine">8</td>
+      <td class="linecount partialCoveredLine">10</td>
       <td class="src partialCoveredLine"><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">set_version_flag</span><span class="p">(</span><span class="s">&quot;-v,--version&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">app_description</span><span class="p">);</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l32" href="#l32">32</a></td>
+      <td class="linebranch">
+        <details class="linebranchDetails">
+        <summary class="linebranchSummary">3/6</summary>
+        <div class="linebranchContents">
+          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
+          <div class="takenBranch">&check; Branch 7 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 8 not taken.</div>
+          <div class="takenBranch">&check; Branch 10 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 11 not taken.</div>
+        </div>
+        </details>
+      </td>
+      <td class="linecount partialCoveredLine">16</td>
+      <td class="src partialCoveredLine"><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-i,--input&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">popt</span><span class="p">.</span><span class="n">input_mpq_file</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Input MPQ archive file name.&quot;</span><span class="p">)</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l33" href="#l33">33</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount coveredLine">6</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="o">-&gt;</span><span class="n">required</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l34" href="#l34">34</a></td>
@@ -343,75 +356,66 @@
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 2 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 3 not taken.</div>
-          <div class="takenBranch">&check; Branch 6 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 7 not taken.</div>
+          <div class="takenBranch">&check; Branch 4 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 5 not taken.</div>
           <div class="takenBranch">&check; Branch 9 taken 2 times.</div>
           <div class="notTakenBranch">&cross; Branch 10 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 13 not taken.</div>
         </div>
         </details>
       </td>
-      <td class="linecount partialCoveredLine">14</td>
-      <td class="src partialCoveredLine"><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-i,--input&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">popt</span><span class="p">.</span><span class="n">input_mpq_file</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Input MPQ archive file name.&quot;</span><span class="p">)</span></td>
+      <td class="linecount partialCoveredLine">6</td>
+      <td class="src partialCoveredLine"><span class="w">        </span><span class="o">-&gt;</span><span class="n">check</span><span class="p">(</span><span class="n">CLI</span><span class="o">::</span><span class="n">ExistingFile</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l35" href="#l35">35</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">      </span><span class="o">-&gt;</span><span class="n">required</span><span class="p">()</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l36" href="#l36">36</a></td>
-      <td class="linebranch">
-        <details class="linebranchDetails">
-        <summary class="linebranchSummary">2/4</summary>
-        <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 6 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 7 not taken.</div>
-          <div class="takenBranch">&check; Branch 9 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 10 not taken.</div>
-        </div>
-        </details>
-      </td>
-      <td class="linecount partialCoveredLine">8</td>
-      <td class="src partialCoveredLine"><span class="w">      </span><span class="o">-&gt;</span><span class="n">check</span><span class="p">(</span><span class="n">CLI</span><span class="o">::</span><span class="n">ExistingFile</span><span class="p">);</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l37" href="#l37">37</a></td>
-      <td class="linebranch">
-        <details class="linebranchDetails">
-        <summary class="linebranchSummary">5/10</summary>
-        <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
-          <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 9 not taken.</div>
-          <div class="takenBranch">&check; Branch 11 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 12 not taken.</div>
-          <div class="takenBranch">&check; Branch 16 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 17 not taken.</div>
-          <div class="takenBranch">&check; Branch 19 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 20 not taken.</div>
-        </div>
-        </details>
-      </td>
-      <td class="linecount partialCoveredLine">14</td>
-      <td class="src partialCoveredLine"><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-o,--output&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">popt</span><span class="p">.</span><span class="n">output_folder</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Output folder.&quot;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">check</span><span class="p">(</span><span class="n">CLI</span><span class="o">::</span><span class="n">ExistingDirectory</span><span class="p">);</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l38" href="#l38">38</a></td>
       <td class="linebranch">
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
           <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
           <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
-          <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 9 not taken.</div>
+          <div class="takenBranch">&check; Branch 7 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 8 not taken.</div>
+          <div class="takenBranch">&check; Branch 10 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 11 not taken.</div>
+        </div>
+        </details>
+      </td>
+      <td class="linecount partialCoveredLine">16</td>
+      <td class="src partialCoveredLine"><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-o,--output&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">popt</span><span class="p">.</span><span class="n">output_folder</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Output folder.&quot;</span><span class="p">)</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l36" href="#l36">36</a></td>
+      <td class="linebranch">
+        <details class="linebranchDetails">
+        <summary class="linebranchSummary">3/6</summary>
+        <div class="linebranchContents">
+          <div class="takenBranch">&check; Branch 6 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 7 not taken.</div>
           <div class="takenBranch">&check; Branch 11 taken 2 times.</div>
           <div class="notTakenBranch">&cross; Branch 12 not taken.</div>
+          <div class="takenBranch">&check; Branch 14 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 15 not taken.</div>
+        </div>
+        </details>
+      </td>
+      <td class="linecount partialCoveredLine">10</td>
+      <td class="src partialCoveredLine"><span class="w">        </span><span class="o">-&gt;</span><span class="n">check</span><span class="p">(</span><span class="n">CLI</span><span class="o">::</span><span class="n">ExistingDirectory</span><span class="p">);</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l37" href="#l37">37</a></td>
+      <td class="linebranch">
+        <details class="linebranchDetails">
+        <summary class="linebranchSummary">3/6</summary>
+        <div class="linebranchContents">
+          <div class="takenBranch">&check; Branch 4 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 5 not taken.</div>
+          <div class="takenBranch">&check; Branch 9 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 10 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 13 not taken.</div>
         </div>
         </details>
       </td>
@@ -419,32 +423,39 @@
       <td class="src partialCoveredLine"><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-f,--filter&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">popt</span><span class="p">.</span><span class="n">pattern</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;File extraction filter.&quot;</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l39" href="#l39">39</a></td>
+      <td class="lineno"><a id="l38" href="#l38">38</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l40" href="#l40">40</a></td>
+      <td class="lineno"><a id="l39" href="#l39">39</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">Compression</span><span class="o">&gt;</span><span class="w"> </span><span class="n">compression_map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src "><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">blp</span><span class="o">::</span><span class="n">Compression</span><span class="o">&gt;</span><span class="w"> </span><span class="n">compression_map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l40" href="#l40">40</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount coveredLine">4</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;bc1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">blp</span><span class="o">::</span><span class="n">Compression</span><span class="o">::</span><span class="n">DDS_BC1</span><span class="w"> </span><span class="p">},</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l41" href="#l41">41</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;bc1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">Compression</span><span class="o">::</span><span class="n">DDS_BC1</span><span class="w"> </span><span class="p">},</span></td>
+      <td class="linecount coveredLine">4</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;bc3&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">blp</span><span class="o">::</span><span class="n">Compression</span><span class="o">::</span><span class="n">DDS_BC3</span><span class="w"> </span><span class="p">},</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l42" href="#l42">42</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;bc3&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">Compression</span><span class="o">::</span><span class="n">DDS_BC3</span><span class="w"> </span><span class="p">},</span></td>
+      <td class="linecount coveredLine">4</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;bc7&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">blp</span><span class="o">::</span><span class="n">Compression</span><span class="o">::</span><span class="n">DDS_BC7</span><span class="w"> </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l43" href="#l43">43</a></td>
@@ -458,67 +469,69 @@
           <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
           <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
           <div class="notTakenBranch">&cross; Branch 9 not taken.</div>
-          <div class="takenBranch">&check; Branch 14 taken 6 times.</div>
-          <div class="takenBranch">&check; Branch 15 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 21 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 22 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 26 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 27 not taken.</div>
+          <div class="takenBranch">&check; Branch 15 taken 6 times.</div>
+          <div class="takenBranch">&check; Branch 16 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 24 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 25 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 30 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 31 not taken.</div>
         </div>
         </details>
       </td>
       <td class="linecount partialCoveredLine">16</td>
-      <td class="src partialCoveredLine"><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;bc7&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">assmpq</span><span class="o">::</span><span class="n">Compression</span><span class="o">::</span><span class="n">DDS_BC7</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span></td>
+      <td class="src partialCoveredLine"><span class="w">    </span><span class="p">};</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l44" href="#l44">44</a></td>
-      <td class="linebranch">
-        <details class="linebranchDetails">
-        <summary class="linebranchSummary">2/4</summary>
-        <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 2 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 3 not taken.</div>
-          <div class="takenBranch">&check; Branch 6 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 7 not taken.</div>
-        </div>
-        </details>
-      </td>
-      <td class="linecount partialCoveredLine">14</td>
-      <td class="src partialCoveredLine"><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-c,--compression&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">popt</span><span class="p">.</span><span class="n">compression</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;DDS compression format (BC1, BC3, BC7), BC3 by default. &quot;</span><span class="p">)</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l45" href="#l45">45</a></td>
-      <td class="linebranch">
-        <details class="linebranchDetails">
-        <summary class="linebranchSummary">2/4</summary>
-        <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
-          <div class="takenBranch">&check; Branch 6 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 7 not taken.</div>
-        </div>
-        </details>
-      </td>
-      <td class="linecount partialCoveredLine">4</td>
-      <td class="src partialCoveredLine"><span class="w">      </span><span class="o">-&gt;</span><span class="n">transform</span><span class="p">(</span><span class="n">CLI</span><span class="o">::</span><span class="n">CheckedTransformer</span><span class="p">(</span><span class="n">compression_map</span><span class="p">,</span><span class="w"> </span><span class="n">CLI</span><span class="o">::</span><span class="n">ignore_case</span><span class="p">))</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l46" href="#l46">46</a></td>
       <td class="linebranch">
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
           <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
           <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
-          <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 9 not taken.</div>
-          <div class="takenBranch">&check; Branch 11 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 12 not taken.</div>
+          <div class="takenBranch">&check; Branch 7 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 8 not taken.</div>
+          <div class="takenBranch">&check; Branch 10 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 11 not taken.</div>
         </div>
         </details>
       </td>
-      <td class="linecount partialCoveredLine">10</td>
-      <td class="src partialCoveredLine"><span class="w">      </span><span class="o">-&gt;</span><span class="n">default_val</span><span class="p">(</span><span class="s">&quot;bc3&quot;</span><span class="p">);</span></td>
+      <td class="linecount partialCoveredLine">16</td>
+      <td class="src partialCoveredLine"><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-c,--compression&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">popt</span><span class="p">.</span><span class="n">compression</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;DDS compression format (BC1, BC3, BC7), BC3 by default. &quot;</span><span class="p">)</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l45" href="#l45">45</a></td>
+      <td class="linebranch">
+        <details class="linebranchDetails">
+        <summary class="linebranchSummary">4/8</summary>
+        <div class="linebranchContents">
+          <div class="takenBranch">&check; Branch 6 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 7 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 13 not taken.</div>
+          <div class="takenBranch">&check; Branch 15 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 16 not taken.</div>
+          <div class="takenBranch">&check; Branch 20 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 21 not taken.</div>
+        </div>
+        </details>
+      </td>
+      <td class="linecount partialCoveredLine">14</td>
+      <td class="src partialCoveredLine"><span class="w">        </span><span class="o">-&gt;</span><span class="n">transform</span><span class="p">(</span><span class="n">CLI</span><span class="o">::</span><span class="n">CheckedTransformer</span><span class="p">(</span><span class="n">compression_map</span><span class="p">,</span><span class="w"> </span><span class="n">CLI</span><span class="o">::</span><span class="n">ignore_case</span><span class="p">))</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l46" href="#l46">46</a></td>
+      <td class="linebranch">
+        <details class="linebranchDetails">
+        <summary class="linebranchSummary">1/2</summary>
+        <div class="linebranchContents">
+          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
+        </div>
+        </details>
+      </td>
+      <td class="linecount partialCoveredLine">4</td>
+      <td class="src partialCoveredLine"><span class="w">        </span><span class="o">-&gt;</span><span class="n">default_val</span><span class="p">(</span><span class="s">&quot;bc3&quot;</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l47" href="#l47">47</a></td>
@@ -533,12 +546,12 @@
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
-          <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 9 not taken.</div>
-          <div class="takenBranch">&check; Branch 11 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 12 not taken.</div>
+          <div class="takenBranch">&check; Branch 4 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 5 not taken.</div>
+          <div class="takenBranch">&check; Branch 9 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 10 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 13 not taken.</div>
         </div>
         </details>
       </td>
@@ -551,12 +564,12 @@
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
-          <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 9 not taken.</div>
-          <div class="takenBranch">&check; Branch 11 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 12 not taken.</div>
+          <div class="takenBranch">&check; Branch 4 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 5 not taken.</div>
+          <div class="takenBranch">&check; Branch 9 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 10 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 13 not taken.</div>
         </div>
         </details>
       </td>
@@ -569,12 +582,12 @@
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
-          <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 9 not taken.</div>
-          <div class="takenBranch">&check; Branch 11 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 12 not taken.</div>
+          <div class="takenBranch">&check; Branch 4 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 5 not taken.</div>
+          <div class="takenBranch">&check; Branch 9 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 10 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 13 not taken.</div>
         </div>
         </details>
       </td>
@@ -587,12 +600,12 @@
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
-          <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 9 not taken.</div>
-          <div class="takenBranch">&check; Branch 11 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 12 not taken.</div>
+          <div class="takenBranch">&check; Branch 4 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 5 not taken.</div>
+          <div class="takenBranch">&check; Branch 9 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 10 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 13 not taken.</div>
         </div>
         </details>
       </td>
@@ -605,12 +618,12 @@
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
-          <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 9 not taken.</div>
-          <div class="takenBranch">&check; Branch 11 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 12 not taken.</div>
+          <div class="takenBranch">&check; Branch 4 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 5 not taken.</div>
+          <div class="takenBranch">&check; Branch 9 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 10 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 13 not taken.</div>
         </div>
         </details>
       </td>
@@ -623,12 +636,12 @@
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
-          <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 9 not taken.</div>
-          <div class="takenBranch">&check; Branch 11 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 12 not taken.</div>
+          <div class="takenBranch">&check; Branch 4 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 5 not taken.</div>
+          <div class="takenBranch">&check; Branch 9 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 10 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 13 not taken.</div>
         </div>
         </details>
       </td>
@@ -648,12 +661,12 @@
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/6</summary>
         <div class="linebranchContents">
-          <div class="notTakenBranch">&cross; Branch 1 not taken.</div>
-          <div class="takenBranch">&check; Branch 2 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 3 not taken.</div>
-          <div class="takenBranch">&check; Branch 4 taken 2 times.</div>
-          <div class="takenBranch">&check; Branch 7 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 8 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 2 not taken.</div>
+          <div class="takenBranch">&check; Branch 3 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
+          <div class="takenBranch">&check; Branch 5 taken 2 times.</div>
+          <div class="takenBranch">&check; Branch 15 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 16 not taken.</div>
         </div>
         </details>
       </td>
@@ -728,7 +741,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">file</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">list_files</span><span class="p">.</span><span class="n">value</span><span class="p">())</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">list_files</span><span class="p">.</span><span class="n">value</span><span class="p">())</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l66" href="#l66">66</a></td>
@@ -854,63 +867,63 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">assmpq</span><span class="o">::</span><span class="n">importer</span><span class="o">::</span><span class="n">import_func_t</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">importers_registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src "><span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">assmpq</span><span class="o">::</span><span class="n">importer</span><span class="o">::</span><span class="n">import_func_t</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">importers_mapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l84" href="#l84">84</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.blp&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_blp</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.blp&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_blp</span><span class="w"> </span><span class="p">}},</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l85" href="#l85">85</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.BLP&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_blp</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.BLP&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_blp</span><span class="w"> </span><span class="p">}},</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l86" href="#l86">86</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.mdx&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_mdx</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.mdx&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_mdx</span><span class="w"> </span><span class="p">}},</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l87" href="#l87">87</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.MDX&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_mdx</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.MDX&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_mdx</span><span class="w"> </span><span class="p">}},</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l88" href="#l88">88</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.w3m&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_w3e</span><span class="p">,</span><span class="w"> </span><span class="n">import_shd</span><span class="p">,</span><span class="w"> </span><span class="n">import_wpm</span><span class="p">,</span><span class="w"> </span><span class="n">import_doo</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.w3m&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_w3e</span><span class="p">,</span><span class="w"> </span><span class="n">import_shd</span><span class="p">,</span><span class="w"> </span><span class="n">import_wpm</span><span class="p">,</span><span class="w"> </span><span class="n">import_doo</span><span class="w"> </span><span class="p">}},</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l89" href="#l89">89</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.W3M&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_w3e</span><span class="p">,</span><span class="w"> </span><span class="n">import_shd</span><span class="p">,</span><span class="w"> </span><span class="n">import_wpm</span><span class="p">,</span><span class="w"> </span><span class="n">import_doo</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.W3M&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_w3e</span><span class="p">,</span><span class="w"> </span><span class="n">import_shd</span><span class="p">,</span><span class="w"> </span><span class="n">import_wpm</span><span class="p">,</span><span class="w"> </span><span class="n">import_doo</span><span class="w"> </span><span class="p">}},</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l90" href="#l90">90</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.w3x&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_w3e</span><span class="p">,</span><span class="w"> </span><span class="n">import_shd</span><span class="p">,</span><span class="w"> </span><span class="n">import_wpm</span><span class="p">,</span><span class="w"> </span><span class="n">import_doo</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.w3x&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_w3e</span><span class="p">,</span><span class="w"> </span><span class="n">import_shd</span><span class="p">,</span><span class="w"> </span><span class="n">import_wpm</span><span class="p">,</span><span class="w"> </span><span class="n">import_doo</span><span class="w"> </span><span class="p">}},</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l91" href="#l91">91</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.W3X&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_w3e</span><span class="p">,</span><span class="w"> </span><span class="n">import_shd</span><span class="p">,</span><span class="w"> </span><span class="n">import_wpm</span><span class="p">,</span><span class="w"> </span><span class="n">import_doo</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.W3X&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">import_w3e</span><span class="p">,</span><span class="w"> </span><span class="n">import_shd</span><span class="p">,</span><span class="w"> </span><span class="n">import_wpm</span><span class="p">,</span><span class="w"> </span><span class="n">import_doo</span><span class="w"> </span><span class="p">}},</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l92" href="#l92">92</a></td>
@@ -931,7 +944,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">importers_registry</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">archived_file_path</span><span class="p">.</span><span class="n">extension</span><span class="p">().</span><span class="n">string</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">importers_mapper</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">archived_file_path</span><span class="p">.</span><span class="n">extension</span><span class="p">().</span><span class="n">string</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l95" href="#l95">95</a></td>
@@ -966,45 +979,38 @@
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">coverterters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">importers_registry</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">archived_file_path</span><span class="p">.</span><span class="n">extension</span><span class="p">().</span><span class="n">string</span><span class="p">());</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">coverterters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">importers_mapper</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">archived_file_path</span><span class="p">.</span><span class="n">extension</span><span class="p">().</span><span class="n">string</span><span class="p">());</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l100" href="#l100">100</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">coverter_fn</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">coverterters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">coverter_fn</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">coverterters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l101" href="#l101">101</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">            </span><span class="c1">// Do conversion</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l102" href="#l102">102</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
       <td class="src uncoveredLine"><span class="w">            </span><span class="n">coverter_fn</span><span class="p">(</span><span class="n">extracted_file</span><span class="p">.</span><span class="n">value</span><span class="p">(),</span><span class="w"> </span><span class="n">archived_file_path</span><span class="p">,</span><span class="w"> </span><span class="n">popt</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l103" href="#l103">103</a></td>
+      <td class="lineno"><a id="l102" href="#l102">102</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="w">        </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l104" href="#l104">104</a></td>
+      <td class="lineno"><a id="l103" href="#l103">103</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
       <td class="src uncoveredLine"><span class="w">    </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l105" href="#l105">105</a></td>
+      <td class="lineno"><a id="l104" href="#l104">104</a></td>
       <td class="linebranch">
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/10</summary>
@@ -1013,12 +1019,12 @@
           <div class="notTakenBranch">&cross; Branch 2 not taken.</div>
           <div class="notTakenBranch">&cross; Branch 4 not taken.</div>
           <div class="takenBranch">&check; Branch 5 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 7 not taken.</div>
-          <div class="takenBranch">&check; Branch 8 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 10 not taken.</div>
-          <div class="takenBranch">&check; Branch 11 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 16 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 17 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 8 not taken.</div>
+          <div class="takenBranch">&check; Branch 9 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 11 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 18 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 19 not taken.</div>
         </div>
         </details>
       </td>
@@ -1026,56 +1032,56 @@
       <td class="src partialCoveredLine"><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exception</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l106" href="#l106">106</a></td>
+      <td class="lineno"><a id="l105" href="#l105">105</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
       <td class="src uncoveredLine"><span class="w">    </span><span class="n">spdlog</span><span class="o">::</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Unhandled exception in main: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">());</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l107" href="#l107">107</a></td>
+      <td class="lineno"><a id="l106" href="#l106">106</a></td>
       <td class="linebranch">
         <details class="linebranchDetails">
         <summary class="linebranchSummary">3/30</summary>
         <div class="linebranchContents">
           <div class="takenBranch">&check; Branch 2 taken 2 times.</div>
           <div class="notTakenBranch">&cross; Branch 3 not taken.</div>
-          <div class="takenBranch">&check; Branch 6 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 7 not taken.</div>
-          <div class="takenBranch">&check; Branch 10 taken 2 times.</div>
-          <div class="notTakenBranch">&cross; Branch 11 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 15 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 16 not taken.</div>
+          <div class="takenBranch">&check; Branch 7 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 8 not taken.</div>
+          <div class="takenBranch">&check; Branch 12 taken 2 times.</div>
+          <div class="notTakenBranch">&cross; Branch 13 not taken.</div>
           <div class="notTakenBranch">&cross; Branch 19 not taken.</div>
           <div class="notTakenBranch">&cross; Branch 20 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 23 not taken.</div>
           <div class="notTakenBranch">&cross; Branch 24 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 27 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 28 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 31 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 32 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 25 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 29 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 30 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 34 not taken.</div>
           <div class="notTakenBranch">&cross; Branch 35 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 36 not taken.</div>
           <div class="notTakenBranch">&cross; Branch 39 not taken.</div>
           <div class="notTakenBranch">&cross; Branch 40 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 43 not taken.</div>
           <div class="notTakenBranch">&cross; Branch 44 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 46 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 47 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 48 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 45 not taken.</div>
           <div class="notTakenBranch">&cross; Branch 49 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 51 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 52 not taken.</div>
-          <div class="notTakenBranch">&cross; Branch 53 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 50 not taken.</div>
           <div class="notTakenBranch">&cross; Branch 54 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 55 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 59 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 60 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 62 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 63 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 67 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 68 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 70 not taken.</div>
+          <div class="notTakenBranch">&cross; Branch 71 not taken.</div>
         </div>
         </details>
       </td>
-      <td class="linecount partialCoveredLine">2</td>
+      <td class="linecount partialCoveredLine">8</td>
       <td class="src partialCoveredLine"><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l108" href="#l108">108</a></td>
+      <td class="lineno"><a id="l107" href="#l107">107</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>

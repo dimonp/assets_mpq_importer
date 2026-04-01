@@ -1,9 +1,12 @@
 #include <spanstream>
 #include <string>
+#include <expected>
+
 #include <catch2/catch_test_macros.hpp>
 
-#include <assets_mpq_importer/mdlx.hpp>
 #include "test_utils.hpp"
+
+import assmpq.mdlx;
 
 namespace assmpq::test {
 

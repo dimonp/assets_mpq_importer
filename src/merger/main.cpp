@@ -1,13 +1,13 @@
-#include <algorithm>
 #include <string>
-#include <fstream>
 #include <vector>
+#include <algorithm>
 #include <filesystem>
+#include <fstream>
+#include <CLI/CLI.hpp>
 #include <fmt/base.h>
 #include <fmt/format.h>
-#include <spdlog/spdlog.h>
-#include <CLI/CLI.hpp>
 #include <nlohmann/json.hpp>
+#include <spdlog/spdlog.h>
 
 #if defined(__GNUC__) && !defined(__clang__)
 // Disable a false positive warning which is a bug in the compiler's static analysis
@@ -17,7 +17,8 @@
 #include <regex>
 
 #include <internal_use_only/config.hpp>
-#include "merger.hpp"
+
+import assmpq.merger;
 
 /**
  * @brief Command line options for the mesh merger application
@@ -25,15 +26,16 @@
  * This structure holds all the command line parameters that can be passed
  * to the application to control its behavior.
  */
-struct ProgramOptions {
-    std::filesystem::path input_folder;  ///< Input directory with cliff/ramp obj meshes
-    std::filesystem::path output_folder;   ///< Output folder for merged meshes and JSON files
-    std::string filename_pattern;         ///< Regex template for mesh filenames
-    std::string geoset_name;              ///< Input geoset name
-    std::optional<float> scale_factor;     ///< Optional mesh scale factor
-    bool is_append = false;               ///< Append keys to existing JSON file
-    bool is_ramp = false;                 ///< Process ramp geoset instead of cliff
-    bool is_verbose = false;              ///< Enable verbose output
+struct ProgramOptions
+{
+    std::filesystem::path input_folder;///< Input directory with cliff/ramp obj meshes
+    std::filesystem::path output_folder;///< Output folder for merged meshes and JSON files
+    std::string filename_pattern;///< Regex template for mesh filenames
+    std::string geoset_name;///< Input geoset name
+    std::optional<float> scale_factor;///< Optional mesh scale factor
+    bool is_append = false;///< Append keys to existing JSON file
+    bool is_ramp = false;///< Process ramp geoset instead of cliff
+    bool is_verbose = false;///< Enable verbose output
 };
 
 /**
@@ -46,13 +48,8 @@ struct ProgramOptions {
  * @param group_idx Index of the group
  * @param geo_key Geometry key for the group
  */
-static inline void add_json_group(
-    nlohmann::ordered_json& doc,
-    size_t group_idx,
-    uint32_t geo_key)
-{
-    doc[std::to_string(group_idx)] = std::to_string(geo_key);
-}
+static inline void add_json_group(nlohmann::ordered_json &doc, size_t group_idx, uint32_t geo_key)
+{ doc[std::to_string(group_idx)] = std::to_string(geo_key); }
 
 /**
  * @brief Apply transformations to a mesh
@@ -60,13 +57,11 @@ static inline void add_json_group(
  * @param mesh_data Reference to the mesh data to transform
  * @param popt Program options containing transformation parameters
  */
-static void transform_mesh(assmpq::merger::MeshData& mesh_data, const ProgramOptions& popt)
+static void transform_mesh(assmpq::merger::MeshData &mesh_data, const ProgramOptions &popt)
 {
     transform_mesh_to_base_xz(mesh_data);
 
-    if (popt.scale_factor.has_value()) {
-        scale_mesh(mesh_data, popt.scale_factor.value());
-    }
+    if (popt.scale_factor.has_value()) { scale_mesh(mesh_data, popt.scale_factor.value()); }
 }
 
 /**
@@ -81,18 +76,20 @@ static void transform_mesh(assmpq::merger::MeshData& mesh_data, const ProgramOpt
  * @param extracted_geo_name The extracted geometry name from the file
  * @param popt Program options controlling processing behavior
  */
-static void process_mesh(
-    assmpq::merger::MeshGroups& all_mesh_group,
-    assmpq::merger::MeshData& mesh_data,
-    nlohmann::ordered_json& json_groups,
-    const std::string& extracted_geo_name,
-    const ProgramOptions& popt)
+static void process_mesh(assmpq::merger::MeshGroups &all_mesh_group,
+  assmpq::merger::MeshData &mesh_data,
+  nlohmann::ordered_json &json_groups,
+  const std::string &extracted_geo_name,
+  const ProgramOptions &popt)
 {
-    if (popt.is_ramp) { // process ramp meshes
+    if (popt.is_ramp) {// process ramp meshes
         assmpq::merger::MeshData mesh_data0;
         assmpq::merger::MeshData mesh_data1;
 
         if (split_ramp_mesh(mesh_data, mesh_data0, mesh_data1)) {
+            mesh_data0 = generate_fake(mesh_data0);
+            mesh_data1 = generate_fake(mesh_data1);
+
             // first group
             all_mesh_group.push_back(mesh_data0);
             const uint32_t geo_key0 = assmpq::merger::get_ramp_key_from_geo_name(extracted_geo_name, 0);
@@ -106,7 +103,9 @@ static void process_mesh(
             spdlog::error("Failed to split ramp geo: {}", extracted_geo_name);
             return;
         }
-    } else { // process cliff mesh
+    } else {// process cliff mesh
+        mesh_data = generate_fake(mesh_data);
+
         const uint32_t geo_key = assmpq::merger::get_cliff_key_from_geo_name(extracted_geo_name);
 
         all_mesh_group.push_back(mesh_data);
@@ -114,36 +113,42 @@ static void process_mesh(
 
         if (popt.is_verbose) {
             spdlog::info("Append cliff mesh {} (key:{}, vertices:{}, normals:{}, uvs:{}, triangles:{}, geo:{})\n",
-                all_mesh_group.size(), geo_key,
-                mesh_data.vertices.size(), mesh_data.normals.size(), mesh_data.uvs.size(),
-                mesh_data.faces.size(), extracted_geo_name);
+              all_mesh_group.size(),
+              geo_key,
+              mesh_data.vertices.size(),
+              mesh_data.normals.size(),
+              mesh_data.uvs.size(),
+              mesh_data.faces.size(),
+              extracted_geo_name);
         }
     }
 }
 
-auto main(int argc, char* argv[])-> int
+auto main(int argc, char *argv[]) -> int
 try {
     const auto app_description = fmt::format(
-        "{} version {} merger\n"
-        "* Processes cliff or ramp meshes from OBJ files, applies transformations,\n"
-        "* splits ramp meshes, and generates a merged multigroup mesh with corresponding\n"
-        "* JSON metadata files containing geometry keys.\n",
-        assets_mpq_importer::cmake::project_name, assets_mpq_importer::cmake::project_version);
+      "{} version {} merger\n"
+      "* Processes cliff or ramp meshes from OBJ files, applies transformations,\n"
+      "* splits ramp meshes, and generates a merged multigroup mesh with corresponding\n"
+      "* JSON metadata files containing geometry keys.\n",
+      assets_mpq_importer::cmake::project_name,
+      assets_mpq_importer::cmake::project_version);
 
-    CLI::App app { app_description };
+    CLI::App app{ app_description };
     ProgramOptions popt;
 
     app.set_version_flag("-v,--version", app_description);
 
     app.add_option("-i,--input", popt.input_folder, "Input directory with cliff/ramp obj meshes.")
-        ->required()
-        ->check(CLI::ExistingDirectory);
+      ->required()
+      ->check(CLI::ExistingDirectory);
 
-    app.add_option("-o,--output", popt.output_folder, "Output folder.")
-        ->check(CLI::ExistingDirectory);
+    app.add_option("-o,--output", popt.output_folder, "Output folder.")->check(CLI::ExistingDirectory);
 
-    app.add_option("-p,--pattern", popt.filename_pattern, "Regex template for mesh filenames. "
-        "Used to obtain a filename key part: CityCliffsBABC0.mdx -> BABC0.");
+    app.add_option("-p,--pattern",
+      popt.filename_pattern,
+      "Regex template for mesh filenames. "
+      "Used to obtain a filename key part: CityCliffsBABC0.mdx -> BABC0.");
     app.add_option("-n,--name", popt.geoset_name, "Output geoset name.");
 
     app.add_option("-s,--scale", popt.scale_factor, "Mesh scale factor.");
@@ -154,15 +159,13 @@ try {
 
     CLI11_PARSE(app, argc, argv);
 
-    nlohmann::ordered_json output_json_doc;
-
-    const std::string output_json_filename = std::format("{}_keys.json", popt.geoset_name);
-
     spdlog::info("Process folder: {}", popt.input_folder.string());
 
+    const std::string output_json_filename = std::format("{}_keys.json", popt.geoset_name);
     auto output_json_path = popt.output_folder / output_json_filename;
 
-    if (popt.is_append) { // read an existing JSON file
+    nlohmann::ordered_json output_json_doc;
+    if (popt.is_append) {// read an existing JSON file
         std::ifstream input_json_file(output_json_path);
         if (!input_json_file.is_open()) {
             spdlog::error("Error: Could not open JSON file: {}", output_json_path.string());
@@ -171,7 +174,7 @@ try {
 
         try {
             input_json_file >> output_json_doc;
-        } catch (const nlohmann::json::exception& e) {
+        } catch (const nlohmann::json::exception &e) {
             spdlog::error("JSON parse error: {}", e.what());
             return 1;
         }
@@ -185,15 +188,15 @@ try {
     std::vector<std::filesystem::directory_entry> sorted_entries;
     std::ranges::copy(std::filesystem::directory_iterator(popt.input_folder), std::back_inserter(sorted_entries));
     std::ranges::sort(sorted_entries,
-        [](const std::filesystem::directory_entry& first, const std::filesystem::directory_entry& second) {
-            return first.path().filename() < second.path().filename();
-        });
+      [](const std::filesystem::directory_entry &first, const std::filesystem::directory_entry &second) {
+          return first.path().filename() < second.path().filename();
+      });
 
     nlohmann::ordered_json json_groups = {};
     assmpq::merger::MeshGroups all_mesh_group;
 
     // loop for all meshes
-    for (const auto& entry : sorted_entries) {
+    for (const auto &entry : sorted_entries) {
         std::string current_file_name = entry.path().string();
 
         // check if the name matches the geoset pattern and substr the geo name

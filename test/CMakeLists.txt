@@ -13,8 +13,7 @@ if(PROJECT_IS_TOP_LEVEL OR TEST_INSTALLED_VERSION)
   endif()
 endif()
 
-find_package(Catch2 REQUIRED)
-include(Catch)
+find_package(Catch2 CONFIG REQUIRED)
 
 # Provide a simple smoke test to make sure that the CLI works and can display a --help message
 add_test(NAME cli.importer.has_help COMMAND importer --help)
@@ -52,10 +51,12 @@ target_link_libraries(
       assets_mpq_importer::w3m_library
       Catch2::Catch2WithMain)
 
-target_include_directories(tests 
+target_include_directories(tests
   SYSTEM PRIVATE
       ${WC3_LIBRARY_INCLUDES}
       ${NVTT_LIBRARY_INCLUDES})
+
+set_target_properties(tests PROPERTIES CXX_SCAN_FOR_MODULES ON)
 
 if(WIN32 AND BUILD_SHARED_LIBS)
   add_custom_command(
@@ -67,6 +68,7 @@ endif()
 
 # automatically discover tests that are defined in catch based test files you can modify the unittests. Set TEST_PREFIX
 # to whatever you want, or use different for different binaries
+include(Catch)
 catch_discover_tests(
   tests
   TEST_PREFIX "unittests."

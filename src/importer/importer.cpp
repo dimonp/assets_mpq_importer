@@ -1,11 +1,15 @@
-#include <fstream>
+module;
 #include <filesystem>
+#include <fstream>
 #include <spdlog/spdlog.h>
-#include "importer.hpp"
 
-#include "assets_mpq_importer/blp.hpp"
-#include "assets_mpq_importer/mdlx.hpp"
-#include "assets_mpq_importer/w3m.hpp"
+module assmpq.importer;
+
+import assmpq;
+import assmpq.blp;
+import assmpq.mpq;
+import assmpq.w3m;
+import assmpq.mdlx;
 
 namespace assmpq::importer {
 
@@ -16,7 +20,9 @@ namespace assmpq::importer {
  * @param popt Program options containing output folder and other settings
  * @return true if file was saved successfully, false otherwise
  */
-auto import_save(const assmpq::FileData& file_data, const std::filesystem::path& archived_file_path, const ProgramOptions& popt)-> bool
+auto import_save(const assmpq::FileData &file_data,
+  const std::filesystem::path &archived_file_path,
+  const ProgramOptions &popt) -> bool
 {
     auto output_filename = popt.output_folder / archived_file_path;
 
@@ -28,7 +34,7 @@ auto import_save(const assmpq::FileData& file_data, const std::filesystem::path&
         return false;
     }
 
-    output_file.write( file_data.data(), static_cast<std::streamsize>(file_data.size()));
+    output_file.write(file_data.data(), static_cast<std::streamsize>(file_data.size()));
     output_file.close();
 
     spdlog::info("File {} saved.", output_filename.string());
@@ -43,7 +49,9 @@ auto import_save(const assmpq::FileData& file_data, const std::filesystem::path&
  * @param popt Program options containing conversion settings
  * @return true if conversion and save was successful, false otherwise
  */
-auto import_blp(const assmpq::FileData& file_data, const std::filesystem::path& archived_file_path, const ProgramOptions& popt)-> bool
+auto import_blp(const assmpq::FileData &file_data,
+  const std::filesystem::path &archived_file_path,
+  const ProgramOptions &popt) -> bool
 {
     const auto converted_file_data = [&file_data, &popt]() {
         if (popt.is_dds && popt.is_nvtt) {
@@ -72,9 +80,12 @@ auto import_blp(const assmpq::FileData& file_data, const std::filesystem::path& 
  * @param popt Program options
  * @return true if conversion and save was successful, false otherwise
  */
-auto import_mdx(const assmpq::FileData& file_data, const std::filesystem::path& archived_file_path, const ProgramOptions& popt)-> bool
+auto import_mdx(const assmpq::FileData &file_data,
+  const std::filesystem::path &archived_file_path,
+  const ProgramOptions &popt) -> bool
 {
-    const auto converted_file_data = assmpq::mdlx::convert_mdlx_to_obj_mesh(archived_file_path.stem().string(), file_data);
+    const auto converted_file_data =
+      assmpq::mdlx::convert_mdlx_to_obj_mesh(archived_file_path.stem().string(), file_data);
     if (!converted_file_data.has_value()) {
         spdlog::error("File convertation error: {}", archived_file_path.string());
         return false;
@@ -92,7 +103,9 @@ auto import_mdx(const assmpq::FileData& file_data, const std::filesystem::path& 
  * @param popt Program options
  * @return true if extraction and save was successful, false otherwise
  */
-auto import_w3e(const assmpq::FileData& file_data, const std::filesystem::path& archived_file_path, const ProgramOptions& popt)-> bool
+auto import_w3e(const assmpq::FileData &file_data,
+  const std::filesystem::path &archived_file_path,
+  const ProgramOptions &popt) -> bool
 {
     const auto extracted_file_data = assmpq::w3m::extract_w3e_file(file_data);
     if (!extracted_file_data.has_value()) {
@@ -112,11 +125,11 @@ auto import_w3e(const assmpq::FileData& file_data, const std::filesystem::path& 
  * @param popt Program options
  * @return true if extraction and save was successful, false otherwise
  */
-auto import_shd(const assmpq::FileData& file_data, const std::filesystem::path& archived_file_path, const ProgramOptions& popt)-> bool
+auto import_shd(const assmpq::FileData &file_data,
+  const std::filesystem::path &archived_file_path,
+  const ProgramOptions &popt) -> bool
 {
-    if (popt.is_w3e_only) {
-        return true;
-    }
+    if (popt.is_w3e_only) { return true; }
 
     const auto extracted_file_data = assmpq::w3m::extract_shd_file(file_data);
     if (!extracted_file_data.has_value()) {
@@ -136,11 +149,11 @@ auto import_shd(const assmpq::FileData& file_data, const std::filesystem::path& 
  * @param popt Program options
  * @return true if extraction and save was successful, false otherwise
  */
-auto import_wpm(const assmpq::FileData& file_data, const std::filesystem::path& archived_file_path, const ProgramOptions& popt)-> bool
+auto import_wpm(const assmpq::FileData &file_data,
+  const std::filesystem::path &archived_file_path,
+  const ProgramOptions &popt) -> bool
 {
-    if (popt.is_w3e_only) {
-        return true;
-    }
+    if (popt.is_w3e_only) { return true; }
 
     const auto extracted_file_data = assmpq::w3m::extract_wpm_file(file_data);
     if (!extracted_file_data.has_value()) {
@@ -160,11 +173,11 @@ auto import_wpm(const assmpq::FileData& file_data, const std::filesystem::path& 
  * @param popt Program options
  * @return true if extraction and save was successful, false otherwise
  */
-auto import_doo(const assmpq::FileData& file_data, const std::filesystem::path& archived_file_path, const ProgramOptions& popt)-> bool
+auto import_doo(const assmpq::FileData &file_data,
+  const std::filesystem::path &archived_file_path,
+  const ProgramOptions &popt) -> bool
 {
-    if (popt.is_w3e_only) {
-        return true;
-    }
+    if (popt.is_w3e_only) { return true; }
 
     const auto extracted_file_data = assmpq::w3m::extract_doo_file(file_data);
     if (!extracted_file_data.has_value()) {
@@ -177,4 +190,4 @@ auto import_doo(const assmpq::FileData& file_data, const std::filesystem::path& 
     return import_save(extracted_file_data.value(), output_path, popt);
 }
 
-} // namespace assmpq::importer
+}// namespace assmpq::importer

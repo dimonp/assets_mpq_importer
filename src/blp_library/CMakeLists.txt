@@ -3,29 +3,26 @@ find_package(spdlog CONFIG REQUIRED)
 
 include(GenerateExportHeader)
 
-if (WIN32)
-#    find_package(dxsdk-d3dx CONFIG REQUIRED)
-endif()
-
-add_library(blp_library)
+add_library(blp_library OBJECT)
 add_library(assets_mpq_importer::blp_library ALIAS blp_library)
 
 target_sources(blp_library
+    PUBLIC
+      FILE_SET CXX_MODULES
+      FILES
+        blp.cppm
+
     PRIVATE
       utils_blp.cpp utils_blp.hpp
       converter_png.cpp
       converter_dds_nvtt.cpp
       converter_dds_amdc.cpp
-    PUBLIC
-      FILE_SET HEADERS
-      BASE_DIRS ${CMAKE_SOURCE_DIR}/include
-      FILES
-        ${CMAKE_SOURCE_DIR}/include/assets_mpq_importer/blp.hpp
 )
 
 target_link_libraries(
   blp_library PRIVATE
     assets_mpq_importer_options assets_mpq_importer_warnings
+    assets_mpq_importer::common
     wc3libcore
     wc3libblp
     nvtt
@@ -41,7 +38,6 @@ target_link_system_libraries(
 
 target_include_directories(blp_library
   ${WARNING_GUARD} PUBLIC
-    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>)
 
 target_include_directories(blp_library
@@ -56,7 +52,9 @@ if (assets_mpq_importer_BUILD_FUZZ_TESTS)
 endif()
 
 target_compile_features(blp_library PUBLIC cxx_std_${CMAKE_CXX_STANDARD})
+target_compile_options(blp_library PUBLIC -msse4.1)
 
+set_target_properties(blp_library PROPERTIES CXX_SCAN_FOR_MODULES ON)
 set_target_properties(
   blp_library
   PROPERTIES VERSION ${PROJECT_VERSION}

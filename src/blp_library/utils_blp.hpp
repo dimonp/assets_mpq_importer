@@ -1,10 +1,10 @@
 #ifndef ASSMPQ_UTILS_BLP_H_
 #define ASSMPQ_UTILS_BLP_H_
 
-#include <vector>
 #include <blp/blp.hpp>
+#include <vector>
 
-namespace assmpq::blp {
+namespace assmpq::blp::utils {
 
 /**
  * @brief Extracts RGBA color data from a BLP mipmap as a vector of 32-bit unsigned integers.
@@ -15,7 +15,7 @@ namespace assmpq::blp {
  * @param mipmap The BLP mipmap to extract color data from
  * @return std::vector<uint32_t> A vector containing the RGBA color data
  */
-auto get_mipmap_buffer_rgba(const wc3lib::blp::Blp::MipMap& mipmap)-> std::vector<uint32_t>;
+auto get_mipmap_buffer_rgba(const wc3lib::blp::Blp::MipMap &mipmap) -> std::vector<uint32_t>;
 
 /**
  * @brief Extracts RGBA color data from a paletted BLP mipmap using a color palette.
@@ -28,9 +28,8 @@ auto get_mipmap_buffer_rgba(const wc3lib::blp::Blp::MipMap& mipmap)-> std::vecto
  * @param palette The color palette to use for converting palette indices to RGBA values
  * @return std::vector<uint32_t> A vector containing the RGBA color data
  */
-auto get_paletted_mipmap_buffer_rgba(
-    const wc3lib::blp::Blp::MipMap& mipmap,
-    const  wc3lib::blp::Blp::ColorPtr& palette)-> std::vector<uint32_t>;
+auto get_paletted_mipmap_buffer_rgba(const wc3lib::blp::Blp::MipMap &mipmap, const wc3lib::blp::Blp::ColorPtr &palette)
+  -> std::vector<uint32_t>;
 
 /**
  * @brief Extracts RGBA color data from a BLP mipmap as floating point values.
@@ -41,7 +40,7 @@ auto get_paletted_mipmap_buffer_rgba(
  * @param mipmap The BLP mipmap to extract color data from
  * @return std::vector<float> A vector containing the RGBA color data as floating point values
  */
-auto get_mipmap_buffer_float(const wc3lib::blp::Blp::MipMap& mipmap)-> std::vector<float>;
+auto get_mipmap_buffer_float(const wc3lib::blp::Blp::MipMap &mipmap) -> std::vector<float>;
 
 /**
  * @brief Extracts RGBA color data from a paletted BLP mipmap as floating point values.
@@ -54,10 +53,9 @@ auto get_mipmap_buffer_float(const wc3lib::blp::Blp::MipMap& mipmap)-> std::vect
  * @param palette The color palette to use for converting palette indices to RGBA values
  * @return std::vector<float> A vector containing the RGBA color data as floating point values
  */
-auto get_paletted_mipmap_buffer_float(
-    const wc3lib::blp::Blp::MipMap& mipmap,
-    const  wc3lib::blp::Blp::ColorPtr& palette)-> std::vector<float>;
+auto get_paletted_mipmap_buffer_float(const wc3lib::blp::Blp::MipMap &mipmap, const wc3lib::blp::Blp::ColorPtr &palette)
+  -> std::vector<float>;
 
-} // namespace assmpq::blp
+}// namespace assmpq::blp::utils
 
-#endif // ASSMPQ_UTILS_BLP_H_
+#endif// ASSMPQ_UTILS_BLP_H_

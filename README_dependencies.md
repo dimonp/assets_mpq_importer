@@ -32,7 +32,7 @@ See [cppreference.com](https://en.cppreference.com/w/cpp/compiler_support)
 to see which features are supported by each compiler.
 The following compilers should work:
 
-  * [gcc 14+](https://gcc.gnu.org/)
+  * [gcc 15](https://gcc.gnu.org/)
 	<details>
 	<summary>Install command</summary>
 
@@ -49,7 +49,7 @@ The following compilers should work:
 			brew install gcc
 	</details>
 
-  * [clang 19+](https://clang.llvm.org/)
+  * [clang 22](https://clang.llvm.org/)
 	<details>
 	<summary>Install command</summary>
 
@@ -101,7 +101,7 @@ The following compilers should work:
 	</details>
 
 
-2. [CMake 3.21+](https://cmake.org/)
+2. [CMake 3.31+](https://cmake.org/)
 	<details>
 	<summary>Install Command</summary>
 

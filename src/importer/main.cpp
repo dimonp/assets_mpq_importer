@@ -1,13 +1,14 @@
 #include <exception>
 #include <filesystem>
-#include <fmt/base.h>
-#include <fmt/format.h>
-#include <spdlog/spdlog.h>
 #include <CLI/CLI.hpp>
+#include <fmt/core.h>
+#include <spdlog/spdlog.h>
 
 #include <internal_use_only/config.hpp>
-#include "assets_mpq_importer/mpq.hpp"
-#include "importer.hpp"
+
+import assmpq;
+import assmpq.importer;
+import assmpq.mpq;
 
 using assmpq::importer::import_blp;
 using assmpq::importer::import_mdx;
@@ -16,34 +17,33 @@ using assmpq::importer::import_shd;
 using assmpq::importer::import_wpm;
 using assmpq::importer::import_doo;
 
-auto main(int argc, char* argv[])-> int
+auto main(int argc, char *argv[]) -> int
 try {
     const auto app_description = fmt::format(
         "{} version {} importer\n"
         "* Extract and convert files from MPQ archive.\n"
         "* Convert MDX meshes to Wavefront OBJ, convert BLP textures to PNG or DDS(BC1,BC3,BC7) with mipmaps.\n"
         "* Extract and save w3e map files.\n",
-        assets_mpq_importer::cmake::project_name, assets_mpq_importer::cmake::project_version);
+        assets_mpq_importer::cmake::project_name,
+        assets_mpq_importer::cmake::project_version);
 
-    CLI::App app { app_description };
+    CLI::App app{ app_description };
     assmpq::importer::ProgramOptions popt;
 
     app.set_version_flag("-v,--version", app_description);
     app.add_option("-i,--input", popt.input_mpq_file, "Input MPQ archive file name.")
-        ->required()
-        ->check(CLI::ExistingFile);
-    app.add_option("-o,--output", popt.output_folder, "Output folder.")
-        ->check(CLI::ExistingDirectory);
+      ->required()
+      ->check(CLI::ExistingFile);
+    app.add_option("-o,--output", popt.output_folder, "Output folder.")->check(CLI::ExistingDirectory);
     app.add_option("-f,--filter", popt.pattern, "File extraction filter.");
 
-    static const std::map<std::string, assmpq::blp::Compression> compression_map = {
-        { "bc1", assmpq::blp::Compression::DDS_BC1 },
-        { "bc3", assmpq::blp::Compression::DDS_BC3 },
-        { "bc7", assmpq::blp::Compression::DDS_BC7 }
-    };
+    static const std::map<std::string, assmpq::Compression> compression_map = {
+        { "bc1", assmpq::Compression::DDS_BC1 },
+        { "bc3", assmpq::Compression::DDS_BC3 },
+        { "bc7", assmpq::Compression::DDS_BC7 } };
     app.add_option("-c,--compression", popt.compression, "DDS compression format (BC1, BC3, BC7), BC3 by default. ")
-        ->transform(CLI::CheckedTransformer(compression_map, CLI::ignore_case))
-        ->default_val("bc3");
+      ->transform(CLI::CheckedTransformer(compression_map, CLI::ignore_case))
+      ->default_val("bc3");
 
     app.add_flag("--regen-mipmap", popt.is_regen_mipmaps, "Dont use original mipmaps. Recompute it from the scratch.");
     app.add_flag("--nvtt", popt.is_nvtt, "Use Nvidia Texture Tools compressor. AMD Compressionator by default.");
@@ -62,7 +62,7 @@ try {
         return 1;
     }
 
-    for (const auto& file : list_files.value()) {
+    for (const auto &file : list_files.value()) {
         spdlog::info("File processing: {}", file.filename);
 
         const auto extracted_file = assmpq::mpq::extract_mpq_file(popt.input_mpq_file, file.filename);
@@ -80,24 +80,25 @@ try {
             continue;
         }
 
-        static const std::unordered_map<std::string, std::vector<assmpq::importer::import_func_t>> importers_mapper = {
-            { ".blp", { import_blp }},
-            { ".BLP", { import_blp }},
-            { ".mdx", { import_mdx }},
-            { ".MDX", { import_mdx }},
-            { ".w3m", { import_w3e, import_shd, import_wpm, import_doo }},
-            { ".W3M", { import_w3e, import_shd, import_wpm, import_doo }},
-            { ".w3x", { import_w3e, import_shd, import_wpm, import_doo }},
-            { ".W3X", { import_w3e, import_shd, import_wpm, import_doo }},
+        static const std::unordered_map<std::string, std::vector<assmpq::importer::import_func_t>> importers_registry = {
+            { ".blp", { import_blp } },
+            { ".BLP", { import_blp } },
+            { ".mdx", { import_mdx } },
+            { ".MDX", { import_mdx } },
+            { ".w3m", { import_w3e, import_shd, import_wpm, import_doo } },
+            { ".W3M", { import_w3e, import_shd, import_wpm, import_doo } },
+            { ".w3x", { import_w3e, import_shd, import_wpm, import_doo } },
+            { ".W3X", { import_w3e, import_shd, import_wpm, import_doo } },
         };
 
-        if (!importers_mapper.contains(archived_file_path.extension().string())) {
+        if (!importers_registry.contains(archived_file_path.extension().string())) {
             spdlog::warn("Importer not found for extension: {}", archived_file_path.extension().string());
             continue;
         }
 
-        auto coverterters = importers_mapper.at(archived_file_path.extension().string());
-        for(const auto& coverter_fn : coverterters) {
+        auto coverterters = importers_registry.at(archived_file_path.extension().string());
+        for (const auto &coverter_fn : coverterters) {
+            // Do conversion
             coverter_fn(extracted_file.value(), archived_file_path, popt);
         }
     }

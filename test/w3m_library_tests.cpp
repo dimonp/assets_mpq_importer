@@ -1,9 +1,11 @@
 #include <span>
+
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_range_equals.hpp>
 
-#include <assets_mpq_importer/w3m.hpp>
 #include "test_utils.hpp"
+
+import assmpq.w3m;
 
 TEST_CASE("Extract_W3E_success", "[w3m]")
 {

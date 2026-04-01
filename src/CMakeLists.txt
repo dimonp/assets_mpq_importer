@@ -1,3 +1,4 @@
+add_subdirectory(common)
 add_subdirectory(mpq_library)
 add_subdirectory(blp_library)
 add_subdirectory(mdlx_library)

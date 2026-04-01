@@ -9,16 +9,16 @@ add_executable(merger)
 
 target_sources(merger
     PRIVATE
-      main.cpp
+      FILE_SET CXX_MODULES
+      FILES
+        merger.cppm
+
+    PRIVATE
       wavefront_obj.cpp
       transformations.cpp
       w3map.cpp
-    PRIVATE
-      FILE_SET HEADERS
-      FILES
-        merger.hpp
+      main.cpp
 )
-
 
 target_link_libraries(
   merger
@@ -37,8 +37,10 @@ target_link_system_libraries(
 
 target_include_directories(merger PRIVATE "${CMAKE_BINARY_DIR}/configured_files/include")
 
-file(GLOB SHARES_LIBS 
-  "${CMAKE_CURRENT_BINARY_DIR}/Release/*.dll" 
+set_target_properties(merger PROPERTIES CXX_SCAN_FOR_MODULES ON)
+
+file(GLOB SHARES_LIBS
+  "${CMAKE_CURRENT_BINARY_DIR}/Release/*.dll"
   "${CMAKE_CURRENT_BINARY_DIR}/Release/*.so")
 install(FILES ${SHARES_LIBS}
     DESTINATION bin

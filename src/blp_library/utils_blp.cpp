@@ -1,26 +1,23 @@
+module;
 #include <bit>
 #include <blp/blp.hpp>
-#include "assets_mpq_importer/blp.hpp"
 
-namespace assmpq::blp {
+module assmpq.blp;
 
-enum class ColorShift : uint8_t {
-    Red = 24U,
-    Green = 16U,
-    Blue = 8U,
-    Alpha = 0U
-};
+#include "utils_blp.hpp"
 
-template<ColorShift SHIFT>
-inline auto get_color(uint32_t rgba)-> float
+namespace assmpq::blp::utils {
+
+enum class ColorShift : uint8_t { Red = 24U, Green = 16U, Blue = 8U, Alpha = 0U };
+
+template<ColorShift SHIFT> inline auto get_color(uint32_t rgba) -> float
 {
     static constexpr uint32_t kByteMask = 0xFF;
     static constexpr float kColorBase = 255.0F;
     return static_cast<float>((rgba >> static_cast<uint8_t>(SHIFT)) & kByteMask) / kColorBase;
 }
 
-auto get_mipmap_buffer_rgba(const wc3lib::blp::Blp::MipMap& mipmap)
-    -> std::vector<uint32_t>
+auto get_mipmap_buffer_rgba(const wc3lib::blp::Blp::MipMap &mipmap) -> std::vector<uint32_t>
 {
     const size_t width = mipmap.width();
     const size_t height = mipmap.height();
@@ -37,10 +34,8 @@ auto get_mipmap_buffer_rgba(const wc3lib::blp::Blp::MipMap& mipmap)
     return colors_buffer;
 }
 
-auto get_paletted_mipmap_buffer_rgba(
-    const wc3lib::blp::Blp::MipMap& mipmap,
-    const  wc3lib::blp::Blp::ColorPtr& palette)
-    -> std::vector<uint32_t>
+auto get_paletted_mipmap_buffer_rgba(const wc3lib::blp::Blp::MipMap &mipmap, const wc3lib::blp::Blp::ColorPtr &palette)
+  -> std::vector<uint32_t>
 {
     const size_t width = mipmap.width();
     const size_t height = mipmap.height();
@@ -58,8 +53,7 @@ auto get_paletted_mipmap_buffer_rgba(
     return colors_buffer;
 }
 
-auto get_mipmap_buffer_float(const wc3lib::blp::Blp::MipMap& mipmap)
-    -> std::vector<float>
+auto get_mipmap_buffer_float(const wc3lib::blp::Blp::MipMap &mipmap) -> std::vector<float>
 {
     const size_t width = mipmap.width();
     const size_t height = mipmap.height();
@@ -85,10 +79,8 @@ auto get_mipmap_buffer_float(const wc3lib::blp::Blp::MipMap& mipmap)
     return colors_buffer;
 }
 
-auto get_paletted_mipmap_buffer_float(
-    const wc3lib::blp::Blp::MipMap& mipmap,
-    const  wc3lib::blp::Blp::ColorPtr& palette)
-    -> std::vector<float>
+auto get_paletted_mipmap_buffer_float(const wc3lib::blp::Blp::MipMap &mipmap, const wc3lib::blp::Blp::ColorPtr &palette)
+  -> std::vector<float>
 {
     const size_t width = mipmap.width();
     const size_t height = mipmap.height();
@@ -115,4 +107,4 @@ auto get_paletted_mipmap_buffer_float(
     return colors_buffer;
 }
 
-} // namespace assmpq::blp
+}// namespace assmpq::blp::utils

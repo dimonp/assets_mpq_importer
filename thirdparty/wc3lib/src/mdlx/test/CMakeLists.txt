@@ -1,4 +1,4 @@
-find_package(Catch2 REQUIRED)
+find_package(Catch2 CONFIG REQUIRED)
 
 add_executable(mdlxfiletest mdlxfiletest.cpp)
 target_link_libraries(mdlxfiletest PRIVATE wc3libmdlx wc3libcore ${GETTEXT_LIBRARIES})

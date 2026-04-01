@@ -17,8 +17,12 @@ macro(
     list(APPEND NEW_CXX_DEFINITIONS -D_GLIBCXX_ASSERTIONS)
     message(STATUS "*** GLIBC++ Assertions (vector[], string[], ...) enabled")
 
+    list(APPEND NEW_COMPILE_OPTIONS
+      "$<$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>>:-U_FORTIFY_SOURCE>"
+      "$<$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>>:-D_FORTIFY_SOURCE=3>"
+    )
     if(NOT CMAKE_BUILD_TYPE MATCHES "Debug")
-      list(APPEND NEW_COMPILE_OPTIONS -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3)
+      # list(APPEND NEW_COMPILE_OPTIONS -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3)
       message(STATUS "*** g++/clang _FORTIFY_SOURCE=3 enabled")
     endif()
 

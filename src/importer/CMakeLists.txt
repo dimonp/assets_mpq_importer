@@ -6,12 +6,13 @@ add_executable(importer)
 
 target_sources(importer
     PRIVATE
-      main.cpp
-      importer.cpp
-    PRIVATE
-      FILE_SET HEADERS
+      FILE_SET CXX_MODULES
       FILES
-        importer.hpp
+        importer.cppm
+
+    PRIVATE
+      importer.cpp
+      main.cpp
 )
 
 target_link_libraries(
@@ -37,8 +38,10 @@ target_link_system_libraries(
 
 target_include_directories(importer PRIVATE "${CMAKE_BINARY_DIR}/configured_files/include")
 
-file(GLOB SHARES_LIBS 
-  "${CMAKE_CURRENT_BINARY_DIR}/Release/*.dll" 
+set_target_properties(importer PROPERTIES CXX_SCAN_FOR_MODULES ON)
+
+file(GLOB SHARES_LIBS
+  "${CMAKE_CURRENT_BINARY_DIR}/Release/*.dll"
   "${CMAKE_CURRENT_BINARY_DIR}/Release/*.so")
 install(FILES ${SHARES_LIBS}
     DESTINATION bin

@@ -1,9 +1,23 @@
 cmake_minimum_required(VERSION 3.31)
 
+option(BUILD_TESTING "Build the testing suite" ON)
+
+if(BUILD_TESTING)
+  list(APPEND VCPKG_MANIFEST_FEATURES "tests")
+endif()
+
+# Set the project name and language
+project(
+  assets_mpq_importer
+  VERSION 0.2.1
+  DESCRIPTION "Assets MPQ importer"
+  HOMEPAGE_URL "https://github.com/dimonp/assets_mpq_importer"
+  LANGUAGES CXX C)
+
 # Only set the cxx_standard if it is not set by someone else
 if (NOT DEFINED CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 23)
-  set(CMAKE_CXX_STANDARD_REQUIRED True)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
 endif()
 
 # strongly encouraged to enable this globally to avoid conflicts between
@@ -11,22 +25,15 @@ endif()
 # when compiling with PCH enabled
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# to avoid clang-tidy errors
-set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
-
-# Set the project name and language
-project(
-  assets_mpq_importer
-  VERSION 0.1.1
-  DESCRIPTION "Assets MPQ importer"
-  HOMEPAGE_URL "https://github.com/dimonp/assets_mpq_importer"
-  LANGUAGES CXX C)
-
-option(DISABLE_ALL_SANITIZERS "Enable Cppcheck static analyzer" OFF)
+option(DISABLE_ALL_SANITIZERS "Disable all sanitizers" OFF)
 option(ENABLE_CPPCHECK_DEFAULT "Enable Cppcheck static analyzer" ON)
-option(ENABLE_CLANG_TIDY_DEFAULT "Enable Clang-tidy static analyzer" ON)
+option(ENABLE_CLANG_TIDY_DEFAULT "Enable Clang-tidy static analyzer" OFF)
 
-include(FetchContent)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  # g++15 internal compiler error when using C++20 modules and the -fsanitize=undefined option is enabled
+  set(assets_mpq_importer_ENABLE_SANITIZER_UNDEFINED OFF CACHE BOOL "Build shared libraries" FORCE)
+endif()
+
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
 
@@ -41,13 +48,11 @@ message(assets_mpq_importer_ENABLE_SANITIZER_THREAD: "${assets_mpq_importer_ENAB
 message(assets_mpq_importer_ENABLE_SANITIZER_LEAK: "${assets_mpq_importer_ENABLE_SANITIZER_LEAK}")
 
 if(MSYS)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wa,-mbig-obj")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wa,-mbig-obj")
 elseif(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
 endif()
 
-# fake call for damn conan provider
-find_package(fmt REQUIRED)
 enable_testing()
 
 # Third-party dependency libraries

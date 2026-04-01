@@ -1,14 +1,15 @@
-#ifndef ASSMPQ_MPQ_H_
-#define ASSMPQ_MPQ_H_
-
+module;
 #include <vector>
-#include <filesystem>
 #include <expected>
+#include <string_view>
+#include <filesystem>
 
+export module assmpq.mpq;
+
+import assmpq;
 #include "assets_mpq_importer/mpq_library_export.hpp"
-#include "assmpq.hpp"
 
-namespace assmpq::mpq {
+export namespace assmpq::mpq {
 
 /// @brief Represents an entry for a file within an MPQ archive
 /// @details Contains the filename and size information for a file stored in an MPQ archive
@@ -16,7 +17,7 @@ struct FileEntry {
     std::string filename;
     std::streamsize size = 0;
 
-    bool operator==(const FileEntry& other) const = default;
+    bool operator==(const FileEntry &other) const = default;
 };
 
 using ArchiveEntries = std::vector<FileEntry>;
@@ -29,8 +30,11 @@ using ArchiveEntries = std::vector<FileEntry>;
  *  @details Retrieves a list of files contained in the specified Blizzard MPQ archive.
  *           If a mask is provided, only files matching the mask will be returned.
  */
-[[nodiscard]] MPQ_LIBRARY_EXPORT auto list_mpq_files(const std::filesystem::path& archive_path, const std::string& mask = "")
-    -> std::expected<ArchiveEntries, ErrorMessage>;
+[[nodiscard]] MPQ_LIBRARY_EXPORT
+auto list_mpq_files(
+    const std::filesystem::path &archive_path,
+    std::string_view mask = ""
+) -> std::expected<ArchiveEntries, ErrorMessage>;
 
 /**
  * @brief Extracts a file from an MPQ archive
@@ -40,9 +44,10 @@ using ArchiveEntries = std::vector<FileEntry>;
  * @details Extracts the specified file from the Blizzard MPQ archive and returns its contents
  *          as a vector of bytes. If extraction fails, an error message is returned.
  */
-[[nodiscard]] MPQ_LIBRARY_EXPORT auto extract_mpq_file(const std::filesystem::path& archive_path, const std::string& filename)
-    -> std::expected<FileData, ErrorMessage>;
+[[nodiscard]] MPQ_LIBRARY_EXPORT
+auto extract_mpq_file(
+    const std::filesystem::path &archive_path,
+    std::string_view filename
+) -> std::expected<FileData, ErrorMessage>;
 
 } // namespace assmpq::mpq
-
-#endif  /// ASSMPQ_MPQ_H_

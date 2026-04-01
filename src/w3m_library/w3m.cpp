@@ -1,21 +1,21 @@
+module;
+#include <exception.hpp>
 #include <expected>
+#include <map/w3m.hpp>
+#include <platform.hpp>
 #include <spanstream>
 
-#include <platform.hpp>
-#include <exception.hpp>
-#include <map/w3m.hpp>
+module assmpq.w3m;
 
-#include "assets_mpq_importer/w3m.hpp"
-
+import assmpq;
 
 namespace assmpq::w3m {
 
-using format_getter_t = const char*(*)(const wc3lib::map::W3m& map);
+using format_getter_t = const char *(*)(const wc3lib::map::W3m &map);
 
-static auto extract_file(const FileData& w3m_file, format_getter_t fmt_getter)
-    -> std::expected<FileData, ErrorMessage>
+static auto extract_file(const FileData &w3m_file, format_getter_t fmt_getter) -> std::expected<FileData, ErrorMessage>
 try {
-	wc3lib::map::W3m map;
+    wc3lib::map::W3m map;
     std::ispanstream input(w3m_file);
     map.read(input);
 
@@ -30,36 +30,24 @@ try {
     return std::unexpected(exception.what());
 }
 
-auto extract_w3e_file(const FileData& w3m_file)
-    -> std::expected<FileData, ErrorMessage>
+auto extract_w3e_file(const FileData &w3m_file) -> std::expected<FileData, ErrorMessage>
 {
-    return extract_file(w3m_file, [](const auto& map) -> const char* {
-        return map.environment().get()->fileName();
-    });
+    return extract_file(w3m_file, [](const auto &map) -> const char * { return map.environment().get()->fileName(); });
 }
 
-auto extract_shd_file(const FileData& w3m_file)
-    -> std::expected<FileData, ErrorMessage>
+auto extract_shd_file(const FileData &w3m_file) -> std::expected<FileData, ErrorMessage>
 {
-    return extract_file(w3m_file, [](const auto& map) -> const char* {
-        return map.shadow().get()->fileName();
-    });
+    return extract_file(w3m_file, [](const auto &map) -> const char * { return map.shadow().get()->fileName(); });
 }
 
-auto extract_wpm_file(const FileData& w3m_file)
-    -> std::expected<FileData, ErrorMessage>
+auto extract_wpm_file(const FileData &w3m_file) -> std::expected<FileData, ErrorMessage>
 {
-    return extract_file(w3m_file, [](const auto& map) -> const char* {
-        return map.pathmap().get()->fileName();
-    });
+    return extract_file(w3m_file, [](const auto &map) -> const char * { return map.pathmap().get()->fileName(); });
 }
 
-auto extract_doo_file(const FileData& w3m_file)
-    -> std::expected<FileData, ErrorMessage>
+auto extract_doo_file(const FileData &w3m_file) -> std::expected<FileData, ErrorMessage>
 {
-    return extract_file(w3m_file, [](const auto& map) -> const char* {
-        return map.trees().get()->fileName();
-    });
+    return extract_file(w3m_file, [](const auto &map) -> const char * { return map.trees().get()->fileName(); });
 }
 
-}  // namespace assmpq::w3m
+}// namespace assmpq::w3m

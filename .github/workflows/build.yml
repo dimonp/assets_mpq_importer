@@ -10,7 +10,7 @@ on:
       - develop
 
 env:
-  CLANG_TIDY_VERSION: "19"
+  CLANG_TIDY_VERSION: "22"
   VERBOSE: 1
 
 jobs:
@@ -34,7 +34,7 @@ jobs:
         include:
           - os: ubuntu-latest
             generator: "Ninja Multi-Config"
-            compiler: gcc-14
+            compiler: gcc-15
             build_type: Release
             package_generator: TGZ
 

@@ -291,9 +291,9 @@ void readMipMapJpeg(Blp::MipMap &mipMap, byte *buffer, dword bufferSize)
 		// BLP uses color space 4 but actually it is bgra
 		if (cinfo.out_color_space != JCS_CMYK)
 		{
-            std::cerr << std::format(_("Warning: Image color space ({}) is not equal to CMYK ({}) - actually BGRA."), 
-					static_cast<int>(cinfo.out_color_space), 
-					static_cast<int>(JCS_CMYK)) 
+			std::cerr << std::format(_("Warning: Image color space ({}) is not equal to CMYK ({}) - actually BGRA."),
+					static_cast<int>(cinfo.out_color_space),
+					static_cast<int>(JCS_CMYK))
 				<< std::endl;
 		}
 
@@ -355,7 +355,9 @@ void readMipMapJpeg(Blp::MipMap &mipMap, byte *buffer, dword bufferSize)
 
 	if (!cinfo.saw_JFIF_marker)
 	{
+#if _DEBUG
 		std::cerr << std::format(_("Warning: Did not find JFIF marker. JFIF format is used by default!\nThis is the JFIF version of the image {}.{}"), (int)cinfo.JFIF_major_version, (int)cinfo.JFIF_minor_version) << std::endl;
+#endif
 	}
 
 	jpeg_destroy_decompress(&cinfo);

@@ -3,23 +3,23 @@ find_package(spdlog CONFIG REQUIRED)
 
 include(GenerateExportHeader)
 
-add_library(mdlx_library)
+add_library(mdlx_library OBJECT)
 add_library(assets_mpq_importer::mdlx_library ALIAS mdlx_library)
 
 target_sources(mdlx_library
+    PUBLIC
+      FILE_SET CXX_MODULES
+      FILES
+        mdlx.cppm
+
     PRIVATE
       converter_obj.cpp
-    PUBLIC
-      FILE_SET HEADERS
-      BASE_DIRS ${CMAKE_SOURCE_DIR}/include
-      FILES
-        ${CMAKE_SOURCE_DIR}/include/assets_mpq_importer/mdlx.hpp
 )
-
 
 target_link_libraries(mdlx_library
   PRIVATE
     assets_mpq_importer_options assets_mpq_importer_warnings
+    assets_mpq_importer::common
     wc3libcore
     wc3libmdlx)
 
@@ -32,7 +32,6 @@ target_link_system_libraries(
 
 target_include_directories(mdlx_library
   ${WARNING_GUARD} PUBLIC
-    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>)
 
 target_include_directories(mdlx_library
@@ -46,6 +45,7 @@ endif()
 
 target_compile_features(mdlx_library PUBLIC cxx_std_${CMAKE_CXX_STANDARD})
 
+set_target_properties(mdlx_library PROPERTIES CXX_SCAN_FOR_MODULES ON)
 set_target_properties(
   mdlx_library
   PROPERTIES VERSION ${PROJECT_VERSION}

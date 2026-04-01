@@ -1,4 +1,4 @@
-find_package(Catch2 REQUIRED)
+find_package(Catch2 CONFIG REQUIRED)
 
 add_executable(teamcolors teamcolors.cpp)
 target_link_libraries(teamcolors PRIVATE wc3libblp wc3libcore)

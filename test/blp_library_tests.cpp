@@ -1,15 +1,18 @@
+#include <vector>
+#include <tuple>
+#include <expected>
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
+#include <nvimage/DirectDrawSurface.h>
+
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_vector.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
 
-#include <assets_mpq_importer/blp.hpp>
-
-#include <vector>
-#include <tuple>
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
-#include <nvimage/DirectDrawSurface.h>
 #include "test_utils.hpp"
+
+import assmpq;
+import assmpq.blp;
 
 namespace assmpq::test {
 
@@ -159,7 +162,7 @@ TEST_CASE("Convert_BLP_to_DDS_NVTT_with_compression_BC1_success", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_jpeg_32x32.blp");
     const auto result_bc1 = assmpq::blp::convert_blp_to_dds_texture_nvtt(
         blp_data,
-        assmpq::blp::Compression::DDS_BC1
+        assmpq::Compression::DDS_BC1
     );
 
     REQUIRE(result_bc1.has_value());
@@ -180,7 +183,7 @@ TEST_CASE("Convert_BLP_to_DDS_NVTT_with_compression_BC3_succeess", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_jpeg_32x32.blp");
     const auto result_bc3 = assmpq::blp::convert_blp_to_dds_texture_nvtt(
         blp_data,
-        assmpq::blp::Compression::DDS_BC3
+        assmpq::Compression::DDS_BC3
     );
 
     REQUIRE(result_bc3.has_value());
@@ -201,7 +204,7 @@ TEST_CASE("Convert_BLP_to_DDS_NVTT_with_compression_BC7_success", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_jpeg_32x32.blp");
     const auto result_bc7 = assmpq::blp::convert_blp_to_dds_texture_nvtt(
         blp_data,
-        assmpq::blp::Compression::DDS_BC7
+        assmpq::Compression::DDS_BC7
     );
 
     REQUIRE(result_bc7.has_value());
@@ -223,7 +226,7 @@ TEST_CASE("Convert_BLP_to_DDS_NVTT_dont_generate_mipmaps_succeess", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_jpeg_32x32-no-mipmaps.blp");
     const auto result_bc3 = assmpq::blp::convert_blp_to_dds_texture_nvtt(
         blp_data,
-        assmpq::blp::Compression::DDS_BC3,
+        assmpq::Compression::DDS_BC3,
         false
     );
 
@@ -245,7 +248,7 @@ TEST_CASE("Convert_BLP_to_DDS_NVTT_generate_mipmaps_succeess", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_jpeg_32x32-no-mipmaps.blp");
     const auto result_bc3 = assmpq::blp::convert_blp_to_dds_texture_nvtt(
         blp_data,
-        assmpq::blp::Compression::DDS_BC3,
+        assmpq::Compression::DDS_BC3,
         true
     );
 
@@ -267,7 +270,7 @@ TEST_CASE("Convert_BLP_to_DDS_NVTT_paletted_generate_mipmaps_succeess", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_raw_32x32_paletted.blp");
     const auto result_bc3 = assmpq::blp::convert_blp_to_dds_texture_nvtt(
         blp_data,
-        assmpq::blp::Compression::DDS_BC3,
+        assmpq::Compression::DDS_BC3,
         true
     );
 
@@ -315,7 +318,7 @@ TEST_CASE("Convert_BLP_to_DDS_AMDC_with_compression_BC1_success", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_jpeg_32x32.blp");
     const auto result_bc1 = assmpq::blp::convert_blp_to_dds_texture_amdc(
         blp_data,
-        assmpq::blp::Compression::DDS_BC1
+        assmpq::Compression::DDS_BC1
     );
 
     REQUIRE(result_bc1.has_value());
@@ -336,7 +339,7 @@ TEST_CASE("Convert_BLP_to_DDS_AMDC_with_compression_BC3_succeess", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_jpeg_32x32.blp");
     const auto result_bc3 = assmpq::blp::convert_blp_to_dds_texture_amdc(
         blp_data,
-        assmpq::blp::Compression::DDS_BC3
+        assmpq::Compression::DDS_BC3
     );
 
     REQUIRE(result_bc3.has_value());
@@ -357,7 +360,7 @@ TEST_CASE("Convert_BLP_to_DDS_AMDC_with_compression_BC7_success", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_jpeg_32x32.blp");
     const auto result_bc7 = assmpq::blp::convert_blp_to_dds_texture_amdc(
         blp_data,
-        assmpq::blp::Compression::DDS_BC7
+        assmpq::Compression::DDS_BC7
     );
 
     REQUIRE(result_bc7.has_value());
@@ -377,7 +380,7 @@ TEST_CASE("Convert_BLP_to_DDS_AMDC_generate_mipmaps_succeess", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_jpeg_32x32-no-mipmaps.blp");
     const auto result_bc3 = assmpq::blp::convert_blp_to_dds_texture_amdc(
         blp_data,
-        assmpq::blp::Compression::DDS_BC3,
+        assmpq::Compression::DDS_BC3,
         true
     );
 
@@ -399,7 +402,7 @@ TEST_CASE("Convert_BLP_to_DDS_AMDC_paletted_generate_mipmaps_succeess", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_raw_32x32_paletted.blp");
     const auto result_bc3 = assmpq::blp::convert_blp_to_dds_texture_amdc(
         blp_data,
-        assmpq::blp::Compression::DDS_BC3,
+        assmpq::Compression::DDS_BC3,
         true
     );
 
@@ -421,7 +424,7 @@ TEST_CASE("Convert_BLP_to_DDS_AMDC_dont_generate_mipmaps_succeess", "[blp]")
     const auto blp_data = assmpq::test::load_file("testdata/test_jpeg_32x32-no-mipmaps.blp");
     const auto result_bc3 = assmpq::blp::convert_blp_to_dds_texture_amdc(
         blp_data,
-        assmpq::blp::Compression::DDS_BC3,
+        assmpq::Compression::DDS_BC3,
         false
     );
 

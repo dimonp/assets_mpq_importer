@@ -37,7 +37,7 @@ struct MeshData
 using MeshGroups = std::vector<MeshData>;
 
 auto load_model(const std::string &path, assmpq::merger::MeshGroups &mesh_groups) -> bool;
-auto save_model(const std::string &path, const MeshGroups &mesh_groups) -> bool;
+auto save_model(const std::string &path, const MeshGroups &mesh_groups, bool generate_normals = false) -> bool;
 
 void transform_mesh_to_base_xz(assmpq::merger::MeshData &mesh);
 void scale_mesh(assmpq::merger::MeshData &mesh, float scale_factor);

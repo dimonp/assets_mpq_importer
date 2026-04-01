@@ -35,6 +35,7 @@ struct ProgramOptions
     std::optional<float> scale_factor;///< Optional mesh scale factor
     bool is_append = false;///< Append keys to existing JSON file
     bool is_ramp = false;///< Process ramp geoset instead of cliff
+    bool is_fake = false;
     bool is_verbose = false;///< Enable verbose output
 };
 
@@ -87,8 +88,8 @@ static void process_mesh(assmpq::merger::MeshGroups &all_mesh_group,
         assmpq::merger::MeshData mesh_data1;
 
         if (split_ramp_mesh(mesh_data, mesh_data0, mesh_data1)) {
-            mesh_data0 = generate_fake(mesh_data0);
-            mesh_data1 = generate_fake(mesh_data1);
+            // mesh_data0 = generate_fake(mesh_data0);
+            // mesh_data1 = generate_fake(mesh_data1);
 
             // first group
             all_mesh_group.push_back(mesh_data0);
@@ -104,7 +105,7 @@ static void process_mesh(assmpq::merger::MeshGroups &all_mesh_group,
             return;
         }
     } else {// process cliff mesh
-        mesh_data = generate_fake(mesh_data);
+        // mesh_data = generate_fake(mesh_data);
 
         const uint32_t geo_key = assmpq::merger::get_cliff_key_from_geo_name(extracted_geo_name);
 
@@ -155,6 +156,7 @@ try {
 
     app.add_flag("-a,--append", popt.is_append, "Append keys to existing JSON file.");
     app.add_flag("-r,--ramp", popt.is_ramp, "The input folder contains ramp geoset.");
+    app.add_flag("-f,--fake", popt.is_fake, "Generate fake geoset.");
     app.add_flag("--verbose", popt.is_verbose, "Enable verbose output.");
 
     CLI11_PARSE(app, argc, argv);
@@ -251,7 +253,7 @@ try {
     spdlog::info("-> Saving {} mesh file: {}", mesh_type, output_mesh_path.string());
     spdlog::info("   Shapes count: {}", all_mesh_group.size());
 
-    if (!save_model(output_mesh_path.string(), all_mesh_group)) {
+    if (!save_model(output_mesh_path.string(), all_mesh_group, popt.is_fake)) {
         spdlog::error("Could not save mesh: {}", output_mesh_path.string());
         return 1;
     }

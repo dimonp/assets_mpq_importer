@@ -87,7 +87,7 @@ auto load_model(const std::string& path, assmpq::merger::MeshGroups& mesh_groups
     return true;
 }
 
-auto save_model(const std::string& path, const MeshGroups& mesh_groups)-> bool
+auto save_model(const std::string& path, const MeshGroups& mesh_groups, bool generate_normals)-> bool
 {
     aiScene scene;
      scene.mRootNode = new aiNode(); // Create a root node
@@ -168,7 +168,12 @@ auto save_model(const std::string& path, const MeshGroups& mesh_groups)-> bool
 
     // Write the scene to a file
     Assimp::Exporter exporter;
-    const aiReturn ret = exporter.Export(&scene, "obj", path);
+    const aiReturn ret = exporter.Export(
+        &scene,
+        "obj",
+        path,
+        generate_normals ? static_cast<unsigned>(aiProcess_GenSmoothNormals) : 0
+    );
     if(ret == aiReturn_SUCCESS) {
         return true;
     } else {

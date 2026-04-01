@@ -55,10 +55,10 @@ auto persist_dds_dx10(const MipSet &mipSet) -> std::vector<char>
 {
     DDS_FILE_HEADER ddsd2 = {};
     ddsd2.size = sizeof(DDS_FILE_HEADER);
-    ddsd2.flags = DDSD_WIDTH | DDSD_HEIGHT;
+    ddsd2.flags = DDSD_WIDTH | DDSD_HEIGHT | DDSD_LINEARSIZE;
     ddsd2.height = static_cast<uint32_t>(mipSet.m_nHeight);
     ddsd2.width = static_cast<uint32_t>(mipSet.m_nWidth);
-    ddsd2.pitchOrLinearSize = static_cast<uint32_t>(mipSet.m_nWidth) * 4;
+    ddsd2.pitchOrLinearSize = g_CMIPS.GetMipLevel(&mipSet, 0)->m_dwLinearSize;
     ddsd2.mipMapCount = static_cast<uint32_t>(mipSet.m_nMipLevels);
     ddsd2.ddspf.size = sizeof(DDPIXELFORMAT);
     ddsd2.ddspf.flags = DDPF_FOURCC;
@@ -234,7 +234,12 @@ try {
     };
 
     // Perform compression CMP_CalculateBufferSize()
-    if (CMP_ProcessTexture(mipset_in.get(), mipset_out.get(), options, dont_stop_callback) != CMP_OK) {
+    if (CMP_ProcessTexture(
+        mipset_in.get(),
+        mipset_out.get(),
+        options,
+        dont_stop_callback) != CMP_OK) {
+
         return std::unexpected("Compressionator: Error processing texture.");
     }
 

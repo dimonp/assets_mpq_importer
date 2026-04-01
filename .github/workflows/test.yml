@@ -185,6 +185,7 @@ jobs:
 
       - name: Simple Badge Generator
         if: |
+          github.ref_name == github.event.repository.default_branch &&
           startsWith(matrix.os, 'ubuntu') &&
           startsWith(matrix.compiler, 'gcc') &&
           matrix.build_type == 'Debug'
@@ -198,6 +199,7 @@ jobs:
       - name: Publish coverage report to GitHub Pages
         # upload the report only once
         if: |
+          github.ref_name == github.event.repository.default_branch &&
           startsWith(matrix.os, 'ubuntu') &&
           startsWith(matrix.compiler, 'gcc') &&
           matrix.build_type == 'Debug'

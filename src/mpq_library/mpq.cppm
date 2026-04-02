@@ -7,7 +7,6 @@ module;
 export module assmpq.mpq;
 
 import assmpq;
-#include "assets_mpq_importer/mpq_library_export.hpp"
 
 export namespace assmpq::mpq {
 
@@ -30,7 +29,7 @@ using ArchiveEntries = std::vector<FileEntry>;
  *  @details Retrieves a list of files contained in the specified Blizzard MPQ archive.
  *           If a mask is provided, only files matching the mask will be returned.
  */
-[[nodiscard]] MPQ_LIBRARY_EXPORT
+[[nodiscard]]
 auto list_mpq_files(
     const std::filesystem::path &archive_path,
     std::string_view mask = ""
@@ -44,7 +43,7 @@ auto list_mpq_files(
  * @details Extracts the specified file from the Blizzard MPQ archive and returns its contents
  *          as a vector of bytes. If extraction fails, an error message is returned.
  */
-[[nodiscard]] MPQ_LIBRARY_EXPORT
+[[nodiscard]]
 auto extract_mpq_file(
     const std::filesystem::path &archive_path,
     std::string_view filename

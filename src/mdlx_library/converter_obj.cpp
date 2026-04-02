@@ -3,7 +3,6 @@ module;
 #include <expected>
 #include <spanstream>
 #include <string_view>
-#include <spdlog/spdlog.h>
 #include <assimp/Exporter.hpp>
 #include <assimp/scene.h>
 #include <mdlx/mdlx.hpp>
@@ -71,7 +70,6 @@ static void process_faces(const wc3lib::mdlx::Geoset &geoset, aiMesh &mesh)
 {
     for (const auto &face_type : geoset.faces()) {
         if (face_type.type() != wc3lib::mdlx::Faces::Type::Triangles) {
-            spdlog::error("Only triangle primitives are supported.");
             continue;
         }
 

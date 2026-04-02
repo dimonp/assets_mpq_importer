@@ -1,8 +1,6 @@
 find_package(assimp CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 
-include(GenerateExportHeader)
-
 add_library(mdlx_library OBJECT)
 add_library(assets_mpq_importer::mdlx_library ALIAS mdlx_library)
 
@@ -18,16 +16,15 @@ target_sources(mdlx_library
 
 target_link_libraries(mdlx_library
   PRIVATE
-    assets_mpq_importer_options assets_mpq_importer_warnings
-    assets_mpq_importer::common
-    wc3libcore
-    wc3libmdlx)
+          assets_mpq_importer::assets_mpq_importer_options 
+          assets_mpq_importer::assets_mpq_importer_warnings
+          assets_mpq_importer::common)
 
-target_link_system_libraries(
-  mdlx_library
+target_link_system_libraries(mdlx_library
   PRIVATE
-          assimp::assimp
-          spdlog::spdlog)
+          wc3libcore
+          wc3libmdlx
+          assimp::assimp)
 
 
 target_include_directories(mdlx_library
@@ -52,8 +49,6 @@ set_target_properties(
               C_VISIBILITY_PRESET hidden
               CXX_VISIBILITY_PRESET hidden
               VISIBILITY_INLINES_HIDDEN YES)
-
-generate_export_header(mdlx_library EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/assets_mpq_importer/mdlx_library_export.hpp)
 
 if(NOT BUILD_SHARED_LIBS)
   target_compile_definitions(mdlx_library PUBLIC mdlx_library_STATIC_DEFINE)

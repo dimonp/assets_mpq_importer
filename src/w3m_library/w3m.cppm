@@ -4,7 +4,6 @@ module;
 export module assmpq.w3m;
 
 import assmpq;
-#include "assets_mpq_importer/w3m_library_export.hpp"
 
 export namespace assmpq::w3m {
 
@@ -15,7 +14,7 @@ export namespace assmpq::w3m {
  * @return std::expected<FileData, ErrorMessage> containing the extracted file data
  *         on success, or an error message on failure.
  */
-[[nodiscard]] W3M_LIBRARY_EXPORT
+[[nodiscard]]
 auto extract_w3e_file(const FileData &w3m_file) -> std::expected<FileData, ErrorMessage>;
 
 /**
@@ -25,7 +24,7 @@ auto extract_w3e_file(const FileData &w3m_file) -> std::expected<FileData, Error
  * @return std::expected<FileData, ErrorMessage> containing the extracted file data
  *         on success, or an error message on failure.
  */
-[[nodiscard]] W3M_LIBRARY_EXPORT
+[[nodiscard]]
 auto extract_shd_file(const FileData &w3m_file) -> std::expected<FileData, ErrorMessage>;
 
 /**
@@ -35,7 +34,7 @@ auto extract_shd_file(const FileData &w3m_file) -> std::expected<FileData, Error
  * @return std::expected<FileData, ErrorMessage> containing the extracted file data
  *         on success, or an error message on failure.
  */
-[[nodiscard]] W3M_LIBRARY_EXPORT
+[[nodiscard]]
 auto extract_wpm_file(const FileData &w3m_file) -> std::expected<FileData, ErrorMessage>;
 
 /**
@@ -45,7 +44,7 @@ auto extract_wpm_file(const FileData &w3m_file) -> std::expected<FileData, Error
  * @return std::expected<FileData, ErrorMessage> containing the extracted file data
  *         on success, or an error message on failure.
  */
-[[nodiscard]] W3M_LIBRARY_EXPORT
+[[nodiscard]]
 auto extract_doo_file(const FileData &w3m_file) -> std::expected<FileData, ErrorMessage>;
 
 } // namespace assmpq::w3m

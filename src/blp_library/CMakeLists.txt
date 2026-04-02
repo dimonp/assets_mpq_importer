@@ -1,18 +1,16 @@
 find_package(fmt CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 
-include(GenerateExportHeader)
-
 add_library(blp_library OBJECT)
 add_library(assets_mpq_importer::blp_library ALIAS blp_library)
 
 target_sources(blp_library
-    PUBLIC
-      FILE_SET CXX_MODULES
-      FILES
-        blp.cppm
+  PUBLIC
+    FILE_SET CXX_MODULES
+    FILES
+      blp.cppm
 
-    PRIVATE
+  PRIVATE
       utils_blp.cpp utils_blp.hpp
       converter_png.cpp
       converter_dds_nvtt.cpp
@@ -21,8 +19,9 @@ target_sources(blp_library
 
 target_link_libraries(
   blp_library PRIVATE
-    assets_mpq_importer_options assets_mpq_importer_warnings
-    assets_mpq_importer::common)
+          assets_mpq_importer::assets_mpq_importer_options
+          assets_mpq_importer::assets_mpq_importer_warnings
+          assets_mpq_importer::common)
 
 target_link_system_libraries(
   blp_library
@@ -31,9 +30,7 @@ target_link_system_libraries(
           CMP_Compressonator
           CMP_Framework
           wc3libcore
-          wc3libblp
-          fmt::fmt
-          spdlog::spdlog)
+          wc3libblp)
 
 
 target_include_directories(blp_library
@@ -60,8 +57,6 @@ set_target_properties(
               C_VISIBILITY_PRESET hidden
               CXX_VISIBILITY_PRESET hidden
               VISIBILITY_INLINES_HIDDEN YES)
-
-generate_export_header(blp_library EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/assets_mpq_importer/blp_library_export.hpp)
 
 if(NOT BUILD_SHARED_LIBS)
   target_compile_definitions(blp_library PUBLIC blp_library_STATIC_DEFINE)

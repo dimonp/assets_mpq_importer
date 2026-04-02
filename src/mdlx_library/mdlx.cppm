@@ -5,7 +5,6 @@ module;
 export module assmpq.mdlx;
 
 import assmpq;
-#include "assets_mpq_importer/mdlx_library_export.hpp"
 
 export namespace assmpq::mdlx {
 
@@ -18,7 +17,7 @@ export namespace assmpq::mdlx {
  * @param mdx_file The MDLX file data to convert
  * @return std::expected<FileData, ErrorMessage> The resulting OBJ mesh data or an error message
  */
-[[nodiscard]] MDLX_LIBRARY_EXPORT
+[[nodiscard]]
 auto convert_mdlx_to_obj_mesh(std::string_view mesh_name, const FileData &mdx_file)
   -> std::expected<FileData, ErrorMessage>;
 

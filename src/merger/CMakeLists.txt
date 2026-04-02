@@ -20,13 +20,11 @@ target_sources(merger
       main.cpp
 )
 
-target_link_libraries(
-  merger
+target_link_libraries(merger
   PRIVATE assets_mpq_importer::assets_mpq_importer_options
           assets_mpq_importer::assets_mpq_importer_warnings)
 
-target_link_system_libraries(
-  merger
+target_link_system_libraries(merger
   PRIVATE
           CLI11::CLI11
           fmt::fmt
@@ -43,8 +41,8 @@ file(GLOB SHARES_LIBS
   "${CMAKE_CURRENT_BINARY_DIR}/Release/*.dll"
   "${CMAKE_CURRENT_BINARY_DIR}/Release/*.so")
 install(FILES ${SHARES_LIBS}
-    DESTINATION bin
-    CONFIGURATIONS Release
+  DESTINATION bin
+  CONFIGURATIONS Release
 )
 install(TARGETS merger
   RUNTIME DESTINATION bin

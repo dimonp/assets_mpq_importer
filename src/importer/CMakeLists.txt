@@ -15,22 +15,18 @@ target_sources(importer
       main.cpp
 )
 
-target_link_libraries(
-  importer
-  PRIVATE assets_mpq_importer::assets_mpq_importer_options
-          assets_mpq_importer::assets_mpq_importer_warnings)
-
-target_link_libraries(
-  importer
+target_link_libraries(importer
   PRIVATE
+          assets_mpq_importer::assets_mpq_importer_options
+          assets_mpq_importer::assets_mpq_importer_warnings  
           assets_mpq_importer::mpq_library
           assets_mpq_importer::blp_library
           assets_mpq_importer::mdlx_library
           assets_mpq_importer::w3m_library
+          assets_mpq_importer::common
 )
 
-target_link_system_libraries(
-  importer
+target_link_system_libraries(importer
   PRIVATE
           CLI11::CLI11
           fmt::fmt
@@ -44,8 +40,8 @@ file(GLOB SHARES_LIBS
   "${CMAKE_CURRENT_BINARY_DIR}/Release/*.dll"
   "${CMAKE_CURRENT_BINARY_DIR}/Release/*.so")
 install(FILES ${SHARES_LIBS}
-    DESTINATION bin
-    CONFIGURATIONS Release
+  DESTINATION bin
+  CONFIGURATIONS Release
 )
 install(TARGETS importer
   RUNTIME DESTINATION bin

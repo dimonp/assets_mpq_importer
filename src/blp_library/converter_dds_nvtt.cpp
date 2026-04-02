@@ -1,7 +1,6 @@
 module;
 #include <expected>
 #include <spanstream>
-#include <spdlog/spdlog.h>
 
 #include <nvtt/Surface.h>
 #include <nvtt/nvtt.h>
@@ -67,7 +66,6 @@ static auto generate_extra_mipmaps(const nvtt::Context &context,
     const int mip_height = static_cast<int>(last_mipmap.height());
 
     if (!surface.setImage(nvtt::InputFormat_BGRA_8UB, mip_width, mip_height, 1, mipmap_color_buffer.data())) {
-        spdlog::error("Error setting image data to nvtt::Surface.");
         return false;
     }
 

@@ -1,5 +1,3 @@
-include(GenerateExportHeader)
-
 add_library(w3m_library OBJECT)
 add_library(assets_mpq_importer::w3m_library ALIAS w3m_library)
 
@@ -16,10 +14,14 @@ target_sources(w3m_library
 
 target_link_libraries(w3m_library
   PRIVATE
-    assets_mpq_importer_options assets_mpq_importer_warnings
-    assets_mpq_importer::common
-    wc3libcore
-    wc3libmap)
+          assets_mpq_importer::assets_mpq_importer_options 
+          assets_mpq_importer::assets_mpq_importer_warnings
+          assets_mpq_importer::common)
+
+target_link_system_libraries(w3m_library
+  PRIVATE
+          wc3libcore
+          wc3libmap)
 
 target_include_directories(w3m_library
   ${WARNING_GUARD} PUBLIC
@@ -41,8 +43,6 @@ set_target_properties(
               C_VISIBILITY_PRESET hidden
               CXX_VISIBILITY_PRESET hidden
               VISIBILITY_INLINES_HIDDEN YES)
-
-generate_export_header(w3m_library EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/assets_mpq_importer/w3m_library_export.hpp)
 
 if(NOT BUILD_SHARED_LIBS)
   target_compile_definitions(w3m_library PUBLIC w3m_library_STATIC_DEFINE)

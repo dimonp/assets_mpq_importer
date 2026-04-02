@@ -1,7 +1,5 @@
 find_package(re2 CONFIG REQUIRED)
 
-include(GenerateExportHeader)
-
 add_library(mpq_library OBJECT)
 add_library(assets_mpq_importer::mpq_library ALIAS mpq_library)
 
@@ -17,11 +15,16 @@ target_sources(mpq_library
 
 target_link_libraries(mpq_library
   PRIVATE
-    assets_mpq_importer_options assets_mpq_importer_warnings
-    assets_mpq_importer::common
-    wc3libcore
-    wc3libmpq
-    re2::re2)
+          assets_mpq_importer::assets_mpq_importer_options 
+          assets_mpq_importer::assets_mpq_importer_warnings
+          assets_mpq_importer::common)
+
+target_link_system_libraries(mpq_library
+  PRIVATE
+          wc3libcore
+          wc3libmpq
+          re2::re2)
+
 
 target_include_directories(mpq_library
   ${WARNING_GUARD} PUBLIC
@@ -38,8 +41,6 @@ set_target_properties(
               C_VISIBILITY_PRESET hidden
               CXX_VISIBILITY_PRESET hidden
               VISIBILITY_INLINES_HIDDEN YES)
-
-generate_export_header(mpq_library EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/assets_mpq_importer/mpq_library_export.hpp)
 
 if(NOT BUILD_SHARED_LIBS)
   target_compile_definitions(mpq_library PUBLIC mpq_library_STATIC_DEFINE)

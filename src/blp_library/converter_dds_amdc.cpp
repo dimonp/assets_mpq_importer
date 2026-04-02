@@ -5,7 +5,6 @@ module;
 #ifdef _MSC_VER
 #define NOMINMAX
 #endif
-#include <spdlog/spdlog.h>
 
 #include <_plugins/cimage/dds/dds_file.h>
 #include <_plugins/cimage/dds/dds_helpers.h>
@@ -116,13 +115,11 @@ static auto generate_extra_mipmaps(MipSet &mipset_in,
         CMP_MipLevel *this_mip_level = g_CMIPS.GetMipLevel(&mipset_in, static_cast<CMP_INT>(mip_idx), 0);
 
         if (this_mip_level == nullptr) {
-            spdlog::error("generate_extra_mipmaps: Error obtaining new mipmap level.");
             return false;
         }
 
         if (!g_CMIPS.AllocateMipLevelData(
                 this_mip_level, mip_width, mip_height, mipset_in.m_ChannelFormat, mipset_in.m_TextureDataType)) {
-            spdlog::error("generate_extra_mipmaps: Error allocating mipmap level data.");
             return false;
         }
 
@@ -133,7 +130,6 @@ static auto generate_extra_mipmaps(MipSet &mipset_in,
         );
 
         if (this_mip_level == nullptr) {
-            spdlog::error("generate_extra_mipmaps: Error obtaining base mipmap level.");
             return false;
         }
 
